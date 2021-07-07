@@ -50,7 +50,7 @@ class Login(CreateAPIView):
         )
 
 class RegisterView(CreateAPIView):
-
+    permission_classes = (AllowAny,)
     '''
      METHOD -> POST
      # class yang berfungsi untuk membuat akun kandidat baru.
@@ -140,15 +140,36 @@ class FileUploadView(APIView):
         try :
             if 'file' not in request.data:
                 raise ParseError("Empty content")
+            
+            module_dir = os.path.dirname(__file__)  
+            tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
+            mnbloc = os.path.join(module_dir, 'mnb.pickle')
+            
+            #Load tfidf matrix
+            tfidf = pickle.load(open(tfdifloc, "rb"))
+
+            #Load mnb model
+            mnb = pickle.load(open(mnbloc, "rb"))
 
             f = request.data['file']
 
             df = pd.read_csv(f)
+            words = df['sentiment']
+            output = {}
+            print(words)
+            for x in words:
+                tfidf_baru = tfidf.transform([x])
+                hasil = mnb.predict(tfidf_baru)
 
-            print(df.to_string()) 
+                if hasil == 0:
+                    output[x] = "negative"
+                else :
+                    output[x] = "positive"
+
+            print(output, "<<<hasil nich")
+
             return Response({
-                "status" : "bagas ganteng",
-                "data" : df.to_string()},
+                "data" : output},
             status=status.HTTP_201_CREATED)
 
         except Exception as error:

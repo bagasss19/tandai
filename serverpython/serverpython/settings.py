@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-26k-bg8+nadwisuvylosgh(s(^ogf3%fttk%b)7+6kr0c1*4p('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -53,6 +53,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_REGEX_WHITELIST = [
     'http://localhost:3000',
+    'tand-ai.venation.io:3000/',
 ]
 
 #Authentication backends
@@ -119,7 +120,16 @@ DATABASES = {
     }
 }
 
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'tandai',
+#         'USER': 'tandai',
+#         'PASSWORD': 'bagasganteng123',
+#         'HOST': '78.46.142.236',
+#         'PORT': '5432',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
