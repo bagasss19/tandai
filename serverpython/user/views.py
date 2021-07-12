@@ -133,7 +133,7 @@ class ModelView(CreateAPIView):
             )
 
 class FileUploadView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
     def put(self, request, format=None):
@@ -180,7 +180,7 @@ class FileUploadView(APIView):
             )
 
 class MultipleView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         try :
