@@ -3,25 +3,27 @@ import '../App.css'
 import Axios from '../config/axios'
 // import ImageUploader from 'react-images-upload';
 
-export default function Addform(props) {
-    const [word, setword] = useState("")
+export default function Multiple(props) {
+    const [word, setword] = useState([])
     const [answer, setanswer] = useState(null)
     const [loading, setloading] = useState(false)
 
     function add() {
         setloading(true)
+        let words = word.split(",")
+        console.log(words, "<<<<<<<<<INPPUTTT")
         Axios({
-            url: 'user/model',
+            url: 'user/multiple',
             method: 'post',
             headers : {
                 "Authorization" : localStorage.token
             },
-            data : { word }
+            data : { words }
         })
             .then(function (response) {
                 // handle success
-                console.log(response.data, "response<<<<<<<<<<< SUKSES GAKKKKKK")
-                setanswer(response.data.sentiment)
+                console.log(response.data.output, "response<<<<<<<<<<< SUKSES GAKKKKKK")
+                setanswer(response.data.output)
                 setloading(false)
             })
             .catch(function (error) {
@@ -39,8 +41,8 @@ export default function Addform(props) {
     }
 
     return (
-        <div style={{ marginLeft: "150px" }}>
-            <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Add Word</h1>
+        <div style={{marginLeft : "150px"}}>
+            <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Multiple Input</h1>
             <form className="form" style={{ marginTop: "100px", width: "50%", marginLeft: "300px" }}
                 encType="multipart/form-data"
                 onSubmit={(e) => {
@@ -50,15 +52,15 @@ export default function Addform(props) {
                 }>
 
                 <div className="field">
-                    <label className="label is-family-code">Add Words</label>
-                    <input className="input" type="text" name="Word" defaultValue={word}
+                    <label className="label is-family-code">Add Multiple Input</label>
+                    <textarea className="textarea" type="text" name="Word" defaultValue={word}
                         style={{ marginBottom: "30px" }}
-                        placeholder="Title" onChange={e => setword(e.target.value)} />
+                        placeholder="Make sure you fill with array format ([]), and separate each word with comma (,)" onChange={e => setword(e.target.value)} />
                 </div>
 
                 <button className="button is-black" type="submit">Submit</button>
 
-                <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>{answer}</h1>
+                <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>{answer ? JSON.stringify(answer) : answer}</h1>
             </form>
         </div>
     )

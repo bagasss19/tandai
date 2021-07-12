@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css'
-// import Axios from '../config/axios'
-import axios from 'axios'
+import Axios from '../config/axios'
+// import axios from 'axios'
 import "bulma/css/bulma.css";
 import {
     Link,
@@ -15,8 +15,8 @@ export default function Login(props) {
     const [username, setusername] = useState("")
 
     function login() {
-        axios.defaults.withCredentials = true
-        axios.post('http://127.0.0.1:8000/user/login', {
+        // axios.defaults.withCredentials = true
+        Axios.post('user/login', {
             username,
             password
         })
@@ -34,7 +34,7 @@ export default function Login(props) {
             .then(function (response) {
                 console.log(response.data.key, "<<<<<<<<TOKEN")
                 localStorage.token = `Token ${response.data.key}`
-                props.history.push('/add')
+                props.history.push('/')
                 window.location.reload();
             })
     }

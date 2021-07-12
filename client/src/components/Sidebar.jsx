@@ -1,60 +1,123 @@
-import React, { useState } from 'react'
-// import {
-//     Link,
-// } from "react-router-dom";
-import Sidebar from "react-sidebar";
+//import useState hook to create menu collapse state
+import React, { useState } from "react";
+import {
+  Link,
+} from "react-router-dom";
+//import react pro sidebar components
+import {
+  ProSidebar,
+  Menu,
+  MenuItem,
+  SidebarHeader,
+  SidebarContent,
+} from "react-pro-sidebar";
 
-export default function Navbar() {
-    const [sidebarOpen, setsidebarOpen] = useState(false)
+//import icons from react icons
+import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { VscWholeWord, VscJson } from "react-icons/vsc";
+import { FcFile } from "react-icons/fc";
+// import { BiCog } from "react-icons/bi";
+
+
+//import sidebar css from react-pro-sidebar module and our custom css 
+import "react-pro-sidebar/dist/css/styles.css";
+import "./Sidebar.css"
+
+
+const Sidebar = () => {
+  const [menuCollapse, setMenuCollapse] = useState(false)
+  const [homeActive, setHomeActive] = useState(true)
+  const [memberActive, setMemberActive] = useState(false)
+  const [multipleActive, setMultipleActive] = useState(false)
+  const [fileActive, setFileActive] = useState(false)
+
+  const menuIconClick = () => {
+    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+  }
+
+  const homeMenu = () => {
+    setHomeActive(true)
+    setMemberActive(false)
+    setMultipleActive(false)
+    setFileActive(false)
+  };
+
+  const memberMenu = () => {
+    setHomeActive(false)
+    setMemberActive(true)
+    setMultipleActive(false)
+    setFileActive(false)
+  };
+
+  const multipleMenu = () => {
+    setHomeActive(false)
+    setMemberActive(false)
+    setMultipleActive(true)
+    setFileActive(false)
+  }
+
+  const fileMenu = () => {
+    setHomeActive(false)
+    setMemberActive(false)
+    setMultipleActive(false)
+    setFileActive(true)
+
+  }
+  if (localStorage.token) {
     return (
-        <Sidebar
-        sidebar={<b>Sidebar content</b>}
-        open={sidebarOpen}
-        // onSetOpen={setsidebarOpen(false)}
-        styles={{ sidebar: { background: "black" } }}
-      >
-        <button onClick={() => setsidebarOpen(true)}>
-          Open sidebar
-        </button>
-      </Sidebar>
+      <>
+        <div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+          <ProSidebar collapsed={menuCollapse}>
+            <SidebarHeader>
+              {/* <div className="logotext"> */}
+              {/* small and big change using menucollapse state */}
+              {/* <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
+            </div> */}
+              <div className="closemenu" onClick={menuIconClick}>
+                {/* changing menu collapse icon on click */}
+                {menuCollapse ? (
+                  <FiArrowRightCircle />
+                ) : (
+                  <FiArrowLeftCircle />
+                )}
+              </div>
+            </SidebarHeader>
+            <SidebarContent>
+              <Menu iconShape="square">
+                <MenuItem active={homeActive} onClick={homeMenu} icon={<FiHome />}>
+                  <Link to="/">Home</Link>
+                </MenuItem>
+
+                <MenuItem active={memberActive} onClick={memberMenu} icon={<VscWholeWord />}>
+                  <Link to="/add">Single Word</Link>
+                </MenuItem>
+
+                <MenuItem active={multipleActive} onClick={multipleMenu} icon={<VscJson />}>
+                  <Link to="/multiple">Input JSON</Link>
+                </MenuItem>
+
+                <MenuItem active={fileActive} onClick={fileMenu} icon={<FcFile />}>
+                  <Link to="/file">Upload CSV</Link>
+                </MenuItem>
+
+                {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}
+              </Menu>
+            </SidebarContent>
+            {/* <SidebarFooter>
+            <Menu iconShape="square">
+              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+            </Menu>
+          </SidebarFooter> */}
+          </ProSidebar>
+        </div>
+      </>
     )
-    //admin login
-    // if (localStorage.token) {
-    //     return (
-    //         <nav className="navbar is-black" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0 }}>
-    //             <div className="navbar-brand">
-    //                 <Link to="/" className="navbar-item"><p>Template App</p></Link>
-    //             </div>
-
-    //             <div id="navbarBasicExample" className="navbar-menu">
-    //                 <div className="navbar-start">
-    //                     <Link to="/" className="navbar-item"><p>Home</p></Link>
-    //                 </div>
-    //             </div>
-
-    //             <div className="navbar-end">
-    //                 <div className="navbar-item">
-    //                     <div className="buttons" onClick={(e) => {
-    //                         e.preventDefault()
-    //                         localStorage.clear()
-    //                         window.location.reload();
-    //                     }}>
-    //                         <p className="button is-dark"><strong>Logout</strong></p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </nav>
-    //     )
-    // }
-
-    // //logout
-    // else {
-    //     return (
-    //         <nav className="navbar is-black" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0 }}>
-    //             <div className="navbar-brand">
-    //                 <p className="navbar-item" href="https://bulma.io">Template App</p>
-    //             </div>
-    //         </nav>
-    //     );
-    // }
+  }
+  else {
+    return (
+      <></>
+    )
+  }
 }
+export default Sidebar;

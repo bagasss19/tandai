@@ -178,3 +178,39 @@ class FileUploadView(APIView):
             },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+class MultipleView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        try :
+            module_dir = os.path.dirname(__file__)  
+            tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
+            mnbloc = os.path.join(module_dir, 'mnb.pickle')
+            
+            #Load tfidf matrix
+            tfidf = pickle.load(open(tfdifloc, "rb"))
+
+            #Load mnb model
+            mnb = pickle.load(open(mnbloc, "rb"))
+            data = request.data['words']
+            # print(x)
+            output = {}
+            for x in data:
+                tfidf_baru = tfidf.transform([x])
+                hasil = mnb.predict(tfidf_baru)
+
+                if hasil == 0:
+                    output[x] = "negative"
+                else :
+                    output[x] = "positive"
+            return Response({
+            "output" : output},
+            status=status.HTTP_200_OK)
+
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )

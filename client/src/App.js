@@ -10,8 +10,10 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 // import Register from './pages/Register'
 import Add from './pages/Add'
-import Edit from './pages/Edit'
+import Multiple from './pages/Multiple'
+import File from './pages/File'
 import PrivateRoute from './components/PrivateRoute'
+import Sidebar from './components/Sidebar';
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -19,13 +21,14 @@ function App() {
     <div className="App">
   <Router>
       <Navbar/>
+      <Sidebar/>
         <Switch>
           <PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
-          <Route exact path="/" component={Add}/>
+          <PrivateRoute path="/multiple" component={Multiple}/>
+          <PrivateRoute path="/file" component={File}/>
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/add" component={Add} />
-          <Route path="/edit/:id" component={Edit} />
         </Switch>
       </Router>
     </div>

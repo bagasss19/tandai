@@ -12,11 +12,11 @@ export default function Navbar() {
                     <Link to="/" className="navbar-item"><p>Tand.ai</p></Link>
                 </div>
 
-                <div id="navbarBasicExample" className="navbar-menu">
+                {/* <div id="navbarBasicExample" className="navbar-menu">
                     <div className="navbar-start">
                         <Link to="/" className="navbar-item"><p>Home</p></Link>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="navbar-end">
                     <div className="navbar-item">
