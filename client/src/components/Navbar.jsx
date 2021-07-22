@@ -17,8 +17,26 @@ export default function Navbar() {
                         <Link to="/" className="navbar-item"><p>Home</p></Link>
                     </div>
                 </div> */}
-
                 <div className="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <p class="navbar-link">
+                            Profile
+                        </p>
+
+                        <div class="navbar-dropdown">
+                            <p class="navbar-item">
+                                See Profile
+                            </p>
+                            <p class="navbar-item">
+                                Setting
+                            </p>
+                            <hr class="navbar-divider" />
+                            <p class="navbar-item">
+                                Faq
+                            </p>
+                        </div>
+                    </div>
+
                     <div className="navbar-item">
                         <div className="buttons" onClick={(e) => {
                             e.preventDefault()

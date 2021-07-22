@@ -20,20 +20,10 @@ export default function Login(props) {
             username,
             password
         })
-        // axios.defaults.withCredentials = true
-        // axios({
-        //     url: 'http://127.0.0.1:8000/user/login',
-        //     method: 'post',
-        //     headers : {
-        //         "Access-Control-Allow-Origin": "*"
-        // },
-        //     data: {
-        //         username, password
-        //     }
-        // })
             .then(function (response) {
                 console.log(response.data.key, "<<<<<<<<TOKEN")
                 localStorage.token = `Token ${response.data.key}`
+                localStorage.username = response.data.username
                 props.history.push('/')
                 window.location.reload();
             })

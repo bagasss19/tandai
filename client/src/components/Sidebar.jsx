@@ -14,7 +14,7 @@ import {
 
 //import icons from react icons
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { VscWholeWord, VscJson } from "react-icons/vsc";
+import { VscWholeWord } from "react-icons/vsc";
 import { FcFile } from "react-icons/fc";
 // import { BiCog } from "react-icons/bi";
 
@@ -28,7 +28,7 @@ const Sidebar = () => {
   const [menuCollapse, setMenuCollapse] = useState(false)
   const [homeActive, setHomeActive] = useState(true)
   const [memberActive, setMemberActive] = useState(false)
-  const [multipleActive, setMultipleActive] = useState(false)
+  // const [multipleActive, setMultipleActive] = useState(false)
   const [fileActive, setFileActive] = useState(false)
 
   const menuIconClick = () => {
@@ -38,28 +38,28 @@ const Sidebar = () => {
   const homeMenu = () => {
     setHomeActive(true)
     setMemberActive(false)
-    setMultipleActive(false)
+    // setMultipleActive(false)
     setFileActive(false)
   };
 
   const memberMenu = () => {
     setHomeActive(false)
     setMemberActive(true)
-    setMultipleActive(false)
+    // setMultipleActive(false)
     setFileActive(false)
   };
 
-  const multipleMenu = () => {
-    setHomeActive(false)
-    setMemberActive(false)
-    setMultipleActive(true)
-    setFileActive(false)
-  }
+  // const multipleMenu = () => {
+  //   setHomeActive(false)
+  //   setMemberActive(false)
+  //   setMultipleActive(true)
+  //   setFileActive(false)
+  // }
 
   const fileMenu = () => {
     setHomeActive(false)
     setMemberActive(false)
-    setMultipleActive(false)
+    // setMultipleActive(false)
     setFileActive(true)
 
   }
@@ -93,9 +93,9 @@ const Sidebar = () => {
                   <Link to="/add">Single Word</Link>
                 </MenuItem>
 
-                <MenuItem active={multipleActive} onClick={multipleMenu} icon={<VscJson />}>
+                {/* <MenuItem active={multipleActive} onClick={multipleMenu} icon={<VscJson />}>
                   <Link to="/multiple">Input JSON</Link>
-                </MenuItem>
+                </MenuItem> */}
 
                 <MenuItem active={fileActive} onClick={fileMenu} icon={<FcFile />}>
                   <Link to="/file">Upload CSV</Link>
