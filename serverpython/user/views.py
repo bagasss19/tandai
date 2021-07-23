@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import UserSerializer, CreateUserSerializer
-from .models import User
+from .serializers import *
+from .models import *
 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
@@ -50,7 +50,7 @@ class Login(CreateAPIView):
         )
 
 class RegisterView(CreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     '''
      METHOD -> POST
      # class yang berfungsi untuk membuat akun kandidat baru.
@@ -208,6 +208,61 @@ class MultipleView(APIView):
             "output" : output},
             status=status.HTTP_200_OK)
 
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class PackageView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request):
+        try:
+            # return Response("ASHUPPP")
+            package = Package.objects.all()
+            serializer = PackageSerializer(package, many=True)
+            return Response(serializer.data)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def post(self, request):
+        try:
+            serializer = PackageSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def put(self, request, pk):
+        try:
+            # return Response("ASHUPPP")
+            package = Package.objects.get(id=pk)
+            serializer = UserSerializer(package, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def delete(self, request, pk):
+        try:
+            package = Package.objects.get(id=pk)
+            package.delete()
+            return Response("success delete!")
         except Exception as error:
             return Response({
                 "detail": str(error)

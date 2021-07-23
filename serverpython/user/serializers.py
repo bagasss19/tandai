@@ -1,18 +1,21 @@
 from rest_framework import serializers
-from .models import User
+from .models import *
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 from rest_framework_jwt.settings import api_settings
 
 from rest_framework.response import Response
 from rest_framework import status
-# JWT_PAYLOAD_HANDLER = api_settings.JWT_PAYLOAD_HANDLER
-# JWT_ENCODE_HANDLER = api_settings.JWT_ENCODE_HANDLER
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','username', 'email', 'password')
+
+class PackageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Package
+        fields = ('id','title', 'API_quota')
 
 class CreateUserSerializer(serializers.Serializer):
     username = serializers.CharField()

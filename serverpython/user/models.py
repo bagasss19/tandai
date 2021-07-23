@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, UserManager
 # Create your models here.
+class Package(models.Model):
+    title = models.CharField(max_length=100)
+    API_quota = models.IntegerField(default=0)
+
 class User(AbstractBaseUser):
     username = models.CharField(
         max_length=50,
@@ -17,6 +21,8 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(
         default=False
     )
+    API_usage = models.IntegerField(default=0)
+    package = models.ForeignKey(Package,on_delete=models.CASCADE)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
     objects = UserManager()

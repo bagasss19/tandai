@@ -5,9 +5,14 @@ from .serializers import ModelSerializer
 from .models import Modelml
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
+from rest_framework.parsers import FileUploadParser
+from rest_framework.exceptions import ParseError
+
+from django.core.files.storage import default_storage
 # Create your views here.
 class ModelmlView(CreateAPIView):
     permission_classes = (AllowAny,)
+    parser_class = (FileUploadParser,)
     def get(self, request):
         try:
             # return Response("ASHUPPP")
@@ -23,6 +28,10 @@ class ModelmlView(CreateAPIView):
 
     def post(self, request):
         try:
+            # if 'modelml_url' not in request.data:
+            #     raise ParseError("Empty content")
+
+            print(request.data)
             serializer = ModelSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()

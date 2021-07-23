@@ -10,5 +10,6 @@ urlpatterns = [
     path('file',FileUploadView.as_view() , name="file"),
     path('multiple',MultipleView.as_view() , name="multiple"),
     path('login', Login.as_view() , name="login"),
+    path('package', PackageView.as_view() , name="login"),
     path('<pk>',UserView.as_view() , name="user"),
 ]
