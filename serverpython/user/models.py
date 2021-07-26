@@ -22,7 +22,7 @@ class User(AbstractBaseUser):
         default=False
     )
     API_usage = models.IntegerField(default=0)
-    package = models.ForeignKey(Package,on_delete=models.CASCADE)
+    package = models.ForeignKey(Package,on_delete=models.CASCADE, default=1)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
     objects = UserManager()

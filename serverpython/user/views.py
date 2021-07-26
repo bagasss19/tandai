@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import *
@@ -58,14 +58,17 @@ class RegisterView(CreateAPIView):
     '''
     serializer_class = CreateUserSerializer
 
-class UserView(CreateAPIView):
-    def get(self, request):
+class UserView(GenericAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request, pk):
+        print("ASHUUUUPPPP")
         try:
             # return Response("ASHUPPP")
-            user = User.objects.all()
+            user = User.objects.get(id=pk)
             serializer = UserSerializer(user, many=True)
             return Response(serializer.data)
         except Exception as error:
+            print(error, "ERRORR NICH")
             return Response({
                 "detail": str(error)
             },
@@ -93,6 +96,8 @@ class UserView(CreateAPIView):
             user.delete()
             return Response("success delete!")
         except Exception as error:
+            print("masukkkk")
+            print(error)
             return Response({
                 "detail": str(error)
             },
@@ -216,10 +221,10 @@ class MultipleView(APIView):
             )
 
 class PackageView(CreateAPIView):
+    #ADMIN ONLY VIEW
     permission_classes = (IsAuthenticated,)
     def get(self, request):
         try:
-            # return Response("ASHUPPP")
             package = Package.objects.all()
             serializer = PackageSerializer(package, many=True)
             return Response(serializer.data)
@@ -245,9 +250,9 @@ class PackageView(CreateAPIView):
 
     def put(self, request, pk):
         try:
-            # return Response("ASHUPPP")
+            print("ASHUPPP")
             package = Package.objects.get(id=pk)
-            serializer = UserSerializer(package, data=request.data)
+            serializer = PackageSerializer(package, data=request.data)
             if serializer.is_valid():
                 serializer.save()
             return Response(serializer.data)

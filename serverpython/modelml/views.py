@@ -11,7 +11,7 @@ from rest_framework.exceptions import ParseError
 from django.core.files.storage import default_storage
 # Create your views here.
 class ModelmlView(CreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
     def get(self, request):
         try:
@@ -30,13 +30,14 @@ class ModelmlView(CreateAPIView):
         try:
             # if 'modelml_url' not in request.data:
             #     raise ParseError("Empty content")
-
-            print(request.data)
+            request.data['model_owner'] = request.user.id
             serializer = ModelSerializer(data=request.data)
+            print(request.data)
             if serializer.is_valid():
                 serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as error:
+            print(error, "<<<<ERRROR nich")
             return Response({
                 "detail": str(error)
             },
