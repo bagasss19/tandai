@@ -39,7 +39,8 @@ class Login(CreateAPIView):
             token, _ = Token.objects.get_or_create(user=user)
             return Response({
                 "key": token.key,
-                "username": user.username
+                "username": user.username,
+                "id" : user.id
             })
         else :
             return Response(
@@ -59,14 +60,18 @@ class RegisterView(CreateAPIView):
     serializer_class = CreateUserSerializer
 
 class UserView(GenericAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     def get(self, request, pk):
         try:
-            # return Response("ASHUPPP")
-            print(User.objects.values_list("id", named=True))
-            user = User.objects.filter(id=pk)
-            serializer = UserSerializer(user, many=True)
-            return Response(serializer.data)
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['API_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['API_quota']
+            p_name = p[0]['title']
+            # user = User.objects.filter(id=pk)
+            # serializer = UserSerializer(user, many=True)
+            return Response({"usage" : usage, "limit" : limit,"package_name" : p_name})
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({
@@ -119,9 +124,25 @@ class ModelView(CreateAPIView):
             #Load mnb model
             mnb = pickle.load(open(mnbloc, "rb"))
 
+            #Check Api Usage
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['API_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['API_quota']
+
+            if usage >= limit :
+                return Response({
+                    "Error" : "Kuota Abis Cuy"
+                })
+
+            #proses data
             tfidf_baru = tfidf.transform([request.data["word"]])
             hasil = mnb.predict(tfidf_baru)
-            print(hasil, "<<<hasil nich")
+
+            user = User.objects.filter(id=request.user.id).get()
+            user.API_usage = usage + 1
+            user.save()
             if hasil == 0:
                 return Response({
                 "sentiment" : "negative"
@@ -156,6 +177,18 @@ class FileUploadView(APIView):
             #Load mnb model
             mnb = pickle.load(open(mnbloc, "rb"))
 
+            #Check Api Usage
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['API_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['API_quota']
+
+            if usage >= limit :
+                return Response({
+                    "Error" : "Kuota Abis Cuy"
+                })
+
             f = request.data['file']
 
             df = pd.read_csv(f)
@@ -172,7 +205,9 @@ class FileUploadView(APIView):
                     output[x] = "positive"
 
             print(output, "<<<hasil nich")
-
+            user = User.objects.filter(id=request.user.id).get()
+            user.API_usage = usage + 1
+            user.save()
             return Response({
                 "data" : output},
             status=status.HTTP_201_CREATED)
@@ -222,7 +257,7 @@ class MultipleView(APIView):
 
 class PackageView(CreateAPIView):
     #ADMIN ONLY VIEW
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     def get(self, request):
         try:
             package = Package.objects.all()

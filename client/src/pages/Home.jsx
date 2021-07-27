@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Line } from 'react-chartjs-2';
 import ProgressBar from "@ramonak/react-progress-bar";
-// import Axios from '../config/axios'
+import Axios from '../config/axios'
+import ReactLoading from 'react-loading'
 // import {
 //     Link,
 // } from "react-router-dom";
@@ -31,6 +32,29 @@ const options = {
 };
 
 export default function Home() {
+  const [paket, setpaket] = useState(null)
+  const [loading, setloading] = useState(true)
+
+  useEffect(() => {
+    Axios({
+      url: `user/${localStorage.id}`,
+      method: 'get',
+      headers: {
+          "Authorization" : localStorage.token
+      }
+  })
+      .then(function (response) {
+          console.log(response.data, "response<<<<<<<<<<<")
+          setpaket(response.data)
+          setloading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return( <ReactLoading type={'bars'} color={"black"} height={667} width={375} 
+    style={{margin : "auto", width : "50%"}}/>)
+  }
+
   return (
     <>
       <h1 className="title is-4" style={{marginTop : "50px"}}>Welcome, {localStorage.username} !</h1>
@@ -43,13 +67,13 @@ export default function Home() {
           </div>
         </div>
         <div class="column">
-          <div class="card" style={{ width: "300px" }}>
+          <div class="card" style={{ width: "300px", marginLeft : "50px" }}>
             <div class="card-content">
               <h1 className="title is-4">API Usage</h1>
               <div class="content" style={{ height: "150px" }}>
-                <ProgressBar completed={60}/>
+                <ProgressBar completed={paket.usage / paket.limit * 100}/>
                 <br></br>
-                <p>60 /100 Used</p>
+                <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
               </div>
             </div>
           </div>
@@ -59,8 +83,8 @@ export default function Home() {
             <div class="card-content">
               <div class="content" style={{ height: "150px" }}>
                 <h1 className="title is-4">Subscription Info</h1>
-                Package : Gold <br></br>
-                API Limit : 1.000
+                Package : {paket.package_name} <br></br>
+                API Limit : {JSON.stringify(paket.limit)}
 
 
                 <br></br>

@@ -25,7 +25,7 @@ import "./Sidebar.css"
 
 
 const Sidebar = () => {
-  const [menuCollapse, setMenuCollapse] = useState(false)
+  const [menuCollapse, setMenuCollapse] = useState(true)
   const [homeActive, setHomeActive] = useState(true)
   const [memberActive, setMemberActive] = useState(false)
   // const [multipleActive, setMultipleActive] = useState(false)
@@ -90,7 +90,7 @@ const Sidebar = () => {
                 </MenuItem>
 
                 <MenuItem active={memberActive} onClick={memberMenu} icon={<VscWholeWord />}>
-                  <Link to="/add">Single Word</Link>
+                  <Link to="/add">API Tester</Link>
                 </MenuItem>
 
                 {/* <MenuItem active={multipleActive} onClick={multipleMenu} icon={<VscJson />}>
@@ -98,7 +98,7 @@ const Sidebar = () => {
                 </MenuItem> */}
 
                 <MenuItem active={fileActive} onClick={fileMenu} icon={<FcFile />}>
-                  <Link to="/file">Upload CSV</Link>
+                  <Link to="/file">Upload File</Link>
                 </MenuItem>
 
                 {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}

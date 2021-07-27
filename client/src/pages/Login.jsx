@@ -21,9 +21,10 @@ export default function Login(props) {
             password
         })
             .then(function (response) {
-                console.log(response.data.key, "<<<<<<<<TOKEN")
+                // console.log(response.data.id, "<<<<<<<<TOKEN")
                 localStorage.token = `Token ${response.data.key}`
                 localStorage.username = response.data.username
+                localStorage.id = response.data.id
                 props.history.push('/')
                 window.location.reload();
             })
