@@ -61,10 +61,10 @@ class RegisterView(CreateAPIView):
 class UserView(GenericAPIView):
     permission_classes = (AllowAny,)
     def get(self, request, pk):
-        print("ASHUUUUPPPP")
         try:
             # return Response("ASHUPPP")
-            user = User.objects.get(id=pk)
+            print(User.objects.values_list("id", named=True))
+            user = User.objects.filter(id=pk)
             serializer = UserSerializer(user, many=True)
             return Response(serializer.data)
         except Exception as error:
@@ -222,7 +222,7 @@ class MultipleView(APIView):
 
 class PackageView(CreateAPIView):
     #ADMIN ONLY VIEW
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     def get(self, request):
         try:
             package = Package.objects.all()
