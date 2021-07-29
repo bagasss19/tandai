@@ -8,6 +8,7 @@ import {
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Login from './pages/Login'
+import Profile from './pages/Profile'
 // import Register from './pages/Register'
 import Add from './pages/Add'
 import Multiple from './pages/Multiple'
@@ -26,6 +27,7 @@ function App() {
           <PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
           <PrivateRoute path="/multiple" component={Multiple}/>
           <PrivateRoute path="/file" component={File}/>
+          <PrivateRoute path="/profile" component={Profile}/>
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/add" component={Add} />

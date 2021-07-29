@@ -24,9 +24,11 @@ export default function Navbar() {
                         </p>
 
                         <div class="navbar-dropdown">
-                            <p class="navbar-item">
-                                See Profile
-                            </p>
+                            <Link to="/profile">
+                                <p class="navbar-item">
+                                    See Profile
+                                </p>
+                            </Link>
                             <p class="navbar-item">
                                 Setting
                             </p>

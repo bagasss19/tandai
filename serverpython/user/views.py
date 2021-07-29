@@ -69,9 +69,10 @@ class UserView(GenericAPIView):
             p = Package.objects.filter(id=package).values()
             limit = p[0]['API_quota']
             p_name = p[0]['title']
-            # user = User.objects.filter(id=pk)
-            # serializer = UserSerializer(user, many=True)
-            return Response({"usage" : usage, "limit" : limit,"package_name" : p_name})
+            username = u[0]['username']
+            email = u[0]['email']
+            return Response({"usage" : usage, "limit" : limit,"package_name" : p_name, "username" : username
+            , "email" : email})
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({

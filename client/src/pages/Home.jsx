@@ -51,7 +51,7 @@ export default function Home() {
   }, [])
 
   if (loading) {
-    return( <ReactLoading type={'bars'} color={"black"} height={667} width={375} 
+    return( <ReactLoading type={'bars'} color={"black"} height={167} width={75} 
     style={{margin : "auto", width : "50%"}}/>)
   }
 
@@ -60,7 +60,7 @@ export default function Home() {
       <h1 className="title is-4" style={{marginTop : "50px"}}>Welcome, {localStorage.username} !</h1>
 
       <div class="columns" style={{marginTop : "100px"}} >
-        <div class="column">
+        <div class="column" style={{position : "relative"}} >
           <div style={{ marginLeft: "150px", width: "250px" }}>
             <Line data={data} height={250} options={options} />
             <br></br>
