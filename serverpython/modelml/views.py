@@ -16,7 +16,7 @@ class ModelmlView(CreateAPIView):
     def get(self, request):
         try:
             # return Response("ASHUPPP")
-            modelml = Modelml.objects.all()
+            modelml = Modelml.objects.filter(model_owner_id = request.user.id)
             serializer = ModelSerializer(modelml, many=True)
             return Response(serializer.data)
         except Exception as error:

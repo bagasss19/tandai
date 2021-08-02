@@ -59,18 +59,18 @@ export default function Home() {
     <>
       <h1 className="title is-4" style={{marginTop : "50px"}}>Welcome, {localStorage.username} !</h1>
 
-      <div class="columns" style={{marginTop : "100px"}} >
-        <div class="column" style={{position : "relative"}} >
+      <div className="columns" style={{marginTop : "100px"}} >
+        <div className="column" style={{position : "relative"}} >
           <div style={{ marginLeft: "150px", width: "250px" }}>
             <Line data={data} height={250} options={options} />
             <br></br>
           </div>
         </div>
-        <div class="column">
-          <div class="card" style={{ width: "300px", marginLeft : "50px" }}>
-            <div class="card-content">
+        <div className="column">
+          <div className="card" style={{ width: "300px", marginLeft : "50px" }}>
+            <div className="card-content">
               <h1 className="title is-4">API Usage</h1>
-              <div class="content" style={{ height: "150px" }}>
+              <div className="content" style={{ height: "150px" }}>
                 <ProgressBar completed={paket.usage / paket.limit * 100}/>
                 <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
@@ -78,10 +78,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div class="column">
-          <div class="card" style={{ width: "300px" }}>
-            <div class="card-content">
-              <div class="content" style={{ height: "150px" }}>
+        <div className="column">
+          <div className="card" style={{ width: "300px" }}>
+            <div className="card-content">
+              <div className="content" style={{ height: "150px" }}>
                 <h1 className="title is-4">Subscription Info</h1>
                 Package : {paket.package_name} <br></br>
                 API Limit : {JSON.stringify(paket.limit)}
@@ -91,10 +91,10 @@ export default function Home() {
                 <time datetime="2016-1-1">31 Dec 21</time>
               </div>
             </div>
-            <footer class="card-footer">
-              <a href="/#" class="card-footer-item">Purchase</a>
-              <a href="/#" class="card-footer-item">Info</a>
-              {/* <a href="#" class="card-footer-item">Delete</a> */}
+            <footer className="card-footer">
+              <a href="/#" className="card-footer-item">Purchase</a>
+              <a href="/#" className="card-footer-item">Info</a>
+              {/* <a href="#" className="card-footer-item">Delete</a> */}
             </footer>
           </div>
         </div>

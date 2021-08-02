@@ -18,22 +18,22 @@ export default function Navbar() {
                     </div>
                 </div> */}
                 <div className="navbar-end">
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <p class="navbar-link">
+                    <div className="navbar-item has-dropdown is-hoverable">
+                        <p className="navbar-link">
                             Profile
                         </p>
 
-                        <div class="navbar-dropdown">
+                        <div className="navbar-dropdown">
                             <Link to="/profile">
-                                <p class="navbar-item">
+                                <p className="navbar-item">
                                     See Profile
                                 </p>
                             </Link>
-                            <p class="navbar-item">
+                            <p className="navbar-item">
                                 Setting
                             </p>
-                            <hr class="navbar-divider" />
-                            <p class="navbar-item">
+                            <hr className="navbar-divider" />
+                            <p className="navbar-item">
                                 Faq
                             </p>
                         </div>

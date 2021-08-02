@@ -16,7 +16,7 @@ import {
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { VscWholeWord } from "react-icons/vsc";
 import { FcFile } from "react-icons/fc";
-// import { BiCog } from "react-icons/bi";
+import { AiFillCopy } from "react-icons/ai";
 
 
 //import sidebar css from react-pro-sidebar module and our custom css 
@@ -28,7 +28,7 @@ const Sidebar = () => {
   const [menuCollapse, setMenuCollapse] = useState(true)
   const [homeActive, setHomeActive] = useState(true)
   const [memberActive, setMemberActive] = useState(false)
-  // const [multipleActive, setMultipleActive] = useState(false)
+  const [modelActive, setModel] = useState(false)
   const [fileActive, setFileActive] = useState(false)
 
   const menuIconClick = () => {
@@ -38,28 +38,28 @@ const Sidebar = () => {
   const homeMenu = () => {
     setHomeActive(true)
     setMemberActive(false)
-    // setMultipleActive(false)
+    setModel(false)
     setFileActive(false)
   };
 
   const memberMenu = () => {
     setHomeActive(false)
     setMemberActive(true)
-    // setMultipleActive(false)
+    setModel(false)
     setFileActive(false)
   };
 
-  // const multipleMenu = () => {
-  //   setHomeActive(false)
-  //   setMemberActive(false)
-  //   setMultipleActive(true)
-  //   setFileActive(false)
-  // }
+  const model = () => {
+    setHomeActive(false)
+    setMemberActive(false)
+    setModel(true)
+    setFileActive(false)
+  }
 
   const fileMenu = () => {
     setHomeActive(false)
     setMemberActive(false)
-    // setMultipleActive(false)
+    setModel(false)
     setFileActive(true)
 
   }
@@ -93,14 +93,14 @@ const Sidebar = () => {
                   <Link to="/add">API Tester</Link>
                 </MenuItem>
 
-                {/* <MenuItem active={multipleActive} onClick={multipleMenu} icon={<VscJson />}>
-                  <Link to="/multiple">Input JSON</Link>
-                </MenuItem> */}
-
                 <MenuItem active={fileActive} onClick={fileMenu} icon={<FcFile />}>
                   <Link to="/file">Upload File</Link>
                 </MenuItem>
 
+                <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy />}>
+                  <Link to="/model">Manage Model</Link>
+                </MenuItem>
+                
                 {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}
               </Menu>
             </SidebarContent>

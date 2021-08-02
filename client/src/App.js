@@ -13,8 +13,10 @@ import Profile from './pages/Profile'
 import Add from './pages/Add'
 import Multiple from './pages/Multiple'
 import File from './pages/File'
+import Model from './pages/Model'
 import PrivateRoute from './components/PrivateRoute'
 import Sidebar from './components/Sidebar';
+
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -28,6 +30,7 @@ function App() {
           <PrivateRoute path="/multiple" component={Multiple}/>
           <PrivateRoute path="/file" component={File}/>
           <PrivateRoute path="/profile" component={Profile}/>
+          <PrivateRoute path="/model" component={Model}/>
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/add" component={Add} />

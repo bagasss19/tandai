@@ -12,8 +12,6 @@ export default function File(props) {
         setloading(true)
         const input = new FormData();
         input.append('file', file)
-        console.log(file, "<<<<<<FILEEEE")
-        console.log(input, "<<<<<<<<<INPPUTTT")
         Axios({
             url: 'user/file',
             method: 'put',
@@ -28,10 +26,6 @@ export default function File(props) {
                 console.log(response.data.data, "response<<<<<<<<<<< SUKSES GAKKKKKK")
                 setanswer(response.data.data)
                 setloading(false)
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
             })
     }
 
@@ -55,19 +49,18 @@ export default function File(props) {
                 onSubmit={(e) => {
                     e.preventDefault()
                     add()
-                }
-                }>
+                }}>
 
                 {/* <div className="field"> */}
                     <label className="label is-family-code">Add File</label>
-                    <div class="file" style={{ marginLeft: "230px", marginTop : "50px", marginBottom : "50px" }}>
-                        <label class="file-label">
-                            <input class="file-input" type="file" name="resume" onChange={uploadFile} />
-                            <span class="file-cta">
-                                <span class="file-icon">
-                                    <i class="fas fa-upload"></i>
+                    <div className="file" style={{ marginLeft: "230px", marginTop : "50px", marginBottom : "50px" }}>
+                        <label className="file-label">
+                            <input className="file-input" type="file" name="resume" onChange={uploadFile} />
+                            <span className="file-cta">
+                                <span className="file-icon">
+                                    <i className="fas fa-upload"></i>
                                 </span>
-                                <span class="file-label">
+                                <span className="file-label">
                                     Choose a file…
                                 </span>
                             </span>
