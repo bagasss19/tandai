@@ -10,7 +10,7 @@ from rest_framework import status
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','username', 'email', 'password')
+        fields = ('id','username', 'email', 'password', 'is_superuser')
 
 class PackageSerializer(serializers.ModelSerializer):
     class Meta:

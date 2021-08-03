@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactLoading from 'react-loading'
 import axios from '../config/axios'
 
@@ -18,7 +18,7 @@ export default function Profile() {
             .then(function (response) {
                 // handle success
                 setuser(response.data)
-                console.log(response.data,"<<<DANDANJADN")
+                console.log(response.data, "<<<DANDANJADN")
                 setloading(false)
             })
     }
@@ -33,8 +33,8 @@ export default function Profile() {
     }
     return (
         <>
-            <figure className ="image is-128x128" style={{ margin: "auto", marginTop: "75px" }}>
-                <img className ="is-rounded" alt="profil" src="https://stickerly.pstatic.net/sticker_pack/hlmWGXRBp4SiGY7Y5ZqCHQ/VQG4JY/2/aa5ea56b-64ad-4779-9e30-0af35c43def3.png" />
+            <figure className="image is-128x128" style={{ margin: "auto", marginTop: "75px" }}>
+                <img className="is-rounded" alt="profil" src="https://stickerly.pstatic.net/sticker_pack/hlmWGXRBp4SiGY7Y5ZqCHQ/VQG4JY/2/aa5ea56b-64ad-4779-9e30-0af35c43def3.png" />
             </figure>
 
             <div style={{ width: "50%", margin: "auto" }}>
@@ -62,8 +62,11 @@ export default function Profile() {
                         disabled />
                 </div>
             </div>
-            <button className="button is-black"  onClick={() =>{  navigator.clipboard.writeText(localStorage.token); setcopy(true)}}>Get API Token</button>
-            {copy && <p>Copied!</p>}
+            {copy && <div className="notification is-primary is-light" style={{width : "30%", bottom : "5%", left : "35%" ,zIndex : "+1", position : "absolute"}}>
+                <button className="delete" onClick={() => setcopy(false)}></button>
+                Copied!
+            </div>}
+            <button className="button is-black" onClick={() => { navigator.clipboard.writeText(localStorage.token); setcopy(true) }}>Get API Token</button>
             {/* <button className="button is-black" style={{marginLeft : "20px"}}>Reset Password</button> */}
         </>
     )

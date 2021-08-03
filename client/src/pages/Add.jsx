@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import Axios from '../config/axios'
-// import ImageUploader from 'react-images-upload';
 import ReactLoading from 'react-loading'
 
 export default function Addform(props) {
     const [word, setword] = useState("")
     const [answer, setanswer] = useState(null)
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(true)
+    const [model, setmodel] = useState(null)
 
     function add() {
         setloading(true)
         Axios({
             url: 'user/model',
             method: 'post',
-            headers : {
-                "Authorization" : localStorage.token
+            headers: {
+                "Authorization": localStorage.token
             },
-            data : { word }
+            data: { word }
         })
             .then(function (response) {
                 // handle success
@@ -31,15 +31,44 @@ export default function Addform(props) {
             })
     }
 
+    const getModel = () => {
+        Axios({
+            url: 'model',
+            method: 'get',
+            headers: {
+                "Authorization": localStorage.token
+            }
+        })
+            .then(function (response) {
+                // handle success
+                setmodel(response.data)
+                setloading(false)
+            })
+    }
+
+    useEffect(() => {
+        getModel()
+    }, [])
+
     if (loading) {
-        return( <ReactLoading type={'bars'} color={"black"} height={667} width={375} 
-        style={{margin : "auto", width : "50%"}}/>)
+        return (<ReactLoading type={'bars'} color={"black"} height={667} width={375}
+            style={{ margin: "auto", width: "50%" }} />)
     }
 
     return (
         <div style={{ marginLeft: "150px" }}>
             <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>API Tester</h1>
-            <form className="form" style={{ marginTop: "100px", width: "50%", marginLeft: "300px" }}
+            <p style={{marginTop : "20px"}}>Select Model</p>
+            <div className="select is-dark">
+                <select>
+                    <option>Default</option>
+                    {model.map((x) => {
+                        return <option value={x.id} key={x.id}>{x.title}</option>
+                    })}
+                </select>
+            </div>
+
+            <form className="form" style={{ marginTop: "50px", width: "50%", marginLeft: "300px" }}
                 encType="multipart/form-data"
                 onSubmit={(e) => {
                     e.preventDefault()
