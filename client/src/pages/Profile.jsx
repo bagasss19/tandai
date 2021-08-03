@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import ReactLoading from 'react-loading'
 import axios from '../config/axios'
 
 export default function Profile() {
     const [user, setuser] = useState("null")
     const [loading, setloading] = useState(true)
+    const [copy, setcopy] = useState(false)
 
     const getUser = () => {
         axios({
@@ -61,7 +62,9 @@ export default function Profile() {
                         disabled />
                 </div>
             </div>
-            <button class="button is-black">Reset Password</button>
+            <button className="button is-black"  onClick={() =>{  navigator.clipboard.writeText(localStorage.token); setcopy(true)}}>Get API Token</button>
+            {copy && <p>Copied!</p>}
+            {/* <button className="button is-black" style={{marginLeft : "20px"}}>Reset Password</button> */}
         </>
     )
 }

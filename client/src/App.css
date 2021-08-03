@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.login{
+  background-image: url("https://www.salesforce.com/content/dam/blogs/ca/Blog%20Posts/marketing-ai.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: lightslategrey; */
+  min-height: 100vh;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

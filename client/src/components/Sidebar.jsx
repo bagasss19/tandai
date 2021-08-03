@@ -7,6 +7,7 @@ import {
 import {
   ProSidebar,
   Menu,
+  SubMenu,
   MenuItem,
   SidebarHeader,
   SidebarContent,
@@ -15,7 +16,6 @@ import {
 //import icons from react icons
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { VscWholeWord } from "react-icons/vsc";
-import { FcFile } from "react-icons/fc";
 import { AiFillCopy } from "react-icons/ai";
 
 
@@ -29,8 +29,6 @@ const Sidebar = () => {
   const [homeActive, setHomeActive] = useState(true)
   const [memberActive, setMemberActive] = useState(false)
   const [modelActive, setModel] = useState(false)
-  const [fileActive, setFileActive] = useState(false)
-
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   }
@@ -39,34 +37,24 @@ const Sidebar = () => {
     setHomeActive(true)
     setMemberActive(false)
     setModel(false)
-    setFileActive(false)
   };
 
   const memberMenu = () => {
     setHomeActive(false)
     setMemberActive(true)
     setModel(false)
-    setFileActive(false)
   };
 
   const model = () => {
     setHomeActive(false)
     setMemberActive(false)
     setModel(true)
-    setFileActive(false)
   }
 
-  const fileMenu = () => {
-    setHomeActive(false)
-    setMemberActive(false)
-    setModel(false)
-    setFileActive(true)
-
-  }
   if (localStorage.token) {
     return (
       <>
-        <div id="header">
+        <div id="header" style={{position : "fixed"}}>
           {/* collapsed props to change menu size using menucollapse state */}
           <ProSidebar collapsed={menuCollapse}>
             <SidebarHeader>
@@ -89,18 +77,15 @@ const Sidebar = () => {
                   <Link to="/">Home</Link>
                 </MenuItem>
 
-                <MenuItem active={memberActive} onClick={memberMenu} icon={<VscWholeWord />}>
-                  <Link to="/add">API Tester</Link>
-                </MenuItem>
-
-                <MenuItem active={fileActive} onClick={fileMenu} icon={<FcFile />}>
-                  <Link to="/file">Upload File</Link>
-                </MenuItem>
+                <SubMenu active={memberActive} title="API Tester" onClick={memberMenu} icon={<VscWholeWord />}>
+                  <MenuItem><Link to="/add">Simple</Link></MenuItem>
+                  <MenuItem><Link to="/file">Upload File</Link></MenuItem>
+                </SubMenu>
 
                 <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy />}>
                   <Link to="/model">Manage Model</Link>
                 </MenuItem>
-                
+
                 {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}
               </Menu>
             </SidebarContent>

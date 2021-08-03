@@ -33,9 +33,11 @@ export default function Navbar() {
                                 Setting
                             </p>
                             <hr className="navbar-divider" />
+                            <Link to="/faq">
                             <p className="navbar-item">
                                 Faq
                             </p>
+                            </Link>
                         </div>
                     </div>
 
@@ -56,11 +58,12 @@ export default function Navbar() {
     //logout
     else {
         return (
-            <nav className="navbar is-black" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0 }}>
-                <div className="navbar-brand">
-                    <p className="navbar-item" href="https://bulma.io">Tand.ai</p>
-                </div>
-            </nav>
+            <></>
+            // <nav className="navbar is-black" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0 }}>
+            //     <div className="navbar-brand">
+            //         <p className="navbar-item" href="https://bulma.io">Tand.ai</p>
+            //     </div>
+            // </nav>
         );
     }
 }

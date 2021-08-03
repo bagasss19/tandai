@@ -5,8 +5,11 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Home from './pages/Home'
 import Navbar from './components/Navbar'
+import PrivateRoute from './components/PrivateRoute'
+import Sidebar from './components/Sidebar';
+
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 // import Register from './pages/Register'
@@ -14,9 +17,7 @@ import Add from './pages/Add'
 import Multiple from './pages/Multiple'
 import File from './pages/File'
 import Model from './pages/Model'
-import PrivateRoute from './components/PrivateRoute'
-import Sidebar from './components/Sidebar';
-
+import Faq from './pages/Faq';
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/add" component={Add} />
+          <PrivateRoute path="/faq" component={Faq} />
         </Switch>
       </Router>
     </div>

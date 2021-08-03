@@ -1,9 +1,10 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
+export const baseURL = 'http://localhost:8000/'
+
 const instance = axios.create({
-    // baseURL: 'http://tand-ai.venation.io:8000/'
-    baseURL: 'http://localhost:8000/'
+    baseURL
   });
 instance.interceptors.response.use(function (response) {
     return response;
