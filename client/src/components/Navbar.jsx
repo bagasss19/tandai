@@ -17,10 +17,12 @@ export default function Navbar() {
                         <Link to="/" className="navbar-item"><p>Home</p></Link>
                     </div>
                 </div> */}
-                <div className="navbar-end">
+                <div className="navbar-end" style={{width : "300px"}} >
                     <div className="navbar-item has-dropdown is-hoverable">
+
+                        <img src="https://stickerly.pstatic.net/sticker_pack/hlmWGXRBp4SiGY7Y5ZqCHQ/VQG4JY/2/aa5ea56b-64ad-4779-9e30-0af35c43def3.png" alt="profil" style={{ margin: "auto" }} />
                         <p className="navbar-link">
-                            Profile
+                            {localStorage.username}
                         </p>
 
                         <div className="navbar-dropdown">
@@ -34,20 +36,17 @@ export default function Navbar() {
                             </p>
                             <hr className="navbar-divider" />
                             <Link to="/faq">
-                            <p className="navbar-item">
-                                Faq
-                            </p>
+                                <p className="navbar-item">
+                                    Faq
+                                </p>
                             </Link>
-                        </div>
-                    </div>
-
-                    <div className="navbar-item">
-                        <div className="buttons" onClick={(e) => {
-                            e.preventDefault()
-                            localStorage.clear()
-                            window.location.reload();
-                        }}>
-                            <p className="button is-dark"><strong>Logout</strong></p>
+                            <div className="buttons" onClick={(e) => {
+                                e.preventDefault()
+                                localStorage.clear()
+                                window.location.reload();
+                            }}>
+                                <p className="button is-danger" style={{margin : "auto", marginBottom : "20px", marginTop : "20px"}}><strong>Logout</strong></p>
+                            </div>
                         </div>
                     </div>
                 </div>

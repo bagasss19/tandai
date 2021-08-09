@@ -17,10 +17,11 @@ export default function Login(props) {
             password
         })
             .then(function (response) {
-                // console.log(response.data.id, "<<<<<<<<TOKEN")
+                console.log(response.data, "<<<<<<<<TOKEN")
                 localStorage.token = `Token ${response.data.key}`
                 localStorage.username = response.data.username
                 localStorage.id = response.data.id
+                localStorage.role = response.data.is_superuser
                 props.history.push('/')
                 window.location.reload();
             })

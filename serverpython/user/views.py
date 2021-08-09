@@ -40,7 +40,8 @@ class Login(CreateAPIView):
             return Response({
                 "key": token.key,
                 "username": user.username,
-                "id" : user.id
+                "id" : user.id,
+                "is_superuser" : user.is_superuser
             })
         else :
             return Response(

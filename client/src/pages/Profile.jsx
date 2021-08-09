@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import ReactLoading from 'react-loading'
 import axios from '../config/axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
     const [user, setuser] = useState("null")
     const [loading, setloading] = useState(true)
-    const [copy, setcopy] = useState(false)
 
     const getUser = () => {
         axios({
@@ -22,6 +23,17 @@ export default function Profile() {
                 setloading(false)
             })
     }
+
+    const notify = () => toast.success('Token Copied!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
 
     useEffect(() => {
         getUser()
@@ -62,12 +74,21 @@ export default function Profile() {
                         disabled />
                 </div>
             </div>
-            {copy && <div className="notification is-primary is-light" style={{width : "30%", bottom : "5%", left : "35%" ,zIndex : "+1", position : "absolute"}}>
-                <button className="delete" onClick={() => setcopy(false)}></button>
-                Copied!
-            </div>}
-            <button className="button is-black" onClick={() => { navigator.clipboard.writeText(localStorage.token); setcopy(true) }}>Get API Token</button>
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <button className="button is-black" onClick={() => { navigator.clipboard.writeText(localStorage.token); notify() }}>Get API Token</button>
             {/* <button className="button is-black" style={{marginLeft : "20px"}}>Reset Password</button> */}
+
         </>
     )
 }
