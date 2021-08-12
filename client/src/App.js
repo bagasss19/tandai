@@ -17,7 +17,8 @@ import Add from './pages/Add'
 import Multiple from './pages/Multiple'
 import File from './pages/File'
 import Model from './pages/Model'
-import Faq from './pages/Faq';
+import Faq from './pages/Faq'
+import Package from './pages/Package'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -36,6 +37,7 @@ function App() {
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/add" component={Add} />
           <PrivateRoute path="/faq" component={Faq} />
+          <PrivateRoute path="/package" component={Package} />
         </Switch>
       </Router>
     </div>

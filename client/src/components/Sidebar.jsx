@@ -7,7 +7,7 @@ import {
 import {
   ProSidebar,
   Menu,
-  SubMenu,
+  // SubMenu,
   MenuItem,
   SidebarHeader,
   SidebarContent,
@@ -15,7 +15,7 @@ import {
 
 //import icons from react icons
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { VscWholeWord } from "react-icons/vsc";
+// import { VscWholeWord } from "react-icons/vsc";
 import { AiFillCopy } from "react-icons/ai";
 
 
@@ -27,7 +27,6 @@ import "./Sidebar.css"
 const Sidebar = () => {
   const [menuCollapse, setMenuCollapse] = useState(true)
   const [homeActive, setHomeActive] = useState(true)
-  const [memberActive, setMemberActive] = useState(false)
   const [modelActive, setModel] = useState(false)
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -35,19 +34,11 @@ const Sidebar = () => {
 
   const homeMenu = () => {
     setHomeActive(true)
-    setMemberActive(false)
-    setModel(false)
-  };
-
-  const memberMenu = () => {
-    setHomeActive(false)
-    setMemberActive(true)
     setModel(false)
   };
 
   const model = () => {
     setHomeActive(false)
-    setMemberActive(false)
     setModel(true)
   }
 
@@ -77,10 +68,10 @@ const Sidebar = () => {
                   <Link to="/">Home</Link>
                 </MenuItem>
 
-                <SubMenu active={memberActive} title="API Tester" onClick={memberMenu} icon={<VscWholeWord />}>
+                {/* <SubMenu active={memberActive} title="API Tester" onClick={memberMenu} icon={<VscWholeWord />}>
                   <MenuItem><Link to="/add">Simple</Link></MenuItem>
                   <MenuItem><Link to="/file">Upload File</Link></MenuItem>
-                </SubMenu>
+                </SubMenu> */}
 
                 <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy />}>
                   <Link to="/model">Manage Model</Link>

@@ -26,6 +26,7 @@ Modal.setAppElement('#root');
 export default function Model() {
     const [loading, setloading] = useState(true)
     const [model, setmodel] = useState(null)
+    const [description, setdescripion] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [file, setFile] = useState(null)
     const [title, settitle] = useState(null)
@@ -68,6 +69,7 @@ export default function Model() {
         const input = new FormData();
         input.append('title', title)
         input.append('modelml_url', file)
+        input.append('description', description)
         axios({
             url: 'model/',
             method: 'post',
@@ -116,9 +118,9 @@ export default function Model() {
     }, [])
 
     if (loading) {
-        return (<ReactLoading type={'bars'} color={"black"} height={167} width={75}
-            style={{ margin: "auto", width: "50%" }} />)
-    }
+        return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
+          style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
+      }
     return (
         <div>
             <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Model List</h1>
@@ -147,7 +149,8 @@ export default function Model() {
                     submit()
                 }}>
                     <input className="input is-dark" type="text" placeholder="Title" onChange={e => {settitle(e.target.value)}} />
-
+     
+                    <input className="input is-dark" type="text" placeholder="Description" onChange={e => {setdescripion(e.target.value)}} style={{marginTop : "20px"}} />
                     {/* UPLOAD FILE */}
 
                     <div className="file is-small" style={{ marginLeft: "30px", marginTop: "20px" }}>
@@ -167,11 +170,12 @@ export default function Model() {
                 </form>
             </Modal>
 
-            <table className="table is-hoverable is-fullwidth" style={{ marginTop: "50px" }}>
+            <table className="table is-hoverable is-fullwidth" style={{ marginTop: "50px", marginLeft : "50px" }}>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -181,6 +185,7 @@ export default function Model() {
                         <tr key={x.id}>
                             <td>{x.id}</td>
                             <td>{x.title}</td>
+                            <td>{x.description}</td>
                             <td><button className="button is-dark" onClick={(e) => {
                                         e.preventDefault()
                                         deleteModel(x.id)

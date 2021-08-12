@@ -3,6 +3,9 @@ import ReactLoading from 'react-loading'
 import axios from '../config/axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+    Link,
+} from "react-router-dom";
 
 export default function Profile() {
     const [user, setuser] = useState("null")
@@ -40,16 +43,22 @@ export default function Profile() {
     }, [])
 
     if (loading) {
-        return (<ReactLoading type={'bars'} color={"black"} height={167} width={75}
-            style={{ margin: "auto", width: "50%" }} />)
-    }
+        return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
+          style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
+      }
     return (
         <>
+            <div className="tabs is-centered">
+                <ul>
+                    <li className="is-active"><Link to="/profile">Profile</Link></li>
+                    <li><Link to="/package">Package</Link></li>
+                </ul>
+            </div>
             <figure className="image is-128x128" style={{ margin: "auto", marginTop: "75px" }}>
                 <img className="is-rounded" alt="profil" src="https://stickerly.pstatic.net/sticker_pack/hlmWGXRBp4SiGY7Y5ZqCHQ/VQG4JY/2/aa5ea56b-64ad-4779-9e30-0af35c43def3.png" />
             </figure>
 
-            <div style={{ width: "50%", margin: "auto" }}>
+            <div style={{ width: "50%", margin: "auto" }}> 
                 <div className="field">
                     <label className="label is-family-code">Username</label>
                     <input className="input" type="text" name="Title"
