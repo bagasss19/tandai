@@ -13,9 +13,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 // import Register from './pages/Register'
-import Add from './pages/Add'
-import Multiple from './pages/Multiple'
-import File from './pages/File'
 import Model from './pages/Model'
 import Faq from './pages/Faq'
 import Package from './pages/Package'
@@ -29,13 +26,10 @@ function App() {
       <Sidebar/>
         <Switch>
           <PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
-          <PrivateRoute path="/multiple" component={Multiple}/>
-          <PrivateRoute path="/file" component={File}/>
           <PrivateRoute path="/profile" component={Profile}/>
           <PrivateRoute path="/model" component={Model}/>
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
-          <PrivateRoute path="/add" component={Add} />
           <PrivateRoute path="/faq" component={Faq} />
           <PrivateRoute path="/package" component={Package} />
         </Switch>

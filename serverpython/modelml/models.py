@@ -6,6 +6,7 @@ class Modelml(models.Model):
     description = models.CharField(max_length=255, null=True)
     modelml_url = models.FileField(blank=False, null=False)
     model_owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['id']

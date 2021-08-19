@@ -195,16 +195,21 @@ class FileUploadView(APIView):
 
             df = pd.read_csv(f)
             words = df['sentiment']
-            output = {}
+            output = []
             print(words)
             for x in words:
+                obj = {}
                 tfidf_baru = tfidf.transform([x])
                 hasil = mnb.predict(tfidf_baru)
 
                 if hasil == 0:
-                    output[x] = "negative"
+                    obj['word'] = x
+                    obj['sentiment'] = "negative"
+                    output.append(obj)
                 else :
-                    output[x] = "positive"
+                    obj['word'] = x
+                    obj['sentiment'] = "positive"
+                    output.append(obj)
 
             print(output, "<<<hasil nich")
             user = User.objects.filter(id=request.user.id).get()
