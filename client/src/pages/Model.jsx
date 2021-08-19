@@ -171,7 +171,7 @@ export default function Model() {
         <div>
             <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Model List</h1>
 
-            <button className="button is-black"
+            <button className="button is-primary"
                 style={{ marginBottom: "30px", marginTop: '30px' }}
                 onClick={openModal}
             >
@@ -267,11 +267,11 @@ export default function Model() {
                             <td>{x.id}</td>
                             <td>{x.title}</td>
                             <td>{x.description}</td>
-                            <td><button className="button is-dark" onClick={(e) => {
+                            <td><button className="button is-link" onClick={(e) => {
                                 e.preventDefault()
                                 setModalTraining(true)
                             }}>Train</button>
-                                <button className="button is-dark" style={{ marginLeft: "5px" }} onClick={(e) => {
+                                <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                                     e.preventDefault()
                                     deleteModel(x.id)
                                 }}>Delete</button>

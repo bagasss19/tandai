@@ -162,9 +162,9 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="title is-4" style={{ marginTop: "20px" }}>Welcome, {localStorage.username} !</h1>
+      <h1 className="title is-2 is-family-code" style={{ marginTop: "20px", textAlign : "center", marginLeft : "100px" }}>Welcome, {localStorage.username} !</h1>
 
-      <div className="columns" style={{ marginTop: "50px" }} >
+      <div className="columns" style={{ marginTop: "5px" }} >
         {/* <div className="column" style={{position : "relative"}} >
           <div style={{ marginLeft: "150px", width: "250px" }}>
             <Line data={data} height={250} options={options} />
@@ -268,7 +268,7 @@ export default function Home() {
                       </label>
                     </div>
 
-                    <button className="button is-black" type="submit" style={{ marginTop: "10px" }}>Submit</button>
+                    <button className="button is-primary" type="submit" style={{ marginTop: "10px" }}>Submit</button>
 
                     {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}></h1> */}
                   </form>
@@ -288,7 +288,7 @@ export default function Home() {
                         placeholder="Input your words here" onChange={e => setword(e.target.value)} />
                     </div>
 
-                    <button className="button is-black" type="submit">Submit</button>
+                    <button className="button is-primary" type="submit">Submit</button>
 
                     {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}>{answer}</h1> */}
                   </form>
@@ -357,7 +357,7 @@ export default function Home() {
                     <td>{x.title}</td>
                     <th>{x.description}</th>
                     <th>{x.created}</th>
-                    <td><button className="button is-dark" onClick={(e) => {
+                    <td><button className="button is-danger" onClick={(e) => {
                       e.preventDefault()
                       deleteModel(x.id)
                     }}>Delete</button></td>
