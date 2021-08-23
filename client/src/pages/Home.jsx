@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
+import { FaUpload } from "react-icons/fa";
 
 Modal.setAppElement('#root');
 const customStyles = {
@@ -33,6 +34,7 @@ export default function Home() {
   const [answer, setanswer] = useState(null)
   const [isFile, setisFile] = useState(false)
   const [file, setFile] = useState(null)
+  const [fileName, setFilename] = useState(null)
   const [modalIsOpen, setIsOpen] = useState(false);
 
 
@@ -151,7 +153,7 @@ export default function Home() {
 
   const uploadFile = (event) => {
     setFile(event.target.files[0])
-    console.log(file)
+    setFilename(event.target.files[0].name)
   };
 
 
@@ -162,7 +164,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="title is-2 is-family-code" style={{ marginTop: "20px", textAlign : "center", marginLeft : "100px" }}>Welcome, {localStorage.username} !</h1>
+      <h1 className="title is-2 is-family-code" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px" }}>Welcome, {localStorage.username} !</h1>
 
       <div className="columns" style={{ marginTop: "5px" }} >
         {/* <div className="column" style={{position : "relative"}} >
@@ -181,7 +183,8 @@ export default function Home() {
             </header>
             <div className="card-content">
               <div className="content">
-                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" />
+                <div style={{ marginTop: "30px" }}></div>
+                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#00d1b2" />
                 <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
               </div>
@@ -190,22 +193,47 @@ export default function Home() {
         </div>
 
         <div className="column">
-          <div className="card">
+          <div className="card" style={{ height: "250px" }}>
+
             <header className="card-header">
               <p className="card-header-title">
                 Subscription Info
               </p>
             </header>
+
             <div className="card-content">
-              <div className="content" style={{ height: "105px" }}>
-                Package : {paket.package_name} <br></br>
-                API Limit : {JSON.stringify(paket.limit)}<br></br>
-                <time dateTime="2016-1-1">31 Dec 21</time>
+              <div className="content"  >
+                <div className="columns" style={{ textAlign: "center", marginTop: "10px" }}>
+
+                  <div className="column">
+                    <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>Package</p>
+                    {(() => {
+                      switch (paket.package_name) {
+                        case "free": return <span className="tag is-dark is-medium">Free</span>
+                        case "bronze": return <span className="tag is-medium" style={{ backgroundColor: "#ff5100" }}>Bronze</span>
+                        case "silver": return <span className="tag is-light is-medium">Silver</span>
+                        case "gold": return <span className="tag is-warning is-medium">Gold</span>
+                        default: return <h5>Not Confirmed</h5>;
+                      }
+                    })()}
+                  </div>
+
+                  <div className="column">
+                    <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>API Limit</p>
+                    <p>{JSON.stringify(paket.limit)}</p>
+                  </div>
+
+                  <div className="column">
+                    <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>Expired Date</p>
+                    <time dateTime="2016-1-1">31 Dec 21</time>
+                  </div>
+
+                </div>
               </div>
             </div>
             <footer className="card-footer">
               {/* <a href="/#" className="card-footer-item">Purchase</a> */}
-              <Link to="/package" className="card-footer-item">Info</Link>
+              <Link to="/package" className="card-footer-item"><button className="button is-primary">Upgrade</button></Link>
               {/* <a href="#" className="card-footer-item">Delete</a> */}
             </footer>
           </div>
@@ -259,12 +287,20 @@ export default function Home() {
                         <input className="file-input" type="file" name="resume" onChange={uploadFile} />
                         <span className="file-cta">
                           <span className="file-icon">
-                            <i className="fas fa-upload"></i>
+                            <FaUpload />
                           </span>
-                          <span className="file-label">
-                            Choose a file…
-                          </span>
+
+                          {fileName ?
+                            <span className="file-label">
+                              {fileName}
+                            </span>
+                            :
+                            <span className="file-label">
+                              Choose a file…
+                            </span>
+                          }
                         </span>
+                        
                       </label>
                     </div>
 
@@ -325,7 +361,7 @@ export default function Home() {
                 </tr>
               ))}
             </tbody>
-          </table> : answer }
+          </table> : answer}
 
         </Modal>
 

@@ -19,19 +19,26 @@ import Package from './pages/Package'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
+  const [sideNavExpanded, setSideNavExpanded] = useState(false);
+
+  const contentStyle = {
+    marginLeft: sideNavExpanded ? "150px" : "20px", // arbitrary values
+    transition: "margin 0.2s ease"
+};
+
   return (
     <div className="App">
   <Router>
       <Navbar/>
-      <Sidebar/>
+      <Sidebar setSideNavExpanded={setSideNavExpanded} sideNavExpanded={sideNavExpanded}/>
         <Switch>
-          <PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
-          <PrivateRoute path="/profile" component={Profile}/>
-          <PrivateRoute path="/model" component={Model}/>
+          <div style={contentStyle}><PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
+          <PrivateRoute path="/profile" component={Profile} auth={isAutheticated}/>
+          <PrivateRoute path="/model" component={Model} auth={isAutheticated}/>
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
-          <PrivateRoute path="/faq" component={Faq} />
-          <PrivateRoute path="/package" component={Package} />
+          <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
+          <PrivateRoute path="/package" component={Package} auth={isAutheticated}/></div>
         </Switch>
       </Router>
     </div>

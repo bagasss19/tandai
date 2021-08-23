@@ -5,6 +5,8 @@ import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
 import Swal from 'sweetalert2'
+import { FaUpload } from "react-icons/fa";
+
 
 const customStyles = {
     content: {
@@ -188,7 +190,7 @@ export default function Model() {
                     style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
 
                 <h2 ref={(_subtitle) => (subtitle = _subtitle)}
-                    style={{ textAlign: "center", marginBottom : "20px" }}>Add Model</h2>
+                    style={{ textAlign: "center", marginBottom: "20px" }}>Add Model</h2>
                 {/* <div style={{ textAlign: "center" }}>Title</div> */}
                 <form style={{ margin: "auto", width: "30%" }} encType="multipart/form-data" onSubmit={(e) => {
                     e.preventDefault()
@@ -204,7 +206,7 @@ export default function Model() {
                             <input className="file-input" type="file" name="resume" onChange={uploadFile} />
                             <span className="file-cta">
                                 <span className="file-icon">
-                                    <i className="fas fa-upload"></i>
+                                    <FaUpload />
                                 </span>
                                 <span className="file-label">
                                     Choose a file…

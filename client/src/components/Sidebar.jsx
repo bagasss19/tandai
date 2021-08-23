@@ -24,11 +24,13 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "./Sidebar.css"
 
 
-const Sidebar = () => {
+const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
   const [menuCollapse, setMenuCollapse] = useState(true)
   const [homeActive, setHomeActive] = useState(true)
   const [modelActive, setModel] = useState(false)
+
   const menuIconClick = () => {
+    setSideNavExpanded(!sideNavExpanded);
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   }
 
@@ -45,7 +47,7 @@ const Sidebar = () => {
   if (localStorage.token) {
     return (
       <>
-        <div id="header" style={{position : "fixed"}}>
+        <div id="header" style={{position : "fixed", display:"flex"}}>
           {/* collapsed props to change menu size using menucollapse state */}
           <ProSidebar collapsed={menuCollapse}>
             <SidebarHeader>
