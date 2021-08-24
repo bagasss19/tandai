@@ -12,6 +12,10 @@
   min-height: 100vh;
 }
 
+.Mainkolor {
+  background-image: linear-gradient(to bottom right,   #23a96f, #006d3e);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

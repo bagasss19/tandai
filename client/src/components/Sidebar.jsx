@@ -65,8 +65,9 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
               </div>
             </SidebarHeader>
             <SidebarContent>
-              <Menu iconShape="square">
-                <MenuItem active={homeActive} onClick={homeMenu} icon={<FiHome />}>
+              {/* <Menu iconShape="square"> */}
+              <Menu>
+                <MenuItem active={homeActive} onClick={homeMenu} icon={<FiHome size={50} />}>
                   <Link to="/">Home</Link>
                 </MenuItem>
 
@@ -75,7 +76,7 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
                   <MenuItem><Link to="/file">Upload File</Link></MenuItem>
                 </SubMenu> */}
 
-                <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy />}>
+                <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy size={50}/>}>
                   <Link to="/model">Manage Model</Link>
                 </MenuItem>
 

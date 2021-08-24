@@ -35,7 +35,7 @@ export default function Login(props) {
     return (
         <div className="login">
             {/* <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Welcome, Please Login</h1> */}
-            <div className="card" style={{ width: "50%", margin: "auto", justifyContent: "center", position: "absolute", top: "25%", left: "25%" }}>
+            <div className="card" style={{ width: "40%", margin: "auto", justifyContent: "center", position: "absolute", top: "25%", left: "30%" }}>
                 <header className="card-header">
                     <p className="card-header-title" style={{ justifyContent: "center", verticalAlign: "middle", display: "table-cell" }}>
                         Welcome to Tand.ai

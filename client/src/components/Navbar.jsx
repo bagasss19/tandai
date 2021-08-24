@@ -7,7 +7,7 @@ export default function Navbar() {
     //admin login
     if (localStorage.token) {
         return (
-            <nav className="navbar is-dark" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0 }}>
+            <nav className="navbar" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0, backgroundColor : "#ffffff" }}>
                 <div className="navbar-brand">
                     <Link to="/" className="navbar-item"><p>Tand.ai</p></Link>
                 </div>

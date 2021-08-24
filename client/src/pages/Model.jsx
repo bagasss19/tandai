@@ -196,9 +196,9 @@ export default function Model() {
                     e.preventDefault()
                     submit()
                 }}>
-                    <input className="input is-dark is-rounded  " type="text" placeholder="Title" onChange={e => { settitle(e.target.value) }} />
+                    <input className="input is-dark  " type="text" placeholder="Title" onChange={e => { settitle(e.target.value) }} />
 
-                    <input className="input is-dark is-rounded" type="text" placeholder="Description" onChange={e => { setdescripion(e.target.value) }} style={{ marginTop: "20px" }} />
+                    <input className="input is-dark" type="text" placeholder="Description" onChange={e => { setdescripion(e.target.value) }} style={{ marginTop: "20px" }} />
                     {/* UPLOAD FILE */}
 
                     <div className="file is-small" style={{ marginLeft: "30px", marginTop: "20px" }}>
@@ -253,7 +253,7 @@ export default function Model() {
                 </form>
             </Modal>
 
-            <table className="table is-hoverable is-fullwidth" style={{ marginTop: "50px", marginLeft: "50px" }}>
+            <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width : "90%" }}>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -270,6 +270,10 @@ export default function Model() {
                             <td>{x.title}</td>
                             <td>{x.description}</td>
                             <td><button className="button is-link" onClick={(e) => {
+                                e.preventDefault()
+
+                            }}>Test</button>
+                                <button className="button is-link" style={{ marginLeft: "5px" }} onClick={(e) => {
                                 e.preventDefault()
                                 setModalTraining(true)
                             }}>Train</button>

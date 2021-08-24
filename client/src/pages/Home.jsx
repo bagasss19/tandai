@@ -53,26 +53,26 @@ export default function Home() {
       })
   }
 
-  const deleteModel = (id) => {
-    setloading(true)
-    Axios({
-      url: 'model/' + id,
-      method: 'delete',
-      headers: {
-        "Authorization": localStorage.token
-      }
-    })
-      .then(function (response) {
-        // handle success
-        Swal.fire({
-          title: 'Success!',
-          text: 'Delete Model Success',
-          icon: 'success',
-          confirmButtonText: 'Cool'
-        })
-        getModel()
-      })
-  }
+  // const deleteModel = (id) => {
+  //   setloading(true)
+  //   Axios({
+  //     url: 'model/' + id,
+  //     method: 'delete',
+  //     headers: {
+  //       "Authorization": localStorage.token
+  //     }
+  //   })
+  //     .then(function (response) {
+  //       // handle success
+  //       Swal.fire({
+  //         title: 'Success!',
+  //         text: 'Delete Model Success',
+  //         icon: 'success',
+  //         confirmButtonText: 'Cool'
+  //       })
+  //       getModel()
+  //     })
+  // }
 
   function add() {
     setloading(true)
@@ -164,7 +164,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="title is-2 is-family-code" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px" }}>Welcome, {localStorage.username} !</h1>
+      <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily : "Roboto" }}>Welcome, {localStorage.username} !</h1>
 
       <div className="columns" style={{ marginTop: "5px" }} >
         {/* <div className="column" style={{position : "relative"}} >
@@ -184,7 +184,7 @@ export default function Home() {
             <div className="card-content">
               <div className="content">
                 <div style={{ marginTop: "30px" }}></div>
-                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#00d1b2" />
+                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f"/>
                 <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
               </div>
@@ -233,7 +233,7 @@ export default function Home() {
             </div>
             <footer className="card-footer">
               {/* <a href="/#" className="card-footer-item">Purchase</a> */}
-              <Link to="/package" className="card-footer-item"><button className="button is-primary">Upgrade</button></Link>
+              <Link to="/package" className="card-footer-item"><button className="button Mainkolor" style={{color : "white"}}>Upgrade</button></Link>
               {/* <a href="#" className="card-footer-item">Delete</a> */}
             </footer>
           </div>
@@ -256,7 +256,7 @@ export default function Home() {
                       setisFile(true)
                     }
                   }}>
-                  <option value="false" >Simple Word</option>
+                  <option value="false" >Simple</option>
                   <option value="true" >Upload File</option>
                 </select>
               </div>
@@ -265,8 +265,8 @@ export default function Home() {
             <div className="card-content" >
               <div className="content" >
                 <div className="select is-dark">
-                  <select>
-                    <option>Select Model (Default)</option>
+                  <select style={{width : "325px"}}>
+                    <option>Base Model</option>
                     {model.map((x) => {
                       return <option value={x.id} key={x.id}>{x.title}</option>
                     })}
@@ -304,7 +304,7 @@ export default function Home() {
                       </label>
                     </div>
 
-                    <button className="button is-primary" type="submit" style={{ marginTop: "10px" }}>Submit</button>
+                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color : "white" }}>Submit</button>
 
                     {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}></h1> */}
                   </form>
@@ -324,7 +324,7 @@ export default function Home() {
                         placeholder="Input your words here" onChange={e => setword(e.target.value)} />
                     </div>
 
-                    <button className="button is-primary" type="submit">Submit</button>
+                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color : "white" }}>Submit</button>
 
                     {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}>{answer}</h1> */}
                   </form>
@@ -372,6 +372,7 @@ export default function Home() {
           <p className="card-header-title">
             Recent Model
           </p>
+          <Link to ="/model"><p className="card-header-title" style={{textAlign : "end", marginLeft : "900px", color : "#00d1b2"}} >Full model list</p></Link>
         </header>
         <div className="card-content">
           <div className="content" style={{ height: "150px" }}>
@@ -382,7 +383,7 @@ export default function Home() {
                   <th>Title</th>
                   <th>Description</th>
                   <th>Update Time</th>
-                  <th>Action</th>
+                  {/* <th>Action</th> */}
                 </tr>
               </thead>
 
@@ -393,10 +394,10 @@ export default function Home() {
                     <td>{x.title}</td>
                     <th>{x.description}</th>
                     <th>{x.created}</th>
-                    <td><button className="button is-danger" onClick={(e) => {
+                    {/* <td><button className="button is-danger" onClick={(e) => {
                       e.preventDefault()
                       deleteModel(x.id)
-                    }}>Delete</button></td>
+                    }}>Delete</button></td> */}
                   </tr>
                 ))}
               </tbody>
