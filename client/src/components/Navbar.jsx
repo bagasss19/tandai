@@ -2,6 +2,7 @@ import React from 'react'
 import {
     Link,
 } from "react-router-dom";
+import Logo from '../Assets/logo_tandai.png'
 
 export default function Navbar() {
     //admin login
@@ -9,7 +10,7 @@ export default function Navbar() {
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0, backgroundColor : "#ffffff" }}>
                 <div className="navbar-brand">
-                    <Link to="/" className="navbar-item"><p>Tand.ai</p></Link>
+                    <Link to="/" className="navbar-item"><img src={Logo} alt="tandai" width="80px" /></Link>
                 </div>
 
                 {/* <div id="navbarBasicExample" className="navbar-menu">

@@ -17,7 +17,7 @@ import {
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 // import { VscWholeWord } from "react-icons/vsc";
 import { AiFillCopy } from "react-icons/ai";
-
+import { MdTrendingUp } from "react-icons/md";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -28,6 +28,7 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
   const [menuCollapse, setMenuCollapse] = useState(true)
   const [homeActive, setHomeActive] = useState(true)
   const [modelActive, setModel] = useState(false)
+  const [trainActive, setTrain] = useState(false)
 
   const menuIconClick = () => {
     setSideNavExpanded(!sideNavExpanded);
@@ -37,11 +38,19 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
   const homeMenu = () => {
     setHomeActive(true)
     setModel(false)
+    setTrain(false)
   };
 
   const model = () => {
     setHomeActive(false)
     setModel(true)
+    setTrain(false)
+  }
+
+  const train = () => {
+    setHomeActive(false)
+    setModel(false)
+    setTrain(true)
   }
 
   if (localStorage.token) {
@@ -77,10 +86,13 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
                 </SubMenu> */}
 
                 <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy size={50}/>}>
-                  <Link to="/model">Manage Model</Link>
+                  <Link to="/test">Test Model</Link>
                 </MenuItem>
 
-                {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}
+                <MenuItem active={trainActive} onClick={train} icon={<MdTrendingUp size={50}/>}>
+                  <Link to="/train">Train Model</Link>
+                </MenuItem>
+
               </Menu>
             </SidebarContent>
             {/* <SidebarFooter>

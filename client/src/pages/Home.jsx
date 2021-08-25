@@ -7,36 +7,12 @@ import Swal from 'sweetalert2'
 import {
   Link,
 } from "react-router-dom";
-import Modal from 'react-modal'
-import { AiFillCloseCircle } from "react-icons/ai"
-import { FaUpload } from "react-icons/fa";
 
-Modal.setAppElement('#root');
-const customStyles = {
-  content: {
-    position: "absolute",
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    width: "50%",
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: "white"
-  },
-}
 
 export default function Home() {
   const [paket, setpaket] = useState(null)
   const [loading, setloading] = useState(true)
   const [model, setmodel] = useState(null)
-  const [word, setword] = useState("")
-  const [answer, setanswer] = useState(null)
-  const [isFile, setisFile] = useState(false)
-  const [file, setFile] = useState(null)
-  const [fileName, setFilename] = useState(null)
-  const [modalIsOpen, setIsOpen] = useState(false);
-
 
   const getModel = () => {
     Axios({
@@ -53,89 +29,26 @@ export default function Home() {
       })
   }
 
-  // const deleteModel = (id) => {
-  //   setloading(true)
-  //   Axios({
-  //     url: 'model/' + id,
-  //     method: 'delete',
-  //     headers: {
-  //       "Authorization": localStorage.token
-  //     }
-  //   })
-  //     .then(function (response) {
-  //       // handle success
-  //       Swal.fire({
-  //         title: 'Success!',
-  //         text: 'Delete Model Success',
-  //         icon: 'success',
-  //         confirmButtonText: 'Cool'
-  //       })
-  //       getModel()
-  //     })
-  // }
-
-  function add() {
+  const deleteModel = (id) => {
     setloading(true)
     Axios({
-      url: 'user/model',
-      method: 'post',
+      url: 'model/' + id,
+      method: 'delete',
       headers: {
         "Authorization": localStorage.token
-      },
-      data: { word }
+      }
     })
       .then(function (response) {
         // handle success
-        console.log(response.data, "response<<<<<<<<<<< SUKSES GAKKKKKK")
-        // setanswer(response.data.sentiment)
-        setloading(false)
         Swal.fire({
           title: 'Success!',
-          text: response.data.sentiment,
+          text: 'Delete Model Success',
           icon: 'success',
-          confirmButtonText: 'Close'
+          confirmButtonText: 'Cool'
         })
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
+        getModel()
       })
   }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#000000';
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function addFile() {
-    setloading(true)
-    const input = new FormData();
-    input.append('file', file)
-    Axios({
-      url: 'user/file',
-      method: 'put',
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": localStorage.token
-      },
-      data: input
-    })
-      .then(function (response) {
-        // handle success
-        setanswer(response.data.data)
-        setloading(false)
-        openModal()
-      })
-  }
-
 
   useEffect(() => {
     Axios({
@@ -151,12 +64,6 @@ export default function Home() {
       })
   }, [])
 
-  const uploadFile = (event) => {
-    setFile(event.target.files[0])
-    setFilename(event.target.files[0].name)
-  };
-
-
   if (loading) {
     return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
       style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
@@ -164,16 +71,51 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily : "Roboto" }}>Welcome, {localStorage.username} !</h1>
+      <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Welcome, {localStorage.username} !</h1>
+
+      <div className="card" style={{ marginLeft: "100px", marginRight: "20px" }}>
+        <header className="card-header">
+          <p className="card-header-title">
+            Model List
+          </p>
+          {/* <Link to="/model"><p className="card-header-title" style={{ textAlign: "end", marginLeft: "900px", color: "#00d1b2" }} >Full model list</p></Link> */}
+        </header>
+        <div className="card-content">
+          <div className="content" style={{ height: "150px" }}>
+            <table className="table is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Update Time (iya ini mau dibenerin)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {model.map((x) => (
+                  <tr key={x.id}>
+                    <td>{x.id}</td>
+                    <td>{x.title}</td>
+                    <th>{x.description}</th>
+                    <th>{x.created}</th>
+                    <td>
+                    <Link to ="/test"><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
+                    <Link to="/train"><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
+                      <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                        e.preventDefault()
+                        deleteModel(x.id)
+                      }}>Delete</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
       <div className="columns" style={{ marginTop: "5px" }} >
-        {/* <div className="column" style={{position : "relative"}} >
-          <div style={{ marginLeft: "150px", width: "250px" }}>
-            <Line data={data} height={250} options={options} />
-            <br></br>
-          </div>
-        </div> */}
-
         <div className="column" style={{ marginLeft: "100px" }}>
           <div className="card" style={{ height: "250px" }}>
             <header className="card-header">
@@ -184,7 +126,7 @@ export default function Home() {
             <div className="card-content">
               <div className="content">
                 <div style={{ marginTop: "30px" }}></div>
-                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f"/>
+                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" />
                 <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
               </div>
@@ -193,7 +135,7 @@ export default function Home() {
         </div>
 
         <div className="column">
-          <div className="card" style={{ height: "250px" }}>
+          <div className="card" style={{ height: "250px", marginRight : "20px" }}>
 
             <header className="card-header">
               <p className="card-header-title">
@@ -233,13 +175,13 @@ export default function Home() {
             </div>
             <footer className="card-footer">
               {/* <a href="/#" className="card-footer-item">Purchase</a> */}
-              <Link to="/package" className="card-footer-item"><button className="button Mainkolor" style={{color : "white"}}>Upgrade</button></Link>
+              <Link to="/package" className="card-footer-item"><button className="button Mainkolor" style={{ color: "white" }}>Upgrade</button></Link>
               {/* <a href="#" className="card-footer-item">Delete</a> */}
             </footer>
           </div>
         </div>
 
-        <div className="column">
+        {/* <div className="column">
           <div className="card" style={{ height: "250px", marginRight: "20px" }}>
             <header className="card-header">
               <p className="card-header-title">
@@ -265,7 +207,7 @@ export default function Home() {
             <div className="card-content" >
               <div className="content" >
                 <div className="select is-dark">
-                  <select style={{width : "325px"}}>
+                  <select style={{ width: "325px" }}>
                     <option>Base Model</option>
                     {model.map((x) => {
                       return <option value={x.id} key={x.id}>{x.title}</option>
@@ -300,13 +242,11 @@ export default function Home() {
                             </span>
                           }
                         </span>
-                        
+
                       </label>
                     </div>
 
-                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color : "white" }}>Submit</button>
-
-                    {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}></h1> */}
+                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
                   </form>
                   :
 
@@ -324,90 +264,15 @@ export default function Home() {
                         placeholder="Input your words here" onChange={e => setword(e.target.value)} />
                     </div>
 
-                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color : "white" }}>Submit</button>
-
-                    {/* <h1 className="is-size-6 is-family-code" style={{ marginTop: "5px" }}>{answer}</h1> */}
+                    <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
                   </form>
 
                 }
               </div>
             </div>
           </div>
-        </div>
-
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <AiFillCloseCircle onClick={closeModal}
-            style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
-
-          {answer ? <table className="table is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th>Words</th>
-                <th>Sentiment</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {answer.map((x) => (
-                <tr key={x.id}>
-                  <td>{x.word}</td>
-                  <td>{x.sentiment}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table> : answer}
-
-        </Modal>
-
+        </div> */}
       </div>
-
-      <div className="card" style={{ marginLeft: "100px", marginRight: "20px" }}>
-        <header className="card-header">
-          <p className="card-header-title">
-            Recent Model
-          </p>
-          <Link to ="/model"><p className="card-header-title" style={{textAlign : "end", marginLeft : "900px", color : "#00d1b2"}} >Full model list</p></Link>
-        </header>
-        <div className="card-content">
-          <div className="content" style={{ height: "150px" }}>
-            <table className="table is-hoverable is-fullwidth">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Update Time</th>
-                  {/* <th>Action</th> */}
-                </tr>
-              </thead>
-
-              <tbody>
-                {model.map((x) => (
-                  <tr key={x.id}>
-                    <td>{x.id}</td>
-                    <td>{x.title}</td>
-                    <th>{x.description}</th>
-                    <th>{x.created}</th>
-                    {/* <td><button className="button is-danger" onClick={(e) => {
-                      e.preventDefault()
-                      deleteModel(x.id)
-                    }}>Delete</button></td> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      {/* </div> */}
-      {/* </div> */}
     </>
   )
 }
