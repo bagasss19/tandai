@@ -9,8 +9,8 @@ export default function Navbar() {
     if (localStorage.token) {
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation" style={{ position: 'sticky', top: 0, backgroundColor : "#ffffff" }}>
-                <div className="navbar-brand">
-                    <Link to="/" className="navbar-item"><img src={Logo} alt="tandai" width="80px" /></Link>
+                <div className="navbar-brand" style={{position: "absolute", zIndex: 1 }}>
+                    <Link to="/" className="navbar-item"><img src={Logo} alt="tandai" /></Link>
                 </div>
 
                 {/* <div id="navbarBasicExample" className="navbar-menu">

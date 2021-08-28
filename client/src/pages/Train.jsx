@@ -134,7 +134,7 @@ export default function Train() {
                         Train Model
                     </p>
 
-                    {/* <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
+                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
                         <select
                             defaultValue={isFile}
                             onChange={(e) => {
@@ -147,7 +147,7 @@ export default function Train() {
                             <option value="false" >Simple</option>
                             <option value="true" >Upload File</option>
                         </select>
-                    </div> */}
+                    </div>
 
                 </header>
                 <div className="card-content" >
