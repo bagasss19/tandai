@@ -18,6 +18,11 @@ import json
 import pickle
 import os
 
+
+import string    
+import random
+import requests
+
 # Create your views here.
 class Login(CreateAPIView):
     permission_classes = (AllowAny,)
@@ -310,6 +315,33 @@ class PackageView(CreateAPIView):
             package = Package.objects.get(id=pk)
             package.delete()
             return Response("success delete!")
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class TransferView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    parser_class = (FileUploadParser,)
+
+    def put(self, request, format=None):
+        try :
+            if 'file' not in request.data:
+                raise ParseError("Empty content")
+            S = 10
+            f = request.data['file']
+
+            u = User.objects.filter(id=request.user.id).values()
+            username = u[0]['username']
+
+            ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
+
+            filename = username + "_" + ran
+            return Response({"filename" : filename},
+            status=status.HTTP_201_CREATED)
+
         except Exception as error:
             return Response({
                 "detail": str(error)
