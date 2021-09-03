@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FaUpload } from "react-icons/fa";
 import Axios from '../config/axios'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
@@ -23,86 +24,76 @@ const customStyles = {
 }
 
 export default function Train() {
-    const [isFile, setisFile] = useState(false)
-    const [word, setword] = useState("")
     const [file, setFile] = useState(null)
     const [fileName, setFilename] = useState(null)
     const [loading, setloading] = useState(true)
-    const [answer, setanswer] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
 
-    function add() {
+    const postApi = (id) => {
         setloading(true)
-        Axios({
-            url: 'user/model',
-            method: 'post',
-            headers: {
-                "Authorization": localStorage.token
-            },
-            data: { word }
-        })
-            .then(function (response) {
-                // handle success
-                console.log(response.data, "response<<<<<<<<<<< SUKSES GAKKKKKK")
-                // setanswer(response.data.sentiment)
-                setloading(false)
-                Swal.fire({
-                    title: 'Success!',
-                    text: response.data.sentiment,
-                    icon: 'success',
-                    confirmButtonText: 'Close'
+        if (!file) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Empty file!',
+                icon: 'error',
+                confirmButtonText: 'Okay'
+            })
+            setloading(false)
+        } else {
+            Axios({
+                url: 'user/transfer/' + id,
+                method: 'get',
+                headers: {
+                    "Authorization": localStorage.token
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    const input = new FormData()
+                    input.append('file', file, response.data.filename)
+                    axios({
+                        url: 'http://52.230.97.84:8000/upload',
+                        method: 'post',
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        },
+                        data: input
+                    })
+                        .then(function (response) {
+                            // handle success
+                            console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
+                            console.log("SUKSESSSSSSSSSSSSSSSSS")
+                            setloading(false)
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Upload Model Success',
+                                icon: 'success',
+                                confirmButtonText: 'Cool'
+                            })
+                        })
                 })
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+        }
     }
-
     function addFile() {
         setloading(true)
-        const input = new FormData();
-        input.append('file', file)
-        Axios({
-            url: 'user/file',
-            method: 'put',
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "Authorization": localStorage.token
-            },
-            data: input
-        })
-            .then(function (response) {
-                // handle success
-                setanswer(response.data.data)
-                setloading(false)
-                openModal()
-            })
+        postApi()
     }
 
     const uploadFile = (event) => {
-        setFile(event.target.files[0])
-        setFilename(event.target.files[0].name)
-    };
-
-    function openModal() {
-        setIsOpen(true);
-    }
-
-    const getModel = () => {
-        Axios({
-            url: 'model',
-            method: 'get',
-            headers: {
-                "Authorization": localStorage.token
-            }
-        })
-            .then(function (response) {
-                // handle success
-                setmodel(response.data)
-                setloading(false)
+        console.log(event.target.files[0].name, "<<<<NAMEEEE")
+        console.log(event.target.files[0].name.substr(event.target.files[0].name.length - 3, event.target.files[0].name.length - 1))
+        if (event.target.files[0].name.substr(event.target.files[0].name.length - 3, event.target.files[0].name.length - 1) !== 'csv') {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Wrong file input!',
+                icon: 'error',
+                confirmButtonText: 'Okay'
             })
+        } else {
+            setFile(event.target.files[0])
+            setFilename(event.target.files[0].name)
+        }
     }
 
     function afterOpenModal() {
@@ -115,7 +106,18 @@ export default function Train() {
     }
 
     useEffect(() => {
-        getModel()
+        Axios({
+            url: 'model',
+            method: 'get',
+            headers: {
+                "Authorization": localStorage.token
+            }
+        })
+            .then(function (response) {
+                // handle success
+                setmodel(response.data)
+                setloading(false)
+            })
     }, [])
 
     if (loading) {
@@ -134,21 +136,6 @@ export default function Train() {
                         Train Model
                     </p>
 
-                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
-                        <select
-                            defaultValue={isFile}
-                            onChange={(e) => {
-                                if (e.target.value === 'false') {
-                                    setisFile(false)
-                                } else {
-                                    setisFile(true)
-                                }
-                            }}>
-                            <option value="false" >Simple</option>
-                            <option value="true" >Upload File</option>
-                        </select>
-                    </div>
-
                 </header>
                 <div className="card-content" >
                     <div className="content" >
@@ -161,59 +148,37 @@ export default function Train() {
                             </select>
                         </div>
 
-                        {isFile ?
+                        <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px" }}
+                            encType="multipart/form-data"
+                            onSubmit={(e) => {
+                                e.preventDefault()
+                                addFile()
+                            }}>
 
-                            <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px" }}
-                                encType="multipart/form-data"
-                                onSubmit={(e) => {
-                                    e.preventDefault()
-                                    addFile()
-                                }}>
-
-                                <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
-                                    <label className="file-label">
-                                        <input className="file-input" type="file" name="resume" onChange={uploadFile} />
-                                        <span className="file-cta">
-                                            <span className="file-icon">
-                                                <FaUpload />
-                                            </span>
-
-                                            {fileName ?
-                                                <span className="file-label">
-                                                    {fileName}
-                                                </span>
-                                                :
-                                                <span className="file-label">
-                                                    Choose a file…
-                                                </span>
-                                            }
+                            <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
+                                <label className="file-label">
+                                    <input className="file-input" accept=".csv" type="file" name="resume" onChange={uploadFile} />
+                                    <span className="file-cta">
+                                        <span className="file-icon">
+                                            <FaUpload />
                                         </span>
 
-                                    </label>
-                                </div>
+                                        {fileName ?
+                                            <span className="file-label">
+                                                {fileName}
+                                            </span>
+                                            :
+                                            <span className="file-label">
+                                                Choose a file…
+                                            </span>
+                                        }
+                                    </span>
 
-                                <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
-                            </form>
-                            :
+                                </label>
+                            </div>
 
-                            <form className="form" style={{ width: "100%", margin: "auto", marginTop: "10px" }}
-                                encType="multipart/form-data"
-                                onSubmit={(e) => {
-                                    e.preventDefault()
-                                    add()
-                                }
-                                }>
-
-                                <div className="field">
-                                    <input className="input" type="text" name="Word" defaultValue={word}
-                                        style={{ marginBottom: "3px" }}
-                                        placeholder="Input your words here" onChange={e => setword(e.target.value)} />
-                                </div>
-
-                                <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
-                            </form>
-
-                        }
+                            <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
+                        </form>
                     </div>
                 </div>
 
@@ -226,24 +191,6 @@ export default function Train() {
                 >
                     <AiFillCloseCircle onClick={closeModal}
                         style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
-
-                    {answer ? <table className="table is-hoverable is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>Words</th>
-                                <th>Sentiment</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {answer.map((x) => (
-                                <tr key={x.id}>
-                                    <td>{x.word}</td>
-                                    <td>{x.sentiment}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table> : answer}
 
                 </Modal>
 
