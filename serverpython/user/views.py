@@ -66,7 +66,7 @@ class RegisterView(CreateAPIView):
     '''
     serializer_class = CreateUserSerializer
 
-class UserView(GenericAPIView):
+class UserView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request, pk):
         try:
@@ -78,8 +78,9 @@ class UserView(GenericAPIView):
             p_name = p[0]['title']
             username = u[0]['username']
             email = u[0]['email']
+            company = u[0]['company']
             return Response({"usage" : usage, "limit" : limit,"package_name" : p_name, "username" : username
-            , "email" : email})
+            , "email" : email, "company" : company})
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({
@@ -91,10 +92,18 @@ class UserView(GenericAPIView):
     def put(self, request, pk):
         try:
             # return Response("ASHUPPP")
-            user = User.objects.get(id=pk)
+            user = User.objects.get(id=request.user.id)
+
+            uname = request.data.get("username")
+            comp = request.data.get("company")
+
+            user.username = uname
+            user.company = comp
+
             serializer = UserSerializer(user, data=request.data)
             if serializer.is_valid():
                 serializer.save()
+            user.save()
             return Response(serializer.data)
         except Exception as error:
             return Response({

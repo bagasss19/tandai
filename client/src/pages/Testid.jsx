@@ -5,6 +5,9 @@ import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
+import {
+    useParams
+} from "react-router-dom";
 
 Modal.setAppElement('#root');
 
@@ -23,6 +26,7 @@ const customStyles = {
 }
 
 export default function Testid() {
+    let { id } = useParams()
     const [isFile, setisFile] = useState(false)
     const [word, setword] = useState("")
     const [file, setFile] = useState(null)
@@ -90,20 +94,6 @@ export default function Testid() {
         setIsOpen(true);
     }
 
-    const getModel = () => {
-        Axios({
-            url: 'model',
-            method: 'get',
-            headers: {
-                "Authorization": localStorage.token
-            }
-        })
-            .then(function (response) {
-                // handle success
-                setmodel(response.data)
-                setloading(false)
-            })
-    }
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
@@ -115,8 +105,19 @@ export default function Testid() {
     }
 
     useEffect(() => {
-        getModel()
-    }, [])
+        Axios({
+            url: 'model/' + id,
+            method: 'get',
+            headers: {
+                "Authorization": localStorage.token
+            }
+        })
+            .then(function (response) {
+                // handle success
+                setmodel(response.data[0])
+                setloading(false)
+            })
+    }, [id])
 
     if (loading) {
         return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
@@ -131,7 +132,7 @@ export default function Testid() {
             <div className="card" style={{ height: "250px", width: "60%", marginLeft: "300px", marginTop: "100px" }}>
                 <header className="card-header">
                     <p className="card-header-title">
-                        API Testing
+                        API Testing {id}
                     </p>
 
                     <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
@@ -154,10 +155,7 @@ export default function Testid() {
                     <div className="content" >
                         <div className="select is-dark">
                             <select style={{ width: "325px" }} disabled>
-                                <option>Base Model</option>
-                                {model.map((x) => {
-                                    return <option value={x.id} key={x.id}>{x.title}</option>
-                                })}
+                                <option> {model.title} </option>
                             </select>
                         </div>
 

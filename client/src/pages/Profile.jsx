@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
     Link,
 } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 export default function Profile() {
     const [user, setuser] = useState("null")
@@ -24,6 +25,29 @@ export default function Profile() {
                 setuser(response.data)
                 console.log(response.data, "<<<DANDANJADN")
                 setloading(false)
+            })
+    }
+
+    const update = () => {
+        console.log(user.username,user.company, "<<<USEEERRR")
+        setloading(true)
+        axios({
+            url: 'user/' + localStorage.id,
+            method: 'put',
+            headers: {
+                "Authorization": localStorage.token
+            },
+            data : {username : user.username, company : user.company}
+        })
+            .then(function (response) {
+                // handle success)
+                setloading(false)
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Update Profile Success',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
             })
     }
 
@@ -63,9 +87,22 @@ export default function Profile() {
                     <label className="label is-family-code">Username</label>
                     <input className="input" type="text" name="Title"
                         style={{ marginBottom: "30px" }}
-                        disabled
-                        defaultValue={user.username} />
+                        defaultValue={user.username}
+                        onChange={(e) => {
+                            setuser({...user, username : e.target.value})
+                        }} />
                 </div>
+
+                <div className="field">
+                    <label className="label is-family-code">Company</label>
+                    <input className="input" type="text" name="Title"
+                        style={{ marginBottom: "30px" }}
+                        defaultValue={user.company}
+                        onChange={(e) => {
+                            setuser({...user, company : e.target.value})
+                        }} />
+                </div>
+
 
                 <div className="field">
                     <label className="label is-family-code">Email</label>
@@ -95,8 +132,8 @@ export default function Profile() {
                 draggable
                 pauseOnHover
             />
-            <button className="button is-black" onClick={() => { navigator.clipboard.writeText(localStorage.token); notify() }}>Get API Token</button>
-            {/* <button className="button is-black" style={{marginLeft : "20px"}}>Reset Password</button> */}
+            <button className="button Mainkolor" style={{color : "white"}} onClick={() => { navigator.clipboard.writeText(localStorage.token); notify() }}>Get API Token</button>
+            <button className="button Mainkolor" style={{marginLeft : "20px", color : "white"}} onClick={update}>Update Profile</button>
 
         </>
     )

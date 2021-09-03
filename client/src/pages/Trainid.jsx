@@ -26,7 +26,7 @@ const customStyles = {
     },
 }
 
-export default function Trainid(props) {
+export default function Trainid() {
     let { id } = useParams()
     const [file, setFile] = useState(null)
     const [fileName, setFilename] = useState(null)

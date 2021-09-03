@@ -51,8 +51,8 @@ export default function Login(props) {
                                 login()
                             }}>
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Username:</label>
-                                <input className="input" type="text" placeholder="Enter your username" onChange={e => setusername(e.target.value)} />
+                                <label className="label is-family-code" style={{ textAlign: "left" }}>Email:</label>
+                                <input className="input" type="email" placeholder="Enter your email" onChange={e => setusername(e.target.value)} />
                             </div>
 
                             <div className="field">

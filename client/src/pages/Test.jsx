@@ -170,7 +170,7 @@ export default function Test() {
                                     addFile()
                                 }}>
 
-                                <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
+                                <div className="file is-small" style={{ marginTop: "10px", marginLeft: "100px" }}>
                                     <label className="file-label">
                                         <input className="file-input" type="file" name="resume" onChange={uploadFile} />
                                         <span className="file-cta">

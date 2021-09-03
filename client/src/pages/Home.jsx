@@ -185,7 +185,7 @@ export default function Home() {
                     <th>{x.description}</th>
                     <th>{generateDate(x.created)}</th>
                     <td>
-                    <Link to ="/test"><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
+                    <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
                     <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
                       <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                         e.preventDefault()

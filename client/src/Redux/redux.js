@@ -1,4 +1,7 @@
 // KARENA APPNYA MASIH KECIL, REDUX DIBIKIN SATU FILE DULU
+import React from 'react'; 
+const GlobalState = React.createContext([{}, () => {}]); 
+export default GlobalState;
 
 //bikin initial state
 const initialState = {
