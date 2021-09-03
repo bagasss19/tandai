@@ -18,13 +18,14 @@ import Faq from './pages/Faq'
 import Package from './pages/Package'
 import Test from './pages/Test'
 import Train from './pages/Train'
+import Trainid from './pages/Trainid'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
   const [sideNavExpanded, setSideNavExpanded] = useState(false);
 
   const contentStyle = {
-    marginLeft: sideNavExpanded ? "150px" : "20px", // arbitrary values
+    marginLeft: sideNavExpanded ? "150px" : "2px", // arbitrary values
     transition: "margin 0.2s ease"
 };
 
@@ -40,9 +41,10 @@ function App() {
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
-          <PrivateRoute path="/train" component={Train} auth={isAutheticated}/>
+          <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/>
           <PrivateRoute path="/package" component={Package} auth={isAutheticated}/>
-          <PrivateRoute path="/test" component={Test} auth={isAutheticated}/></div>
+          <PrivateRoute path="/test" component={Test} auth={isAutheticated}/>
+          <PrivateRoute path="/train/:id" component={Trainid} auth={isAutheticated}/></div>
         </Switch>
       </Router>
     </div>

@@ -1,10 +1,20 @@
 # tandai
 Tandai is review sentiment web app, use React JS + Django
 
-# Tech stack
+## Tech stack
 Django + React JS + Postgres
 
-# feature
-- Sentiment Analysis with multiple input such as word, Json and file
-- Login with authorization token
+# Backend
+- Django
+- Authentication and Authorization
 - One to many relation
+- Upload csv file
+- Postgresql
+
+# Frontend
+- React JS
+- Redux
+- Bulma.io
+- Axios
+- Sweet Alert
+- Alert Notification

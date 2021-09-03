@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import *
 from .models import *
+from modelml.models import *
 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
@@ -326,21 +327,20 @@ class TransferView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
-    def put(self, request, format=None):
+    def get(self, request, pk):
         try :
-            if 'file' not in request.data:
-                raise ParseError("Empty content")
             S = 10
-            f = request.data['file']
 
             u = User.objects.filter(id=request.user.id).values()
             username = u[0]['username']
+            model = Modelml.objects.filter(id=pk).values()
+            baseName = model[0]['title']
 
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
 
-            filename = username + "_" + ran
+            filename = username + "_" + ran + "_" + baseName
             return Response({"filename" : filename},
-            status=status.HTTP_201_CREATED)
+            status=status.HTTP_200_OK)
 
         except Exception as error:
             return Response({

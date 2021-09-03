@@ -22,7 +22,7 @@ const customStyles = {
     },
 }
 
-export default function Test() {
+export default function Testid() {
     const [isFile, setisFile] = useState(false)
     const [word, setword] = useState("")
     const [file, setFile] = useState(null)
@@ -153,7 +153,7 @@ export default function Test() {
                 <div className="card-content" >
                     <div className="content" >
                         <div className="select is-dark">
-                            <select style={{ width: "325px" }}>
+                            <select style={{ width: "325px" }} disabled>
                                 <option>Base Model</option>
                                 {model.map((x) => {
                                     return <option value={x.id} key={x.id}>{x.title}</option>

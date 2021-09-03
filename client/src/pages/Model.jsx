@@ -196,7 +196,7 @@ export default function Model() {
                     e.preventDefault()
                     submit()
                 }}>
-                    <input className="input is-dark  " type="text" placeholder="Title" onChange={e => { settitle(e.target.value) }} />
+                    <input className="input is-dark  " type="text" placeholder="model id" onChange={e => { settitle(e.target.value) }} />
 
                     <input className="input is-dark" type="text" placeholder="Description" onChange={e => { setdescripion(e.target.value) }} style={{ marginTop: "20px" }} />
                     {/* UPLOAD FILE */}
@@ -256,8 +256,7 @@ export default function Model() {
             <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width : "90%" }}>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Title</th>
+                        <th>Model ID</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
@@ -266,7 +265,6 @@ export default function Model() {
                 <tbody>
                     {model.map((x) => (
                         <tr key={x.id}>
-                            <td>{x.id}</td>
                             <td>{x.title}</td>
                             <td>{x.description}</td>
                             <td><button className="button is-link" onClick={(e) => {

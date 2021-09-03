@@ -71,3 +71,47 @@ class ModelmlView(CreateAPIView):
             },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+class ModelmlidView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    parser_class = (FileUploadParser,)
+    def get(self, request, pk):
+        try:
+            # return Response("ASHUPPP")
+            modelml = Modelml.objects.filter(id=pk)
+            print(modelml, "<<<<<<<<<LALALALALAL")
+            serializer = ModelSerializer(modelml, many=True)
+            return Response(serializer.data)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def put(self, request, pk):
+        try:
+            # return Response("ASHUPPP")
+            post = Modelml.objects.get(id=pk)
+            serializer = ModelSerializer(post, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def delete(self, request, pk):
+        try:
+            post = Modelml.objects.get(id=pk)
+            post.delete()
+            return Response("success delete!")
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )

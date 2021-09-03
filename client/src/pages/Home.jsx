@@ -50,6 +50,23 @@ export default function Home() {
       })
   }
 
+  const generateDate = (date) =>  {
+    let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear()
+    let hours = d.getHours()
+    let minutes = d.getMinutes()
+    let second = d.getSeconds()
+
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+
+    return `${day}-${month}-${year} ${hours}:${minutes}:${second}`
+  }
+
   useEffect(() => {
     Axios({
       url: `user/${localStorage.id}`,
@@ -146,17 +163,17 @@ export default function Home() {
           <p className="card-header-title">
             Model List
           </p>
-          {/* <Link to="/model"><p className="card-header-title" style={{ textAlign: "end", marginLeft: "900px", color: "#00d1b2" }} >Full model list</p></Link> */}
+          
+          <Link to="/model"><p className="card-header-title" style={{ textAlign: "end", marginLeft: "900px", color: "#00d1b2" }} >Full model list</p></Link>
         </header>
         <div className="card-content">
           <div className="content" style={{ height: "150px" }}>
             <table className="table is-hoverable is-fullwidth">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Title</th>
+                  <th>Model ID</th>
                   <th>Description</th>
-                  <th>Update Time (iya ini mau dibenerin)</th>
+                  <th>Update Time</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -164,13 +181,12 @@ export default function Home() {
               <tbody>
                 {model.map((x) => (
                   <tr key={x.id}>
-                    <td>{x.id}</td>
                     <td>{x.title}</td>
                     <th>{x.description}</th>
-                    <th>{x.created}</th>
+                    <th>{generateDate(x.created)}</th>
                     <td>
                     <Link to ="/test"><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
-                    <Link to="/train"><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
+                    <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
                       <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                         e.preventDefault()
                         deleteModel(x.id)

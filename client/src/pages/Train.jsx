@@ -153,7 +153,7 @@ export default function Train() {
                 <div className="card-content" >
                     <div className="content" >
                         <div className="select is-dark">
-                            <select style={{ width: "325px" }} disabled>
+                            <select style={{ width: "325px" }}>
                                 <option>Base Model</option>
                                 {model.map((x) => {
                                     return <option value={x.id} key={x.id}>{x.title}</option>
