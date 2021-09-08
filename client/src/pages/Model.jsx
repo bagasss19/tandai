@@ -6,7 +6,9 @@ import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
 import Swal from 'sweetalert2'
 import { FaUpload } from "react-icons/fa";
-
+import {
+    Link,
+  } from "react-router-dom";
 
 const customStyles = {
     content: {
@@ -37,9 +39,9 @@ export default function Model() {
     const [title, settitle] = useState(null)
     let subtitle;
 
-    function openModal() {
-        setIsOpen(true);
-    }
+    // function openModal() {
+    //     setIsOpen(true);
+    // }
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
@@ -173,11 +175,11 @@ export default function Model() {
         <div>
             <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Model List</h1>
 
-            <button className="button is-primary"
+            {/* <button className="button is-primary"
                 style={{ marginBottom: "30px", marginTop: '30px' }}
                 onClick={openModal}
             >
-                Add Model</button>
+                Add Model</button> */}
 
             <Modal
                 isOpen={modalIsOpen}
@@ -253,11 +255,11 @@ export default function Model() {
                 </form>
             </Modal>
 
-            <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width : "90%" }}>
+            <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width: "90%" }}>
                 <thead>
                     <tr>
                         <th>Model ID</th>
-                        <th>Description</th>
+                        <th>Model Name</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -267,14 +269,9 @@ export default function Model() {
                         <tr key={x.id}>
                             <td>{x.title}</td>
                             <td>{x.description}</td>
-                            <td><button className="button is-link" onClick={(e) => {
-                                e.preventDefault()
-
-                            }}>Test</button>
-                                <button className="button is-link" style={{ marginLeft: "5px" }} onClick={(e) => {
-                                e.preventDefault()
-                                setModalTraining(true)
-                            }}>Train</button>
+                            <td>
+                                <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
+                                <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
                                 <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                                     e.preventDefault()
                                     deleteModel(x.id)

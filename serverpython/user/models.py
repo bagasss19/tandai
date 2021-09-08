@@ -4,6 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, UserMa
 class Package(models.Model):
     title = models.CharField(max_length=100)
     API_quota = models.IntegerField(default=0)
+    TF_quota = models.IntegerField(default=0)
 
 class User(AbstractBaseUser):
     username = models.CharField(
@@ -24,6 +25,7 @@ class User(AbstractBaseUser):
         default=False
     )
     API_usage = models.IntegerField(default=0)
+    TF_usage = models.IntegerField(default=0)
     package = models.ForeignKey(Package,on_delete=models.CASCADE, default=1)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'password']

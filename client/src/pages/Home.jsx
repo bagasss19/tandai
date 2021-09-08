@@ -50,22 +50,22 @@ export default function Home() {
       })
   }
 
-  const generateDate = (date) =>  {
-    let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear()
-    let hours = d.getHours()
-    let minutes = d.getMinutes()
-    let second = d.getSeconds()
+  // const generateDate = (date) =>  {
+  //   let d = new Date(date),
+  //   month = '' + (d.getMonth() + 1),
+  //   day = '' + d.getDate(),
+  //   year = d.getFullYear()
+  //   let hours = d.getHours()
+  //   let minutes = d.getMinutes()
+  //   let second = d.getSeconds()
 
-    if (month.length < 2) 
-      month = '0' + month;
-    if (day.length < 2) 
-      day = '0' + day;
+  //   if (month.length < 2) 
+  //     month = '0' + month;
+  //   if (day.length < 2) 
+  //     day = '0' + day;
 
-    return `${day}-${month}-${year} ${hours}:${minutes}:${second}`
-  }
+  //   return `${day}-${month}-${year} ${hours}:${minutes}:${second}`
+  // }
 
   useEffect(() => {
     Axios({
@@ -79,7 +79,7 @@ export default function Home() {
         setpaket(response.data)
         getModel()
       })
-  }, [])
+  },[])
 
   if (loading) {
     return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
@@ -101,10 +101,14 @@ export default function Home() {
             </header>
             <div className="card-content">
               <div className="content">
-                <div style={{ marginTop: "30px" }}></div>
+                <div style={{ marginTop: "5px" }}></div>
                 <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" />
                 <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
+
+                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" />
+                <br></br>
+                <p>{JSON.stringify(paket.TF_usage)} / {JSON.stringify(paket.TF_limit)} Used</p>
               </div>
             </div>
           </div>
@@ -127,10 +131,8 @@ export default function Home() {
                     <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>Package</p>
                     {(() => {
                       switch (paket.package_name) {
-                        case "free": return <span className="tag is-dark is-medium">Free</span>
-                        case "bronze": return <span className="tag is-medium" style={{ backgroundColor: "#ff5100" }}>Bronze</span>
-                        case "silver": return <span className="tag is-light is-medium">Silver</span>
-                        case "gold": return <span className="tag is-warning is-medium">Gold</span>
+                        case "starter": return <span className="tag is-dark is-medium">Starter</span>
+                        case "pro": return <span className="tag is-warning is-medium">Pro</span>
                         default: return <h5>Not Confirmed</h5>;
                       }
                     })()}
@@ -141,10 +143,10 @@ export default function Home() {
                     <p>{JSON.stringify(paket.limit)}</p>
                   </div>
 
-                  <div className="column">
+                  {/* <div className="column">
                     <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>Expired Date</p>
                     <time dateTime="2016-1-1">31 Dec 21</time>
-                  </div>
+                  </div> */}
 
                 </div>
               </div>
@@ -172,8 +174,7 @@ export default function Home() {
               <thead>
                 <tr>
                   <th>Model ID</th>
-                  <th>Description</th>
-                  <th>Update Time</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -181,9 +182,16 @@ export default function Home() {
               <tbody>
                 {model.map((x) => (
                   <tr key={x.id}>
-                    <td>{x.title}</td>
-                    <th>{x.description}</th>
-                    <th>{generateDate(x.created)}</th>
+                    <td>{x.model_ID}</td>
+                    <th>
+                    {(() => {
+                      switch (x.status) {
+                        case "0": return <span className="tag is-warning is-medium">Progress</span>
+                        case "1": return <span className="tag is-success is-medium">Success</span>
+                        default: return <h5>Error</h5>;
+                      }
+                    })()}
+                    </th>
                     <td>
                     <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
                     <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>

@@ -72,6 +72,16 @@ export default function Train() {
                                 confirmButtonText: 'Cool'
                             })
                         })
+                        .catch(function (error) {
+                            // handle Error
+                            console.log(error,"<<<ERRRORRR")
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Failed to Upload Model!',
+                                icon: 'error',
+                                confirmButtonText: 'Okay'
+                            })
+                        })
                 })
         }
     }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FaUpload } from "react-icons/fa";
 import Axios from '../config/axios'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
@@ -44,19 +45,34 @@ export default function Testid() {
             headers: {
                 "Authorization": localStorage.token
             },
-            data: { word }
         })
             .then(function (response) {
                 // handle success
-                console.log(response.data, "response<<<<<<<<<<< SUKSES GAKKKKKK")
-                // setanswer(response.data.sentiment)
-                setloading(false)
-                Swal.fire({
-                    title: 'Success!',
-                    text: response.data.sentiment,
-                    icon: 'success',
-                    confirmButtonText: 'Close'
+                axios({
+                    url: 'http://162.55.37.249:8000/singletext',
+                    method: 'post',
+                    data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
                 })
+                    .then(function (response) {
+                        // handle success
+                        console.log(response.data, "<<<<<<<<<< RESPONSE")
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.data,
+                            icon: 'success',
+                            confirmButtonText: 'Cool'
+                        })
+                        setloading(false)
+                    })
+                    .catch(function (response) {
+                        // handle success
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Upload File Failed!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        })
+                    })
             })
             .catch(function (error) {
                 // handle error
@@ -115,6 +131,7 @@ export default function Testid() {
             .then(function (response) {
                 // handle success
                 setmodel(response.data[0])
+                console.log(model, "<<<<MOOODELLLLL")
                 setloading(false)
             })
     }, [id])
@@ -132,7 +149,7 @@ export default function Testid() {
             <div className="card" style={{ height: "250px", width: "60%", marginLeft: "300px", marginTop: "100px" }}>
                 <header className="card-header">
                     <p className="card-header-title">
-                        API Testing {id}
+                        API Testing
                     </p>
 
                     <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
@@ -155,7 +172,7 @@ export default function Testid() {
                     <div className="content" >
                         <div className="select is-dark">
                             <select style={{ width: "325px" }} disabled>
-                                <option> {model.title} </option>
+                                <option> {model.model_ID} </option>
                             </select>
                         </div>
 

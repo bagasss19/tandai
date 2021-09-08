@@ -72,14 +72,16 @@ class UserView(CreateAPIView):
         try:
             u = User.objects.filter(id=request.user.id).values()
             usage = u[0]['API_usage']
+            tf_usage = u[0]['TF_usage']
             package = u[0]['package_id']
             p = Package.objects.filter(id=package).values()
             limit = p[0]['API_quota']
+            tf_limit = p[0]['TF_quota']
             p_name = p[0]['title']
             username = u[0]['username']
             email = u[0]['email']
             company = u[0]['company']
-            return Response({"usage" : usage, "limit" : limit,"package_name" : p_name, "username" : username
+            return Response({"usage" : usage,  "TF_limit" : tf_limit , "TF_usage" : tf_usage ,"limit" : limit,"package_name" : p_name, "username" : username
             , "email" : email, "company" : company})
         except Exception as error:
             print(error, "ERRORR NICH")
@@ -131,15 +133,15 @@ class ModelView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request):
         try:
-            module_dir = os.path.dirname(__file__)  
-            tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
-            mnbloc = os.path.join(module_dir, 'mnb.pickle')
+            # module_dir = os.path.dirname(__file__)  
+            # tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
+            # mnbloc = os.path.join(module_dir, 'mnb.pickle')
             
             #Load tfidf matrix
-            tfidf = pickle.load(open(tfdifloc, "rb"))
+            # tfidf = pickle.load(open(tfdifloc, "rb"))
 
             #Load mnb model
-            mnb = pickle.load(open(mnbloc, "rb"))
+            # mnb = pickle.load(open(mnbloc, "rb"))
 
             #Check Api Usage
             u = User.objects.filter(id=request.user.id).values()
@@ -154,20 +156,24 @@ class ModelView(CreateAPIView):
                 })
 
             #proses data
-            tfidf_baru = tfidf.transform([request.data["word"]])
-            hasil = mnb.predict(tfidf_baru)
+            # tfidf_baru = tfidf.transform([request.data["word"]])
+            # hasil = mnb.predict(tfidf_baru)
 
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
             user.save()
-            if hasil == 0:
-                return Response({
-                "sentiment" : "negative"
-            })
-            else :
-                return Response({
-                "sentiment" : "positive"
-            })
+
+            return Response({
+                    "Response" : "Sukses"
+                })
+            # if hasil == 0:
+            #     return Response({
+            #     "sentiment" : "negative"
+            # })
+            # else :
+            #     return Response({
+            #     "sentiment" : "positive"
+            # })
         except Exception as error:
             return Response({
                 "detail": str(error)
@@ -336,22 +342,46 @@ class TransferView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
-    def get(self, request, pk):
+    def post(self, request, pk):
         try :
+            if 'file' not in request.data:
+                raise ParseError("Empty content")
             S = 10
+
+            #Check Api Usage
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['TF_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['TF_quota']
+
+            if usage >= limit :
+                return Response({
+                    "Error" : "Kuota Abis Cuy"
+                },status=status.HTTP_400_BAD_REQUEST)
+
+            f = request.data['file']
+            df = pd.read_csv(f)
+            print(len(df), "<<<<ROWW")
 
             u = User.objects.filter(id=request.user.id).values()
             username = u[0]['username']
             model = Modelml.objects.filter(id=pk).values()
-            baseName = model[0]['title']
+            baseName = model[0]['model_ID']
+            
+            
+            user = User.objects.filter(id=request.user.id).get()
+            user.TF_usage = usage + len(df)
+            user.save()
 
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
 
-            filename = username + "_" + ran + "_" + baseName
+            filename = str(request.user.id) + "_" + baseName + "_" + ran
             return Response({"filename" : filename},
             status=status.HTTP_200_OK)
 
         except Exception as error:
+            print(error, "<<<<ERRRORRRR")
             return Response({
                 "detail": str(error)
             },

@@ -45,19 +45,24 @@ export default function Trainid() {
             })
             setloading(false)
         } else {
+            const input = new FormData()
+            input.append('file', file)
+
             Axios({
                 url: 'user/transfer/' + id,
-                method: 'get',
+                method: 'post',
                 headers: {
-                    "Authorization": localStorage.token
-                }
+                    "Authorization": localStorage.token,
+                    "Content-Type": "multipart/form-data"
+                },
+                data : input
             })
                 .then(function (response) {
                     // handle success
-                    const input = new FormData()
                     input.append('file', file, response.data.filename)
+                    console.log(response.data.filename, "<<<FIELNAMEEE")
                     axios({
-                        url: 'http://52.230.97.84:8000/upload',
+                        url: 'http://162.55.37.249:8000/upload',
                         method: 'post',
                         headers: {
                             "Content-Type": "multipart/form-data"
@@ -76,6 +81,28 @@ export default function Trainid() {
                                 confirmButtonText: 'Cool'
                             })
                         })
+                        .catch(function (error) {
+                            // handle ERROR
+                            console.log(error, "<<<<<<ERRR")
+                            setloading(false)
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Upload File Failed!',
+                                icon: 'error',
+                                confirmButtonText: 'Okay'
+                            })
+                        })
+                }) 
+                .catch(function (error) {
+                    // handle ERROR
+                    console.log(error, "<<<<<<ERRR")
+                    setloading(false)
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error di Local!',
+                        icon: 'error',
+                        confirmButtonText: 'Okay'
+                    })
                 })
         }
     }
@@ -85,8 +112,7 @@ export default function Trainid() {
     }
 
     const uploadFile = (event) => {
-        console.log(event.target.files[0].name, "<<<<NAMEEEE")
-        console.log(event.target.files[0].name.substr(event.target.files[0].name.length - 3, event.target.files[0].name.length - 1))
+        // console.log(event.target.files[0].name.substr(event.target.files[0].name.length - 3, event.target.files[0].name.length - 1))
         if (event.target.files[0].name.substr(event.target.files[0].name.length - 3, event.target.files[0].name.length - 1) !== 'csv') {
             Swal.fire({
                 title: 'Error!',
@@ -141,11 +167,12 @@ export default function Trainid() {
                     </p>
 
                 </header>
+
                 <div className="card-content" >
                     <div className="content" >
                         <div className="select is-dark">
                             <select style={{ width: "325px" }} disabled>
-                                <option>{model.title}</option>
+                                <option>{model.model_ID}</option>
                             </select>
                         </div>
 
@@ -155,6 +182,17 @@ export default function Trainid() {
                                 e.preventDefault()
                                 addFile()
                             }}>
+
+                            <div className="field">
+                                {/* <label className="label is-family-code">Model Name</label> */}
+                                {/* <input className="input" type="text" name="Model Name" placeholder="model name"
+                                    style={{ marginBottom: "30px" }}
+                                    defaultValue={user.company}
+                                    onChange={(e) => {
+                                        setuser({ ...user, company: e.target.value })
+                                    }} 
+                                    /> */}
+                            </div>
 
                             <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
                                 <label className="file-label">

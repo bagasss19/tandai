@@ -4,4 +4,4 @@ from .models import Modelml
 class ModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modelml
-        fields = ('id','title','description', 'modelml_url', 'model_owner', 'created')
+        fields = ('id','model_ID', 'model_owner', 'status')
