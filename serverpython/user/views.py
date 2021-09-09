@@ -185,27 +185,30 @@ class FileUploadView(APIView):
     permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
-    def put(self, request, format=None):
+    def put(self, request, pk):
         try :
             if 'file' not in request.data:
                 raise ParseError("Empty content")
             
-            module_dir = os.path.dirname(__file__)  
-            tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
-            mnbloc = os.path.join(module_dir, 'mnb.pickle')
+            # module_dir = os.path.dirname(__file__)  
+            # tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
+            # mnbloc = os.path.join(module_dir, 'mnb.pickle')
             
             #Load tfidf matrix
-            tfidf = pickle.load(open(tfdifloc, "rb"))
+            # tfidf = pickle.load(open(tfdifloc, "rb"))
 
             #Load mnb model
-            mnb = pickle.load(open(mnbloc, "rb"))
+            # mnb = pickle.load(open(mnbloc, "rb"))
 
             #Check Api Usage
             u = User.objects.filter(id=request.user.id).values()
             usage = u[0]['API_usage']
             package = u[0]['package_id']
+            uname = u[0]['id']
             p = Package.objects.filter(id=package).values()
             limit = p[0]['API_quota']
+            m = Modelml.objects.filter(id=pk).values()
+            model_ID = m[0]['model_ID']
 
             if usage >= limit :
                 return Response({
@@ -216,28 +219,28 @@ class FileUploadView(APIView):
 
             df = pd.read_csv(f)
             words = df['sentiment']
-            output = []
-            print(words)
-            for x in words:
-                obj = {}
-                tfidf_baru = tfidf.transform([x])
-                hasil = mnb.predict(tfidf_baru)
+            # output = []
+            print(words, ">>>>>>>>>>>>WORDSS")
+            # for x in words:
+            #     obj = {}
+            #     tfidf_baru = tfidf.transform([x])
+            #     hasil = mnb.predict(tfidf_baru)
 
-                if hasil == 0:
-                    obj['word'] = x
-                    obj['sentiment'] = "negative"
-                    output.append(obj)
-                else :
-                    obj['word'] = x
-                    obj['sentiment'] = "positive"
-                    output.append(obj)
+            #     if hasil == 0:
+            #         obj['word'] = x
+            #         obj['sentiment'] = "negative"
+            #         output.append(obj)
+            #     else :
+            #         obj['word'] = x
+            #         obj['sentiment'] = "positive"
+            #         output.append(obj)
 
-            print(output, "<<<hasil nich")
+            # print(output, "<<<hasil nich")
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
             user.save()
             return Response({
-                "data" : output},
+                "username" : uname, "model_id" : model_ID,"review" : words},
             status=status.HTTP_201_CREATED)
 
         except Exception as error:

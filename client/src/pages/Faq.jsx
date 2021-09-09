@@ -13,7 +13,7 @@ export default function Faq() {
                     <p>How to Use API</p>
                 </div>
                 <div className="message-body">
-                    URL : {`${baseURL}user/multiple`}<br></br>
+                    URL : {`${baseURL}singletext`}<br></br>
                     Header : {"Authorization : <token>"}<br></br>
                     input : JSON
                 </div>

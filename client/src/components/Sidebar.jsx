@@ -85,13 +85,13 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
                   <MenuItem><Link to="/file">Upload File</Link></MenuItem>
                 </SubMenu> */}
 
-                <MenuItem icon={<AiFillCopy size={50}/>}>
+                {/* <MenuItem icon={<AiFillCopy size={50}/>}>
                   <Link to="/test">Test Model</Link>
                 </MenuItem>
 
                 <MenuItem icon={<MdTrendingUp size={50}/>}>
                   <Link to="/train">Train Model</Link>
-                </MenuItem>
+                </MenuItem> */}
 
               </Menu>
             </SidebarContent>

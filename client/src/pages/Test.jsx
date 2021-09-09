@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FaUpload } from "react-icons/fa";
 import Axios from '../config/axios'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
@@ -32,15 +33,12 @@ export default function Test() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
 
-    function add() {
+    function add(id) {
         setloading(true)
-        Axios({
-            url: 'user/model',
+        axios({
+            url: 'http://162.55.37.249:8000/singletext',
             method: 'post',
-            headers: {
-                "Authorization": localStorage.token
-            },
-            data: { word }
+            data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
         })
             .then(function (response) {
                 // handle success
@@ -156,7 +154,7 @@ export default function Test() {
                             <select style={{ width: "325px" }}>
                                 <option>Base Model</option>
                                 {model.map((x) => {
-                                    return <option value={x.id} key={x.id}>{x.title}</option>
+                                    return <option value={x.id} key={x.id}>{x.model_ID}</option>
                                 })}
                             </select>
                         </div>

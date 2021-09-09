@@ -51,7 +51,7 @@ export default function Testid() {
                 axios({
                     url: 'http://162.55.37.249:8000/singletext',
                     method: 'post',
-                    data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
+                    data: { single_text: word, model_id: model.model_ID, userID: model.model_owner }
                 })
                     .then(function (response) {
                         // handle success
@@ -68,7 +68,7 @@ export default function Testid() {
                         // handle success
                         Swal.fire({
                             title: 'Error!',
-                            text: 'Upload File Failed!',
+                            text: response,
                             icon: 'error',
                             confirmButtonText: 'Okay'
                         })
@@ -80,12 +80,12 @@ export default function Testid() {
             })
     }
 
-    function addFile() {
+    function addFile(id) {
         setloading(true)
         const input = new FormData();
         input.append('file', file)
         Axios({
-            url: 'user/file',
+            url: 'user/file/' + id,
             method: 'put',
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -95,9 +95,34 @@ export default function Testid() {
         })
             .then(function (response) {
                 // handle success
-                setanswer(response.data.data)
-                setloading(false)
-                openModal()
+                console.log(response.data, "<<<<<<<RESPONSEEEEEE")
+                axios({
+                    url: 'http://162.55.37.249:8000/multiple_text',
+                    method: 'post',
+                    data: response.data
+                })
+                    .then(function (response) {
+                        // handle success
+                        console.log(response, "<<<<<<<<<< RESPONSE")
+                        setanswer(response.data.data)
+                        setloading(false)
+                        openModal()
+                        // Swal.fire({
+                        //     title: 'Success!',
+                        //     text: response.data.data,
+                        //     icon: 'success',
+                        //     confirmButtonText: 'Cool'
+                        // })
+                    })
+                    .catch(function (response) {
+                        // handle success
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response,
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        })
+                    })
             })
     }
 
@@ -111,9 +136,9 @@ export default function Testid() {
     }
 
 
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#000000';
     function afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        // subtitle.style.color = '#000000';
     }
 
     function closeModal() {
@@ -182,7 +207,7 @@ export default function Testid() {
                                 encType="multipart/form-data"
                                 onSubmit={(e) => {
                                     e.preventDefault()
-                                    addFile()
+                                    addFile(model.id)
                                 }}>
 
                                 <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>

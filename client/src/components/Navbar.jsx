@@ -28,16 +28,16 @@ export default function Navbar() {
                         <div className="navbar-dropdown">
                             <Link to="/profile">
                                 <p className="navbar-item">
-                                    See Profile
+                                    Profile
                                 </p>
                             </Link>
-                            <p className="navbar-item">
+                            {/* <p className="navbar-item">
                                 Setting
-                            </p>
+                            </p> */}
                             <hr className="navbar-divider" />
                             <Link to="/faq">
                                 <p className="navbar-item">
-                                    Faq
+                                    Documentation
                                 </p>
                             </Link>
                             <div className="buttons" onClick={(e) => {

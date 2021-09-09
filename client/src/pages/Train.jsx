@@ -153,7 +153,7 @@ export default function Train() {
                             <select style={{ width: "325px" }}>
                                 <option>Base Model</option>
                                 {model.map((x) => {
-                                    return <option value={x.id} key={x.id}>{x.title}</option>
+                                    return <option value={x.id} key={x.id}>{x.model_ID}</option>
                                 })}
                             </select>
                         </div>

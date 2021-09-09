@@ -68,17 +68,24 @@ export default function Home() {
   // }
 
   useEffect(() => {
-    Axios({
-      url: `user/${localStorage.id}`,
-      method: 'get',
-      headers: {
-        "Authorization": localStorage.token
-      }
-    })
-      .then(function (response) {
-        setpaket(response.data)
-        getModel()
+    const interval = setInterval(() => {
+
+      Axios({
+        url: `user/${localStorage.id}`,
+        method: 'get',
+        headers: {
+          "Authorization": localStorage.token
+        }
       })
+        .then(function (response) {
+          setpaket(response.data)
+          getModel()
+        })
+  
+      console.log('Every 3 seconds');
+      }, 3000);
+  
+     return () => clearInterval(interval);
   },[])
 
   if (loading) {
@@ -96,18 +103,18 @@ export default function Home() {
           <div className="card" style={{ height: "250px" }}>
             <header className="card-header">
               <p className="card-header-title">
-                Api Usage
+               Usage
               </p>
             </header>
             <div className="card-content">
               <div className="content">
-                <div style={{ marginTop: "5px" }}></div>
+                <div style={{ marginTop: "-20px" }}></div>
+                <p className="is-size-6 has-text-weight-bold">API Usage</p>
                 <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" />
-                <br></br>
                 <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
 
+                <p className="is-size-6 has-text-weight-bold">TF Learning Usage</p>
                 <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" />
-                <br></br>
                 <p>{JSON.stringify(paket.TF_usage)} / {JSON.stringify(paket.TF_limit)} Used</p>
               </div>
             </div>
@@ -188,17 +195,26 @@ export default function Home() {
                       switch (x.status) {
                         case "0": return <span className="tag is-warning is-medium">Progress</span>
                         case "1": return <span className="tag is-success is-medium">Success</span>
-                        default: return <h5>Error</h5>;
+                        default: return <span className="tag is-danger is-medium">Error</span>
                       }
                     })()}
                     </th>
                     <td>
                     <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
                     <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
-                      <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
-                        e.preventDefault()
-                        deleteModel(x.id)
-                      }}>Delete</button></td>
+                    {(() => {
+                      switch (x.model_ID) {
+                        case "lstmw07": return <button title="this is your default model!" disabled className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                          e.preventDefault()
+                          deleteModel(x.id)
+                        }}>Delete</button>
+                        default: return <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                          e.preventDefault()
+                          deleteModel(x.id)
+                        }}>Delete</button>
+                      }
+                    })()}
+                      </td>
                   </tr>
                 ))}
               </tbody>
