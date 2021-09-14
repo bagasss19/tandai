@@ -8,6 +8,7 @@ urlpatterns = [
     path('transfer/<pk>', TransferView.as_view(), name="transfer"),
     path('register', RegisterView.as_view(), name="register"),
     path('model',ModelView.as_view() , name="model"),
+    path('csv',CsvView.as_view() , name="csv"),
     path('file/<pk>',FileUploadView.as_view() , name="file"),
     path('multiple',MultipleView.as_view() , name="multiple"),
     path('login', Login.as_view() , name="login"),

@@ -16,9 +16,6 @@ import {
 //import icons from react icons
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 // import { VscWholeWord } from "react-icons/vsc";
-import { AiFillCopy } from "react-icons/ai";
-import { MdTrendingUp } from "react-icons/md";
-
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Sidebar.css"

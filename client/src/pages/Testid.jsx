@@ -36,6 +36,7 @@ export default function Testid() {
     const [answer, setanswer] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
+    const [time, settime] = useState(null)
 
     function add() {
         setloading(true)
@@ -58,7 +59,8 @@ export default function Testid() {
                         console.log(response.data, "<<<<<<<<<< RESPONSE")
                         Swal.fire({
                             title: 'Success!',
-                            text: response.data,
+                            text: `${response.data.result}`,
+                            html: `time : ${response.data.time} second(s)`,
                             icon: 'success',
                             confirmButtonText: 'Cool'
                         })
@@ -105,6 +107,7 @@ export default function Testid() {
                         // handle success
                         console.log(response, "<<<<<<<<<< RESPONSE")
                         setanswer(response.data.data)
+                        settime(response.data.time)
                         setloading(false)
                         openModal()
                         // Swal.fire({
@@ -195,11 +198,8 @@ export default function Testid() {
                 </header>
                 <div className="card-content" >
                     <div className="content" >
-                        <div className="select is-dark">
-                            <select style={{ width: "325px" }} disabled>
-                                <option> {model.model_ID} </option>
-                            </select>
-                        </div>
+
+                    <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID}/>
 
                         {isFile ?
 
@@ -252,7 +252,6 @@ export default function Testid() {
 
                                 <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
                             </form>
-
                         }
                     </div>
                 </div>
@@ -266,7 +265,7 @@ export default function Testid() {
                 >
                     <AiFillCloseCircle onClick={closeModal}
                         style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
-
+                    <p style={{ textAlign: "center" }}>time : {time} second(s)</p>
                     {answer ? <table className="table is-hoverable is-fullwidth">
                         <thead>
                             <tr>

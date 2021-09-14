@@ -21,6 +21,7 @@ class ModelmlView(CreateAPIView):
             serializer = ModelSerializer(modelml, many=True)
             return Response(serializer.data)
         except Exception as error:
+            print(error, "<ERRRRRRRRORRR")
             return Response({
                 "detail": str(error)
             },
@@ -79,7 +80,6 @@ class ModelmlidView(CreateAPIView):
         try:
             # return Response("ASHUPPP")
             modelml = Modelml.objects.filter(id=pk)
-            print(modelml, "<<<<<<<<<LALALALALAL")
             serializer = ModelSerializer(modelml, many=True)
             return Response(serializer.data)
         except Exception as error:

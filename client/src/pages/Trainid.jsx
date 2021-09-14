@@ -106,6 +106,7 @@ export default function Trainid() {
                 })
         }
     }
+
     function addFile() {
         setloading(true)
         postApi()
@@ -170,11 +171,7 @@ export default function Trainid() {
 
                 <div className="card-content" >
                     <div className="content" >
-                        <div className="select is-dark">
-                            <select style={{ width: "325px" }} disabled>
-                                <option>{model.model_ID}</option>
-                            </select>
-                        </div>
+                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID}/>
 
                         <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px" }}
                             encType="multipart/form-data"

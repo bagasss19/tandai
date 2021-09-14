@@ -390,3 +390,26 @@ class TransferView(CreateAPIView):
             },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+class CsvView(CreateAPIView):
+    parser_class = (FileUploadParser,)
+    def post(self, request):
+        try :
+            if 'file' not in request.data:
+                raise ParseError("Empty content")
+        
+            f = request.data['file']
+            df = pd.read_csv(f)
+            review = df['review']
+            s = df['sent']
+            s1 = df['sent_pred']
+            return Response({"review" : review, 's' : s, 's1' : s1},
+            status=status.HTTP_200_OK)
+
+        except Exception as error:
+            print(error, "<<<<ERRRORRRRa")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )

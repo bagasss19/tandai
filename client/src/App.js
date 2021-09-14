@@ -19,7 +19,8 @@ import Package from './pages/Package'
 import Test from './pages/Test'
 import Train from './pages/Train'
 import Trainid from './pages/Trainid'
-import Testid from './pages/Testid';
+import Testid from './pages/Testid'
+import Detailid from './pages/Detailid'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -46,7 +47,8 @@ function App() {
           <PrivateRoute path="/package" component={Package} auth={isAutheticated}/>
           <PrivateRoute exact path="/test" component={Test} auth={isAutheticated}/>
           <PrivateRoute path="/train/:id" component={Trainid} auth={isAutheticated}/>
-          <PrivateRoute path="/test/:id" component={Testid} auth={isAutheticated}/></div>
+          <PrivateRoute path="/test/:id" component={Testid} auth={isAutheticated}/>
+          <PrivateRoute path="/detail/:id" component={Detailid} auth={isAutheticated}/></div>
         </Switch>
       </Router>
     </div>

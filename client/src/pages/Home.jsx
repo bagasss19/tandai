@@ -30,7 +30,17 @@ export default function Home() {
   }
 
   const deleteModel = (id) => {
-    setloading(true)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setloading(true)
     Axios({
       url: 'model/' + id,
       method: 'delete',
@@ -48,24 +58,9 @@ export default function Home() {
         })
         getModel()
       })
+      }
+    })
   }
-
-  // const generateDate = (date) =>  {
-  //   let d = new Date(date),
-  //   month = '' + (d.getMonth() + 1),
-  //   day = '' + d.getDate(),
-  //   year = d.getFullYear()
-  //   let hours = d.getHours()
-  //   let minutes = d.getMinutes()
-  //   let second = d.getSeconds()
-
-  //   if (month.length < 2) 
-  //     month = '0' + month;
-  //   if (day.length < 2) 
-  //     day = '0' + day;
-
-  //   return `${day}-${month}-${year} ${hours}:${minutes}:${second}`
-  // }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,11 +105,11 @@ export default function Home() {
               <div className="content">
                 <div style={{ marginTop: "-20px" }}></div>
                 <p className="is-size-6 has-text-weight-bold">API Usage</p>
-                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" />
-                <p>{JSON.stringify(paket.usage)} / {JSON.stringify(paket.limit)} Used</p>
+                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />
+                <p>{JSON.stringify(paket.usage)} / {paket.limit === 999999999 ? "∞" :JSON.stringify(paket.limit)} Used</p>
 
                 <p className="is-size-6 has-text-weight-bold">TF Learning Usage</p>
-                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" />
+                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />
                 <p>{JSON.stringify(paket.TF_usage)} / {JSON.stringify(paket.TF_limit)} Used</p>
               </div>
             </div>
@@ -147,7 +142,7 @@ export default function Home() {
 
                   <div className="column">
                     <p className="is-size-6 has-text-weight-bold" style={{ marginBottom: "5px" }}>API Limit</p>
-                    <p>{JSON.stringify(paket.limit)}</p>
+                    <p>{paket.limit === 999999999 ? "∞" :JSON.stringify(paket.limit)}</p>
                   </div>
 
                   {/* <div className="column">
@@ -189,7 +184,7 @@ export default function Home() {
               <tbody>
                 {model.map((x) => (
                   <tr key={x.id}>
-                    <td>{x.model_ID}</td>
+                    <td><Link to={`/detail/${x.id}`}>{x.model_ID}</Link></td>
                     <th>
                     {(() => {
                       switch (x.status) {

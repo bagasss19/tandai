@@ -16,6 +16,14 @@
   background-image: linear-gradient(to bottom right,   #23a96f, #006d3e);
 }
 
+.img-wrapper{
+  overflow:hidden;
+}
+
+img.hover-zoom:hover {
+  transform: scale(1.25);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
