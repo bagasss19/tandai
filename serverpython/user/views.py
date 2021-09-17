@@ -380,7 +380,7 @@ class TransferView(CreateAPIView):
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
 
             filename = str(request.user.id) + "_" + baseName + "_" + ran
-            return Response({"filename" : filename},
+            return Response({"filename" : filename, "modelID" : ran},
             status=status.HTTP_200_OK)
 
         except Exception as error:

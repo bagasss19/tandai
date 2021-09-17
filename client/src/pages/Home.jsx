@@ -24,7 +24,8 @@ export default function Home() {
     })
       .then(function (response) {
         // handle success
-        setmodel(response.data)
+        console.log(response, "<<<<<<<<<<<<<<RESPONSEEEEEEEe")
+        setmodel(response.data.data)
         setloading(false)
       })
   }
@@ -176,6 +177,7 @@ export default function Home() {
               <thead>
                 <tr>
                   <th>Model ID</th>
+                  <th>Model Name</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -185,21 +187,27 @@ export default function Home() {
                 {model.map((x) => (
                   <tr key={x.id}>
                     <td><Link to={`/detail/${x.id}`}>{x.model_ID}</Link></td>
+                    <td>{x.model_name}</td>
                     <th>
                     {(() => {
                       switch (x.status) {
-                        case "0": return <span className="tag is-warning is-medium">Progress</span>
-                        case "1": return <span className="tag is-success is-medium">Success</span>
+                        case "0": return <span className="tag is-warning is-medium">On Progress</span>
+                        case "1": return <span className="tag is-success is-medium">Ready</span>
                         default: return <span className="tag is-danger is-medium">Error</span>
                       }
                     })()}
                     </th>
                     <td>
+
                     <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
                     <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
                     {(() => {
                       switch (x.model_ID) {
                         case "lstmw07": return <button title="this is your default model!" disabled className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                          e.preventDefault()
+                          deleteModel(x.id)
+                        }}>Delete</button>
+                        case "lstmw13": return <button title="this is your default model!" disabled className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                           e.preventDefault()
                           deleteModel(x.id)
                         }}>Delete</button>

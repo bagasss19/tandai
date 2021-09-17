@@ -33,6 +33,8 @@ export default function Trainid() {
     const [loading, setloading] = useState(true)
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
+    const [name, setname] = useState(null)
+    const [filename, setfilename] = useState(null)
 
     const postApi = () => {
         setloading(true)
@@ -55,33 +57,60 @@ export default function Trainid() {
                     "Authorization": localStorage.token,
                     "Content-Type": "multipart/form-data"
                 },
-                data : input
+                data: input
             })
                 .then(function (response) {
                     // handle success
+                    setfilename(response.data.filename)
                     input.append('file', file, response.data.filename)
                     console.log(response.data.filename, "<<<FIELNAMEEE")
+                    const body = {
+                        model_name: name,
+                        model_owner_id: localStorage.id,
+                        baseline_ID: model.model_ID,
+                        model_ID: response.data.modelID
+                    }
+
                     axios({
-                        url: 'http://162.55.37.249:8000/upload',
+                        url: 'http://162.55.37.249:8000/insert_name',
                         method: 'post',
-                        headers: {
-                            "Content-Type": "multipart/form-data"
-                        },
-                        data: input
+                        data: body
                     })
                         .then(function (response) {
                             // handle success
                             console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
-                            console.log("SUKSESSSSSSSSSSSSSSSSS")
-                            setloading(false)
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Upload Model Success',
-                                icon: 'success',
-                                confirmButtonText: 'Cool'
+                            axios({
+                                url: 'http://162.55.37.249:8000/upload',
+                                method: 'post',
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                },
+                                data: input
                             })
-                        })
-                        .catch(function (error) {
+                                .then(function (response) {
+                                    // handle success
+                                    console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
+                                    console.log("SUKSESSSSSSSSSSSSSSSSS")
+                                    setloading(false)
+                                    Swal.fire({
+                                        title: 'Success!',
+                                        text: 'Upload Model Success',
+                                        icon: 'success',
+                                        confirmButtonText: 'Cool'
+                                    })
+                                })
+                                .catch(function (error) {
+                                    // handle ERROR
+                                    console.log(error, "<<<<<<ERRR")
+                                    setloading(false)
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Upload File Failed!',
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay'
+                                    })
+                                })
+                        }).catch(function (error) {
                             // handle ERROR
                             console.log(error, "<<<<<<ERRR")
                             setloading(false)
@@ -92,7 +121,7 @@ export default function Trainid() {
                                 confirmButtonText: 'Okay'
                             })
                         })
-                }) 
+                })
                 .catch(function (error) {
                     // handle ERROR
                     console.log(error, "<<<<<<ERRR")
@@ -161,37 +190,36 @@ export default function Trainid() {
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Train Model</h1>
             <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Upload file with .csv extention, if success, it will create new model</h1>
 
-            <div className="card" style={{ height: "250px", width: "60%", marginLeft: "300px", marginTop: "50px" }}>
+            <div className="card" style={{ height: "280px", width: "60%", marginLeft: "300px", marginTop: "50px" }}>
                 <header className="card-header">
                     <p className="card-header-title">
                         Train Model
                     </p>
-
                 </header>
 
                 <div className="card-content" >
                     <div className="content" >
-                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID}/>
 
-                        <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px" }}
+                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
+
+                        <form className="form" style={{ width: "50%", margin: "auto" }}
                             encType="multipart/form-data"
                             onSubmit={(e) => {
                                 e.preventDefault()
                                 addFile()
                             }}>
 
-                            <div className="field">
+                            <div className="field" style={{ marginTop: "10px" }}>
                                 {/* <label className="label is-family-code">Model Name</label> */}
-                                {/* <input className="input" type="text" name="Model Name" placeholder="model name"
-                                    style={{ marginBottom: "30px" }}
-                                    defaultValue={user.company}
+                                <input className="input" type="text" name="Model Name" placeholder="model name"
+                                    defaultValue={name}
                                     onChange={(e) => {
-                                        setuser({ ...user, company: e.target.value })
-                                    }} 
-                                    /> */}
+                                        setname(e.target.value)
+                                    }}
+                                />
                             </div>
 
-                            <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
+                            <div className="file is-small" style={{ marginLeft: "125px" }}>
                                 <label className="file-label">
                                     <input className="file-input" accept=".csv" type="file" name="resume" onChange={uploadFile} />
                                     <span className="file-cta">

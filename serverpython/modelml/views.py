@@ -9,7 +9,7 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.exceptions import ParseError
 
 from django.core.files.storage import default_storage
-
+from itertools import chain
 # Create your views here.
 class ModelmlView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -17,9 +17,12 @@ class ModelmlView(CreateAPIView):
     def get(self, request):
         try:
             # return Response("ASHUPPP")
-            modelml = Modelml.objects.filter(model_owner_id = request.user.id)
-            serializer = ModelSerializer(modelml, many=True)
-            return Response(serializer.data)
+            modelml = Modelml.objects.filter(model_owner_id = request.user.id).values()
+            baseModel = Modelml.objects.filter(model_name = "lstmw13").values()
+            # serializer = ModelSerializer(modelml, many=True)
+            result = list(chain(baseModel, modelml))
+            obj = {'data': result}
+            return Response(obj)
         except Exception as error:
             print(error, "<ERRRRRRRRORRR")
             return Response({

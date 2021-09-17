@@ -59,8 +59,8 @@ export default function Testid() {
                         console.log(response.data, "<<<<<<<<<< RESPONSE")
                         Swal.fire({
                             title: 'Success!',
-                            text: `${response.data.result}`,
-                            html: `time : ${response.data.time} second(s)`,
+                            // text: `${response.data.result}`,
+                            html: `${response.data.result} <br/> time : ${response.data.detection_time} second(s)`,
                             icon: 'success',
                             confirmButtonText: 'Cool'
                         })
@@ -159,7 +159,7 @@ export default function Testid() {
             .then(function (response) {
                 // handle success
                 setmodel(response.data[0])
-                console.log(model, "<<<<MOOODELLLLL")
+                // console.log(model, "<<<<MOOODELLLLL")
                 setloading(false)
             })
     }, [id])

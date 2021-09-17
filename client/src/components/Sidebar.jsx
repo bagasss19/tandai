@@ -63,11 +63,11 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
             </div> */}
               <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}
-                {menuCollapse ? (
+                {/* {menuCollapse ? (
                   <FiArrowRightCircle />
                 ) : (
                   <FiArrowLeftCircle />
-                )}
+                )} */}
               </div>
             </SidebarHeader>
             <SidebarContent>

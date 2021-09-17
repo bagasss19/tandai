@@ -9,6 +9,8 @@ import Accuracy from '../Assets/testing1_Accuracy Graphics.png'
 import Loss from '../Assets/testing1_Loss Graphics.png'
 import csv from '../Assets/review.csv'
 import { readString } from 'react-papaparse'
+import Zoom from 'react-medium-image-zoom'
+
 
 Modal.setAppElement('#root');
 
@@ -54,6 +56,15 @@ export default function Testid() {
         return `${day}-${month}-${year} ${hours}:${minutes}:${second}`
     }
 
+    function mathRound(num) {
+        const resultMath = num * 100
+        return '' + resultMath;
+    }
+
+    function thousand(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     const duration = (date1, date2) => {
         let d = new Date(date1)
         let e = new Date(date2)
@@ -90,10 +101,10 @@ export default function Testid() {
     return (
         <>
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>{model.model_ID}</h1>
-            <div className="columns" style={{ marginLeft: "200px", marginTop: "10px", marginRight: "100px" }}>
+            <div className="columns" style={{ marginLeft: "125px", marginTop: "10px", marginRight: "100px" }}>
 
                 <div className="column is-7">
-                    <div className="card" style={{ height: "350px", overflow: "scroll", width: "100%" }}>
+                    <div className="card" style={{ height: "350px", width: "90%" }}>
                         <header className="card-header">
                             <p className="card-header-title">
                                 Review
@@ -108,7 +119,7 @@ export default function Testid() {
                             </div>
                         </header>
 
-                        <div className="card-content" >
+                        <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
                             <table className="table is-hoverable" style={{ backgroundColor: "#d3cef5", width: "100%" }}>
                                 <thead>
                                     <tr>
@@ -159,14 +170,14 @@ export default function Testid() {
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px", overflow: "scroll", width: "100%" }}>
+                    <div className="card" style={{ height: "350px", width: "100%" }}>
                         <header className="card-header">
                             <p className="card-header-title">
                                 Statistic
                             </p>
                         </header>
 
-                        <div className="card-content" >
+                        <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
                             {/* <table className="table is-hoverable">
                         <thead>
                             <tr>
@@ -216,28 +227,28 @@ export default function Testid() {
                                 <tbody>
                                     <tr>
                                         <td>Test Accuracy</td>
-                                        <td>{`${model.statistics_test_acc.toFixed(5) * 100} %`}</td>
+                                        <td>{`${mathRound(model.statistics_test_acc).slice(0, 5)} %`}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>Test Loss</td>
-                                        <td>{`${model.statistics_test_loss.toFixed(5) * 100} %`}</td>
+                                        <td>{model.statistics_test_loss.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>Train Accuracy</td>
-                                        <td>{`${model.statistics_train_acc.toFixed(5) * 100} %`}</td>
+                                        <td>{`${mathRound(model.statistics_train_acc).slice(0, 5)} %`}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>Train Loss</td>
-                                        <td>{`${model.statistics_train_loss.toFixed(4) * 100} %`}</td>
+                                        <td>{model.statistics_train_loss.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
@@ -265,28 +276,28 @@ export default function Testid() {
                                 <tbody>
                                     <tr>
                                         <td>True Positive</td>
-                                        <td>{model.statistics_tp}</td>
+                                        <td>{thousand(model.statistics_tp)}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>False Positive</td>
-                                        <td>{model.statistics_fp}</td>
+                                        <td>{thousand(model.statistics_fp)}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>True Negative</td>
-                                        <td>{model.statistics_tn}</td>
+                                        <td>{thousand(model.statistics_tn)}</td>
                                     </tr>
                                 </tbody>
 
                                 <tbody>
                                     <tr>
                                         <td>False Negative</td>
-                                        <td>{model.statistics_fn}</td>
+                                        <td>{thousand(model.statistics_fn)}</td>
                                     </tr>
                                 </tbody>
 
@@ -296,31 +307,33 @@ export default function Testid() {
                 </div>
             </div>
 
-
-
-            <div className="columns" style={{ marginLeft: "200px", marginRight: "100px" }}>
+            <div className="columns" style={{ marginLeft: "138px", marginRight: "100px" }}>
+                
                 <div className="column is-7">
+                    <div className="columns" style={{ marginTop: "50px", width: "90%" }}>
+                        <Zoom>
+                            <figure className="item-wrap fancybox">
+                                <img src={Accuracy} alt="accuracy" className="img-fluid" />
+                            </figure>
+                        </Zoom>
 
-                    <div className="columns" style={{ marginTop: "50px" }}>
-                        <figure className="image img-wrapper">
-                            <img src={Accuracy} alt="accuracy" className="hover-zoom" />
-                        </figure>
-
-                        <figure className="image" style={{ marginLeft: "5px" }}>
-                            <img src={Loss} alt="loss" />
-                        </figure>
+                        <Zoom>
+                            <figure className="image" style={{ marginLeft: "5px" }}>
+                                <img src={Loss} alt="loss" />
+                            </figure>
+                        </Zoom>
                     </div>
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px", overflow: "scroll", width: "100%" }}>
+                    <div className="card" style={{ height: "300px", width: "100%" }}>
                         <header className="card-header">
                             <p className="card-header-title">
                                 Train Time
                             </p>
                         </header>
 
-                        <div className="card-content" >
+                        <div className="card-content">
                             <table className="table is-hoverable" style={{ backgroundColor: "#d3cef5", width: "100%" }}>
                                 <thead>
                                     <tr>
