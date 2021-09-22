@@ -4,13 +4,10 @@ import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import {
     useParams
-} from "react-router-dom";
-import Accuracy from '../Assets/testing1_Accuracy Graphics.png'
-import Loss from '../Assets/testing1_Loss Graphics.png'
+} from "react-router-dom"
 import csv from '../Assets/review.csv'
 import { readString } from 'react-papaparse'
 import Zoom from 'react-medium-image-zoom'
-
 
 Modal.setAppElement('#root');
 
@@ -21,7 +18,6 @@ export default function Testid() {
     const [model, setmodel] = useState(null)
     const [data, setdata] = useState(null)
     const [filter, setfilter] = useState("default")
-
     const papaConfig = {
         complete: (results, file) => {
             setdata(results.data)
@@ -88,6 +84,7 @@ export default function Testid() {
         })
             .then(function (response) {
                 // handle success
+                console.log(response.data[0], "<<<<<<<<<MODELLL")
                 setmodel(response.data[0])
                 setloading(false)
             })
@@ -313,13 +310,13 @@ export default function Testid() {
                     <div className="columns" style={{ marginTop: "50px", width: "90%" }}>
                         <Zoom>
                             <figure className="item-wrap fancybox">
-                                <img src={Accuracy} alt="accuracy" className="img-fluid" />
+                                <img src={`http://20.195.24.100:8000${model.accuracy_image}`} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
 
                         <Zoom>
                             <figure className="image" style={{ marginLeft: "5px" }}>
-                                <img src={Loss} alt="loss" />
+                            <img src={`http://20.195.24.100:8000${model.loss_image}`} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
                     </div>

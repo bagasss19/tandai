@@ -93,14 +93,22 @@ class ModelmlidView(CreateAPIView):
             )
 
     def put(self, request, pk):
+        permission_classes = (AllowAny,)
         try:
             # return Response("ASHUPPP")
-            post = Modelml.objects.get(id=pk)
-            serializer = ModelSerializer(post, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-            return Response(serializer.data)
+            if 'accuracy_image' not in request.data:
+                raise ParseError("Empty content")
+            if 'loss_image' not in request.data:
+                raise ParseError("Empty content")
+            model = Modelml.objects.filter(id=pk).get()
+            model.accuracy_image = request.data["accuracy_image"]
+            model.loss_image = request.data["loss_image"]
+            model.save()
+            
+            return Response({"status" : "sukses"},
+            status=status.HTTP_200_OK)
         except Exception as error:
+            print(error, "<<<<<<<ERRORRRRR")
             return Response({
                 "detail": str(error)
             },

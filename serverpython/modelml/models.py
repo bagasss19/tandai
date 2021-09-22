@@ -20,6 +20,8 @@ class Modelml(models.Model):
     statistics_train_loss = models.FloatField(blank=True, null=True)
     statistics_test_acc = models.FloatField(blank=True, null=True)
     statistics_test_loss = models.FloatField(blank=True, null=True)
+    loss_image = models.ImageField(blank=True, null=True)
+    accuracy_image = models.ImageField(blank=True, null=True)
 
     class Meta:
         ordering = ['id']
