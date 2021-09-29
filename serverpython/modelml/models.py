@@ -22,6 +22,7 @@ class Modelml(models.Model):
     statistics_test_loss = models.FloatField(blank=True, null=True)
     loss_image = models.ImageField(blank=True, null=True)
     accuracy_image = models.ImageField(blank=True, null=True)
+    csv = models.FileField(blank=True, null=True)
 
     class Meta:
         ordering = ['id']
@@ -61,3 +62,13 @@ class LocalModelstat(models.Model):
     class Meta:
         managed = False
         db_table = 'local_modelstat'
+
+class Review(models.Model):
+    review = models.CharField(max_length=255, null=True)
+    sent = models.CharField(max_length=100, null=True)
+    sent_pred = models.CharField(max_length=100, null=True)
+    owner = models.ForeignKey(Modelml,on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['id'] 
+    

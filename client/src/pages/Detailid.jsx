@@ -5,8 +5,8 @@ import Modal from 'react-modal'
 import {
     useParams
 } from "react-router-dom"
-import csv from '../Assets/review.csv'
-import { readString } from 'react-papaparse'
+// import csv from '../Assets/review.csv'
+// import { readString } from 'react-papaparse'
 import Zoom from 'react-medium-image-zoom'
 
 Modal.setAppElement('#root');
@@ -16,18 +16,8 @@ export default function Testid() {
     let { id } = useParams()
     const [loading, setloading] = useState(true)
     const [model, setmodel] = useState(null)
-    const [data, setdata] = useState(null)
+    const [review, setreview] = useState(null)
     const [filter, setfilter] = useState("default")
-    const papaConfig = {
-        complete: (results, file) => {
-            setdata(results.data)
-            // console.log('Parsing complete:', results.data);
-        },
-        download: true,
-        error: (error, file) => {
-            // console.log('Error while parsing:', error, file);
-        },
-    };
 
     const generateDate = (date) => {
         let d = new Date(date),
@@ -68,13 +58,7 @@ export default function Testid() {
         return `${Math.floor((e - d) / (1000 * 60))} Minute(s)`
     }
 
-    const pickle = () => {
-
-    }
-
     useEffect(() => {
-        readString(csv, papaConfig)
-        pickle()
         Axios({
             url: 'model/' + id,
             method: 'get',
@@ -84,9 +68,20 @@ export default function Testid() {
         })
             .then(function (response) {
                 // handle success
-                console.log(response.data[0], "<<<<<<<<<MODELLL")
                 setmodel(response.data[0])
-                setloading(false)
+                Axios({
+                    url: 'model/review/' + id,
+                    method: 'get',
+                    headers: {
+                        "Authorization": localStorage.token
+                    }
+                })
+                    .then(function (response) {
+                        // handle success
+                        console.log(response.data, "<<<<<<<<<<REVIEEEEWWW");
+                        setreview(response.data)
+                        setloading(false)
+                    })
             })
     }, [id])
 
@@ -120,42 +115,42 @@ export default function Testid() {
                             <table className="table is-hoverable" style={{ backgroundColor: "#d3cef5", width: "100%" }}>
                                 <thead>
                                     <tr>
-                                        <th>{data[0][1]}</th>
-                                        <th>{data[0][2]}</th>
-                                        <th>{data[0][3]}</th>
+                                        <th>Review</th>
+                                        <th>Sent</th>
+                                        <th>Sent Pred</th>
                                     </tr>
                                 </thead>
 
-                                {filter === "default" && data.slice(1).map((x) => (
+                                {filter === "default" && review.map((x) => (
                                     <tbody>
                                         <tr>
-                                            <td>{x[1]}</td>
-                                            <td>{x[2]}</td>
-                                            <td>{x[3]}</td>
+                                            <td>{x.review}</td>
+                                            <td>{x.sent}</td>
+                                            <td>{x.sent_pred}</td>
                                         </tr>
                                     </tbody>
                                 ))}
 
-                                {filter === "bagasganteng" && data.slice(1).map((x) => (
-                                    x[2] !== x[3] && x[2] === "1" ?
+                                {filter === "bagasganteng" && review.map((x) => (
+                                    x.sent !== x.sent_pred && x.sent === "1" ?
                                         <tbody>
                                             <tr>
-                                                <td>{x[1]}</td>
-                                                <td>{x[2]}</td>
-                                                <td>{x[3]}</td>
+                                                <td>{x.review}</td>
+                                                <td>{x.sent}</td>
+                                                <td>{x.sent_pred}</td>
                                             </tr>
                                         </tbody>
                                         :
                                         <></>
                                 ))}
 
-                                {filter === "bagastampan" && data.slice(1).map((x) => (
-                                    x[2] !== x[3] && x[2] === "0" ?
+                                {filter === "bagastampan" && review.slice(1).map((x) => (
+                                    x.sent !== x.sent_pred && x.sent === "0" ?
                                         <tbody>
                                             <tr>
-                                                <td>{x[1]}</td>
-                                                <td>{x[2]}</td>
-                                                <td>{x[3]}</td>
+                                                <td>{x.review}</td>
+                                                <td>{x.sent}</td>
+                                                <td>{x.sent_pred}</td>
                                             </tr>
                                         </tbody>
                                         :
@@ -175,41 +170,6 @@ export default function Testid() {
                         </header>
 
                         <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
-                            {/* <table className="table is-hoverable">
-                        <thead>
-                            <tr>
-                                <th>statistics_tp</th>
-                                <th>statistics_fp</th>
-                                <th>statistics_tn</th>
-                                <th>statistics_fn</th>
-                                <th>statistics_f1</th>
-                                <th>statistics_precision</th>
-                                <th>statistics_recall</th>
-                                <th>statistics_train_acc</th>
-                                <th>statistics_train_loss</th>
-                                <th>statistics_test_acc</th>
-                                <th>statistics_test_loss</th>
-                                <th>train start</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>{model.statistics_tp}</td>
-                                <td>{model.statistics_fp}</td>
-                                <td>{model.statistics_tn}</td>
-                                <td>{model.statistics_fn}</td>
-                                <td>{model.statistics_f1.toFixed(2)}</td>
-                                <td>{model.statistics_precision}</td>
-                                <td>{model.statistics_recall}</td>
-                                <td>{model.statistics_train_acc}</td>
-                                <td>{model.statistics_train_loss}</td>
-                                <td>{model.statistics_test_acc}</td>
-                                <td>{model.statistics_test_loss}</td>
-                                <td>{generateDate(model.training_starttime, model.training_endtime)}</td>
-                            </tr>
-                        </tbody>
-                    </table> */}
 
 
                             {/* VERSI 2 */}
@@ -305,7 +265,7 @@ export default function Testid() {
             </div>
 
             <div className="columns" style={{ marginLeft: "138px", marginRight: "100px" }}>
-                
+
                 <div className="column is-7">
                     <div className="columns" style={{ marginTop: "50px", width: "90%" }}>
                         <Zoom>
@@ -316,7 +276,7 @@ export default function Testid() {
 
                         <Zoom>
                             <figure className="image" style={{ marginLeft: "5px" }}>
-                            <img src={`http://20.195.24.100:8000${model.loss_image}`} alt="accuracy" className="img-fluid" />
+                                <img src={`http://20.195.24.100:8000${model.loss_image}`} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
                     </div>
