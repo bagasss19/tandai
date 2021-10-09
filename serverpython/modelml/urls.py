@@ -7,5 +7,6 @@ from modelml.views import *
 urlpatterns = [
     path('', ModelmlView.as_view(), name="modelml"),
     path('<pk>',ModelmlidView.as_view() , name="modelml"),
+    path('dynamic/<pk>',ModelmlDynamicView.as_view() , name="modelmldynamic"),
     path('review/<pk>',ReviewView.as_view() , name="review")
 ]

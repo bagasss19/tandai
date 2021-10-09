@@ -33,23 +33,23 @@ class ModelmlView(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    def post(self, request):
-        try:
-            # if 'modelml_url' not in request.data:
-            #     raise ParseError("Empty content")
-            request.data['model_owner'] = request.user.id
-            serializer = ModelSerializer(data=request.data)
-            print(request.data)
-            if serializer.is_valid():
-                serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except Exception as error:
-            print(error, "<<<<ERRROR nich")
-            return Response({
-                "detail": str(error)
-            },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+    # def post(self, request):
+    #     try:
+    #         # if 'modelml_url' not in request.data:
+    #         #     raise ParseError("Empty content")
+    #         request.data['model_owner'] = request.user.id
+    #         serializer = ModelSerializer(data=request.data)
+    #         print(request.data)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     except Exception as error:
+    #         print(error, "<<<<ERRROR nich")
+    #         return Response({
+    #             "detail": str(error)
+    #         },
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #         )
 
     def put(self, request, pk):
         try:
@@ -94,47 +94,6 @@ class ModelmlidView(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    def post(self, request, pk):
-        permission_classes = (AllowAny,)
-        try:
-            # return Response("ASHUPPP")
-            if 'accuracy_image' not in request.data:
-                raise ParseError("Empty content")
-            if 'loss_image' not in request.data:
-                raise ParseError("Empty content")
-            if 'csv' not in request.data:
-                raise ParseError("Empty content")
-            model = Modelml.objects.filter(id=pk).get()
-            model.accuracy_image = request.data["accuracy_image"]
-            model.loss_image = request.data["loss_image"]
-            model.csv = request.data["csv"]
-            model.save()
-
-            f = request.data['csv']
-
-            df = pd.read_csv(f)
-            # print(df, "<<<<<<<<<<<<<<fgfdfgdg")
-            for index, row in df.iterrows():
-                print(type(pk), "<<<<LSLLS")
-                # print(row['sent'], row['sent_pred'], row['review'])
-                request.data['review'] = row['review']
-                request.data['sent'] = row['sent']
-                request.data['sent_pred'] = row['sent_pred']
-                request.data['owner'] = pk
-                serializer = ReviewSerializer(data=request.data)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
-            
-            return Response({"status" : "sukses"},
-            status=status.HTTP_200_OK)
-        except Exception as error:
-            print(error, "<<<<<<<ERRORRRRR")
-            return Response({
-                "detail": str(error)
-            },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
     def delete(self, request, pk):
         try:
             post = Modelml.objects.get(id=pk)
@@ -146,7 +105,50 @@ class ModelmlidView(CreateAPIView):
             },
                 status=status.HTTP_400_BAD_REQUEST,
             )
-    
+
+class ModelmlDynamicView(CreateAPIView):
+    permission_classes = (AllowAny,)
+    parser_class = (FileUploadParser,)
+    def post(self, request, pk):
+        try:
+            # return Response("ASHUPPP")
+            if 'accuracy_image' not in request.data:
+                raise ParseError("Empty content")
+            if 'loss_image' not in request.data:
+                raise ParseError("Empty content")
+            if 'csv' not in request.data:
+                raise ParseError("Empty content")
+            model = Modelml.objects.filter(model_ID=pk).get()
+            print(model, ">>>>>>ASASASA")
+            model.accuracy_image = request.data["accuracy_image"]
+            model.loss_image = request.data["loss_image"]
+            # model.csv = request.data["csv"]
+            model.save()
+
+            f = request.data['csv']
+
+            df = pd.read_csv(f)
+            for index, row in df.iterrows():
+                request.data['review'] = row['review']
+                request.data['sent'] = row['sent']
+                request.data['sent_pred'] = row['sent_pred']
+                request.data['owner'] = pk
+                serializer = ReviewSerializer(data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+            
+            return Response({"status" : "sukses"},
+            status=status.HTTP_200_OK)
+
+        except Exception as error:
+            print(error, "<<<<<<<ERRORRRRR")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
 class ReviewView(CreateAPIView):
     def get(self, request, pk):
         try:
