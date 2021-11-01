@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Navbar from './components/Navbar'
 import PrivateRoute from './components/PrivateRoute'
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -24,10 +24,10 @@ import Detailid from './pages/Detailid'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
-  const [sideNavExpanded, setSideNavExpanded] = useState(false);
+  // const [sideNavExpanded, setSideNavExpanded] = useState(false);
 
   const contentStyle = {
-    marginLeft: sideNavExpanded ? "150px" : "2px", // arbitrary values
+    // marginLeft: sideNavExpanded ? "150px" : "2px", // arbitrary values
     transition: "margin 0.2s ease"
 };
 
@@ -35,7 +35,7 @@ function App() {
     <div className="App">
   <Router>
       <Navbar/>
-      <Sidebar setSideNavExpanded={setSideNavExpanded} sideNavExpanded={sideNavExpanded}/>
+      {/* <Sidebar setSideNavExpanded={setSideNavExpanded} sideNavExpanded={sideNavExpanded}/> */}
         <Switch>
           <div style={contentStyle}><PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
           <PrivateRoute path="/profile" component={Profile} auth={isAutheticated}/>

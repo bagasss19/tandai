@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../App.css'
 import Axios from '../config/axios'
 import "bulma/css/bulma.css";
+import form from '../Assets/Login.png'
 // import {
 //     Link,
 // } from "react-router-dom"
@@ -34,18 +35,14 @@ export default function Login(props) {
     }
     return (
         <div className="login">
-            {/* <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Welcome, Please Login</h1> */}
-            <div className="card" style={{ width: "40%", margin: "auto", justifyContent: "center", position: "absolute", top: "25%", left: "30%" }}>
-                <header className="card-header">
-                    <p className="card-header-title" style={{ justifyContent: "center", verticalAlign: "middle", display: "table-cell" }}>
-                        Welcome to Tand.ai
-                    </p>
-                </header>
+            <div className="card" style={{ margin: "auto", justifyContent: "center", position: "absolute", top: "31%", left: "34%", height: "350px", width: "500px" }}>
 
+                <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
+                    Welcome to Tand.ai
+                </p>
                 <div className="card-content">
                     <div className="content">
                         <form className="form"
-                            // style={{ justifyContent: "center", alignContent: "center", marginTop: "100px", width: "50%", display: "inline-block" }}
                             onSubmit={(e) => {
                                 e.preventDefault()
                                 login()
@@ -58,14 +55,13 @@ export default function Login(props) {
                             <div className="field">
                                 <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
                                 <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
-                            </div>
 
+                            </div>
                             <div className="field">
                                 <div className="control">
-                                    <button className="button is-black">Login</button>
+                                    <button className="button is-success is-fullwidth">Login</button>
                                 </div>
-                                <p>Doesn't Have Account? Please Contact Us</p>
-                                {/* Register <Link to="/register">Here</Link> */}
+                                <p style={{marginTop : "15px"}}>Doesn't Have Account? Please Contact Us</p>
                             </div>
                         </form>
                     </div>

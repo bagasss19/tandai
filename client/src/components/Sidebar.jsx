@@ -14,7 +14,7 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiHome } from "react-icons/fi";
 // import { VscWholeWord } from "react-icons/vsc";
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";

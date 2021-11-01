@@ -2,86 +2,74 @@ import React from 'react'
 import {
     Link,
 } from "react-router-dom";
+import check from "../Assets/checklist.png"
 export default function Package() {
     return (
         <>
-            <div className="tabs is-centered">
-                <ul>
-                    <li><Link to="/profile">Profile</Link></li>
-                    <li className="is-active"><Link to="/package">Package</Link></li>
-                </ul>
-            </div>
+            <p style={{ fontFamily: "inter", fontSize: "25px", fontWeight: "bold" }}>
+                <Link to="/profile">Profile</Link> | <Link to="/package" style={{ color: "black" }}>Package</Link>
+            </p>
 
-            <div className="columns" style={{ marginLeft: "100px" }}>
+            <div className="columns" style={{ marginLeft: "25px", marginTop: "50px", marginRight: "25px" }}>
                 <div className="column">
                     <div className="card">
-                        <header className="card-header">
+                        <header className="card-header bronze">
                             <p className="card-header-title">
-                                Free
+                                Starter
                             </p>
                         </header>
                         <div className="card-content">
-                            <div className="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
+                            <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
+                                <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 0</span>  / month</p>
+                                <p><span class="icon"><img src={check} /></span> Detection : 1000 requests / month</p>
+                                <p>Transfer Learning : 10k dataset records / month </p>
+                                <p>Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <Link to="/" className="card-footer-item"><button className="button is-dark is-outlined" >Buy</button></Link>
+                            <Link to="/" className="card-footer-item"><button className="button bronze">Contact Us</button></Link>
                         </footer>
                     </div>
                 </div>
-
 
                 <div className="column">
                     <div className="card">
-                        <header className="card-header" style={{backgroundColor : "#ff5100"}}>
+                        <header className="card-header silver">
                             <p className="card-header-title">
-                                Bronze
+                                Pro
                             </p>
                         </header>
                         <div className="card-content">
-                            <div className="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
+                            <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
+                                <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 5.000.000</span>  / month</p>
+                                <p>Detection : Unlimited</p>
+                                <p>Transfer Learning : 100k dataset records / month </p>
+                                <p>Chat & Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                        <Link to="/" className="card-footer-item"><button className="button" style={{backgroundColor : "#ff5100"}}>Buy</button></Link>
+                            <Link to="/" className="card-footer-item"><button className="button silver">Contact Us</button></Link>
                         </footer>
                     </div>
                 </div>
 
                 <div className="column">
-                     <div className="card">
-                        <header className="card-header" style={{backgroundColor : "#bfbfbf"}}>
+                    <div className="card">
+                        <header className="card-header gold">
                             <p className="card-header-title">
-                                Silver
+                                Enterprise
                             </p>
                         </header>
                         <div className="card-content">
-                            <div className="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
+                            <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
+                                <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Contact us for the price</span></p>
+                                <p>On Demand</p>
+                                <p>Unlimited Request </p>
+                                <p>Dedicated Team Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                        <Link to="/" className="card-footer-item"><button className="button" style={{backgroundColor : "#bfbfbf"}}>Buy</button></Link>
-                        </footer>
-                    </div>
-                </div>
-
-                <div className="column">
-                     <div className="card">
-                        <header className="card-header" style={{backgroundColor : "#f5b236"}}>
-                            <p className="card-header-title">
-                                Gold
-                            </p>
-                        </header>
-                        <div className="card-content">
-                            <div className="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
-                            </div>
-                        </div>
-                        <footer className="card-footer">
-                        <Link to="/" className="card-footer-item"><button className="button" style={{backgroundColor : "#f5b236"}}>Buy</button></Link>
+                            <Link to="/" className="card-footer-item"><button className="button gold">Contact Us</button></Link>
                         </footer>
                     </div>
                 </div>

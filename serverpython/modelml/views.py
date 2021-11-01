@@ -119,7 +119,7 @@ class ModelmlDynamicView(CreateAPIView):
             if 'csv' not in request.data:
                 raise ParseError("Empty content")
             model = Modelml.objects.filter(model_ID=pk).get()
-            print(model, ">>>>>>ASASASA")
+            # print(model.id, ">>>>>>ASASASA")
             model.accuracy_image = request.data["accuracy_image"]
             model.loss_image = request.data["loss_image"]
             # model.csv = request.data["csv"]
@@ -132,7 +132,7 @@ class ModelmlDynamicView(CreateAPIView):
                 request.data['review'] = row['review']
                 request.data['sent'] = row['sent']
                 request.data['sent_pred'] = row['sent_pred']
-                request.data['owner'] = pk
+                request.data['owner'] = model.id
                 serializer = ReviewSerializer(data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()

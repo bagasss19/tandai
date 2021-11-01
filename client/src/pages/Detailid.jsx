@@ -3,7 +3,8 @@ import Axios from '../config/axios'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import {
-    useParams
+    useParams,
+    Link
 } from "react-router-dom"
 // import csv from '../Assets/review.csv'
 // import { readString } from 'react-papaparse'
@@ -92,12 +93,19 @@ export default function Testid() {
 
     return (
         <>
-            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>{model.model_ID}</h1>
-            <div className="columns" style={{ marginLeft: "125px", marginTop: "10px", marginRight: "100px" }}>
+            <Link to="/">
+                <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
+                    &lt; Back
+                </p>
+            </Link>
 
-                <div className="column is-7">
-                    <div className="card" style={{ height: "350px", width: "90%" }}>
-                        <header className="card-header">
+            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Model Detail</h1>
+            <h1 className="title is-6" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>{model.model_ID}</h1>
+            <div className="columns" style={{ marginLeft: "25px", marginTop: "10px", marginRight: "25px" }}>
+
+                <div className="column is-two-fifths">
+                    <div className="card" style={{ height: "350px" }}>
+                        <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Review
                             </p>
@@ -112,7 +120,7 @@ export default function Testid() {
                         </header>
 
                         <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
-                            <table className="table is-hoverable" style={{ backgroundColor: "#d3cef5", width: "100%" }}>
+                            <table className="table is-hoverable" style={{textAlign : "left"}}>
                                 <thead>
                                     <tr>
                                         <th>Review</th>
@@ -163,17 +171,14 @@ export default function Testid() {
 
                 <div className="column">
                     <div className="card" style={{ height: "350px", width: "100%" }}>
-                        <header className="card-header">
+                        <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Statistic
                             </p>
                         </header>
 
                         <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
-
-
-                            {/* VERSI 2 */}
-                            <table className="table is-hoverable" style={{ backgroundColor: "#cee4f5", width: "100%" }}>
+                            <table className="table is-hoverable" style={{width : "100%", textAlign : "left"}}>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -262,11 +267,51 @@ export default function Testid() {
                         </div>
                     </div>
                 </div>
+
+                <div className="column">
+                    <div className="card" style={{ height: "350px", width: "100%" }}>
+                        <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
+                            <p className="card-header-title">
+                                Train Time
+                            </p>
+                        </header>
+
+                        <div className="card-content">
+                            <table className="table is-hoverable" style={{textAlign : "left"}}>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Taining Start Time</td>
+                                        <td>{generateDate(model.training_starttime)}</td>
+                                    </tr>
+                                </tbody>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Training End Time</td>
+                                        <td>{generateDate(model.training_endtime)}</td>
+                                    </tr>
+                                </tbody>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Duration</td>
+                                        <td>{duration(model.training_starttime, model.training_endtime)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="columns" style={{ marginLeft: "138px", marginRight: "100px" }}>
-
-                <div className="column is-7">
                     <div className="columns" style={{ marginTop: "50px", width: "90%" }}>
                         <Zoom>
                             <figure className="item-wrap fancybox">
@@ -280,49 +325,6 @@ export default function Testid() {
                             </figure>
                         </Zoom>
                     </div>
-                </div>
-
-                <div className="column">
-                    <div className="card" style={{ height: "300px", width: "100%" }}>
-                        <header className="card-header">
-                            <p className="card-header-title">
-                                Train Time
-                            </p>
-                        </header>
-
-                        <div className="card-content">
-                            <table className="table is-hoverable" style={{ backgroundColor: "#d3cef5", width: "100%" }}>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Value</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        <td>Taining Starttime</td>
-                                        <td>{generateDate(model.training_starttime)}</td>
-                                    </tr>
-                                </tbody>
-
-                                <tbody>
-                                    <tr>
-                                        <td>Training Endtime</td>
-                                        <td>{generateDate(model.training_endtime)}</td>
-                                    </tr>
-                                </tbody>
-
-                                <tbody>
-                                    <tr>
-                                        <td>duration</td>
-                                        <td>{duration(model.training_starttime, model.training_endtime)}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </>

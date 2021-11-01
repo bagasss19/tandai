@@ -7,8 +7,9 @@ import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
 import {
-    useParams
-} from "react-router-dom";
+    useParams,
+    Link
+} from "react-router-dom"
 
 Modal.setAppElement('#root');
 
@@ -171,11 +172,17 @@ export default function Testid() {
 
     return (
         <>
-            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Test Model</h1>
-            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>If you choose upload file, upload file with csv format</h1>
+            <Link to="/">
+                <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
+                    &lt; Back
+                </p>
+            </Link>
+
+            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Test Model</h1>
+            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>If you choose upload file, upload file with csv format</h1>
 
             <div className="card" style={{ height: "250px", width: "60%", marginLeft: "300px", marginTop: "100px" }}>
-                <header className="card-header">
+                <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         API Testing
                     </p>
@@ -199,7 +206,7 @@ export default function Testid() {
                 <div className="card-content" >
                     <div className="content" >
 
-                    <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID}/>
+                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
 
                         {isFile ?
 

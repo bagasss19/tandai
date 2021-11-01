@@ -7,7 +7,8 @@ import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
 import {
-    useParams
+    useParams,
+    Link
 } from "react-router-dom";
 
 Modal.setAppElement('#root');
@@ -187,8 +188,13 @@ export default function Trainid() {
 
     return (
         <>
-            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Train Model</h1>
-            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Roboto" }}>Upload file with .csv extention, if success, it will create new model</h1>
+            <Link to="/">
+                <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
+                    &lt; Back
+                </p>
+            </Link>
+            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Train Model</h1>
+            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Upload file with .csv extention, if success, it will create new model</h1>
 
             <div className="card" style={{ height: "280px", width: "60%", marginLeft: "300px", marginTop: "50px" }}>
                 <header className="card-header">

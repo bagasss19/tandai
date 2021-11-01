@@ -1,19 +1,39 @@
 .App {
   text-align: center;
   min-height: 100vh;
-  background-color: #ebebeb;
+  /* background-color: #ebebeb; */
 }
 
 .login{
-  background-image: url("https://www.salesforce.com/content/dam/blogs/ca/Blog%20Posts/marketing-ai.jpg");
+  background-image: url("./Assets/Login.png");
   background-repeat: no-repeat;
   background-size: cover;
   /* background-color: lightslategrey; */
   min-height: 100vh;
 }
 
+.logout:hover {
+  background-color: #FFF4F2;
+}
+
+.profile:hover {
+  background-color: #F0F7F4;
+}
+
 .Mainkolor {
   background-image: linear-gradient(to bottom right,   #23a96f, #006d3e);
+}
+
+.gold {
+  background-image: linear-gradient(90deg, #FCEABB 0%, #F8B500 100%)
+}
+
+.silver {
+  background-image :linear-gradient(90deg, #EEF2F3 0%, #8E9EAB 100%);
+}
+
+.bronze {
+  background-image :linear-gradient(90deg, #FFD194 0%, #D1913C 100%)
 }
 
 .item .item-wrap {
