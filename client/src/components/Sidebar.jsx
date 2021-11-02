@@ -14,11 +14,8 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiHome } from "react-icons/fi";
 // import { VscWholeWord } from "react-icons/vsc";
-import { AiFillCopy } from "react-icons/ai";
-
-
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Sidebar.css"
@@ -26,23 +23,32 @@ import "./Sidebar.css"
 
 const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
   const [menuCollapse, setMenuCollapse] = useState(true)
-  const [homeActive, setHomeActive] = useState(true)
-  const [modelActive, setModel] = useState(false)
+  // const [homeActive, setHomeActive] = useState(true)
+  // const [modelActive, setModel] = useState(false)
+  // const [trainActive, setTrain] = useState(false)
 
   const menuIconClick = () => {
     setSideNavExpanded(!sideNavExpanded);
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   }
 
-  const homeMenu = () => {
-    setHomeActive(true)
-    setModel(false)
-  };
+  // const homeMenu = () => {
+  //   setHomeActive(true)
+  //   setModel(false)
+  //   setTrain(false)
+  // };
 
-  const model = () => {
-    setHomeActive(false)
-    setModel(true)
-  }
+  // const model = () => {
+  //   setHomeActive(false)
+  //   setModel(true)
+  //   setTrain(false)
+  // }
+
+  // const train = () => {
+  //   setHomeActive(false)
+  //   setModel(false)
+  //   setTrain(true)
+  // }
 
   if (localStorage.token) {
     return (
@@ -57,17 +63,17 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
             </div> */}
               <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}
-                {menuCollapse ? (
+                {/* {menuCollapse ? (
                   <FiArrowRightCircle />
                 ) : (
                   <FiArrowLeftCircle />
-                )}
+                )} */}
               </div>
             </SidebarHeader>
             <SidebarContent>
               {/* <Menu iconShape="square"> */}
               <Menu>
-                <MenuItem active={homeActive} onClick={homeMenu} icon={<FiHome size={50} />}>
+                <MenuItem icon={<FiHome size={50} />}>
                   <Link to="/">Home</Link>
                 </MenuItem>
 
@@ -76,11 +82,14 @@ const Sidebar = ({ sideNavExpanded, setSideNavExpanded }) => {
                   <MenuItem><Link to="/file">Upload File</Link></MenuItem>
                 </SubMenu> */}
 
-                <MenuItem active={modelActive} onClick={model} icon={<AiFillCopy size={50}/>}>
-                  <Link to="/model">Manage Model</Link>
+                {/* <MenuItem icon={<AiFillCopy size={50}/>}>
+                  <Link to="/test">Test Model</Link>
                 </MenuItem>
 
-                {/*<MenuItem icon={<BiCog />}>Settings</MenuItem> */}
+                <MenuItem icon={<MdTrendingUp size={50}/>}>
+                  <Link to="/train">Train Model</Link>
+                </MenuItem> */}
+
               </Menu>
             </SidebarContent>
             {/* <SidebarFooter>

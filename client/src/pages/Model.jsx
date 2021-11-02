@@ -5,8 +5,9 @@ import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
 import Swal from 'sweetalert2'
-import { FaUpload } from "react-icons/fa";
-
+import {
+    Link,
+} from "react-router-dom";
 
 const customStyles = {
     content: {
@@ -29,33 +30,22 @@ Modal.setAppElement('#root');
 export default function Model() {
     const [loading, setloading] = useState(true)
     const [model, setmodel] = useState(null)
-    const [description, setdescripion] = useState(null)
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [modalTrainingIsOpen, setModalTraining] = useState(false);
-    const [file, setFile] = useState(null)
+    const [modalTrainingIsOpen, setModalTraining] = useState(false)
     const [file2, setFile2] = useState(null)
-    const [title, settitle] = useState(null)
     let subtitle;
 
-    function openModal() {
-        setIsOpen(true);
-    }
+    // function openModal() {
+    //     setIsOpen(true);
+    // }
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
         subtitle.style.color = '#000000';
     }
 
-    function closeModal() {
-        setIsOpen(false);
-    }
 
     function closeTrainingModal() {
         setModalTraining(false)
-    }
-
-    const uploadFile = (event) => {
-        setFile(event.target.files[0])
     }
 
     const uploadFile2 = (event) => {
@@ -74,34 +64,6 @@ export default function Model() {
                 // handle success
                 setmodel(response.data)
                 setloading(false)
-            })
-    }
-
-    const submit = () => {
-        setloading(true)
-        const input = new FormData();
-        input.append('title', title)
-        input.append('modelml_url', file)
-        input.append('description', description)
-        axios({
-            url: 'model/',
-            method: 'post',
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "Authorization": localStorage.token
-            },
-            data: input
-        })
-            .then(function (response) {
-                // handle success
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Add Model Success',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                })
-                getModel()
-                closeModal()
             })
     }
 
@@ -141,25 +103,37 @@ export default function Model() {
     }
 
     const deleteModel = (id) => {
-        setloading(true)
-        axios({
-            url: 'model/' + id,
-            method: 'delete',
-            headers: {
-                "Authorization": localStorage.token
-            }
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setloading(true)
+        Axios({
+          url: 'model/' + id,
+          method: 'delete',
+          headers: {
+            "Authorization": localStorage.token
+          }
         })
-            .then(function (response) {
-                // handle success
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Delete Model Success',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                })
-                getModel()
+          .then(function (response) {
+            // handle success
+            Swal.fire({
+              title: 'Success!',
+              text: 'Delete Model Success',
+              icon: 'success',
+              confirmButtonText: 'Cool'
             })
-    }
+            getModel()
+          })
+          }
+        })
+      }
 
     useEffect(() => {
         getModel()
@@ -172,52 +146,6 @@ export default function Model() {
     return (
         <div>
             <h1 className="is-size-1 is-family-code" style={{ marginTop: "50px" }}>Model List</h1>
-
-            <button className="button is-primary"
-                style={{ marginBottom: "30px", marginTop: '30px' }}
-                onClick={openModal}
-            >
-                Add Model</button>
-
-            <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <AiFillCloseCircle onClick={closeModal}
-                    style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
-
-                <h2 ref={(_subtitle) => (subtitle = _subtitle)}
-                    style={{ textAlign: "center", marginBottom: "20px" }}>Add Model</h2>
-                {/* <div style={{ textAlign: "center" }}>Title</div> */}
-                <form style={{ margin: "auto", width: "30%" }} encType="multipart/form-data" onSubmit={(e) => {
-                    e.preventDefault()
-                    submit()
-                }}>
-                    <input className="input is-dark  " type="text" placeholder="Title" onChange={e => { settitle(e.target.value) }} />
-
-                    <input className="input is-dark" type="text" placeholder="Description" onChange={e => { setdescripion(e.target.value) }} style={{ marginTop: "20px" }} />
-                    {/* UPLOAD FILE */}
-
-                    <div className="file is-small" style={{ marginLeft: "30px", marginTop: "20px" }}>
-                        <label className="file-label">
-                            <input className="file-input" type="file" name="resume" onChange={uploadFile} />
-                            <span className="file-cta">
-                                <span className="file-icon">
-                                    <FaUpload />
-                                </span>
-                                <span className="file-label">
-                                    Choose a file…
-                                </span>
-                            </span>
-                        </label>
-                    </div>
-                    <button className="button is-black" style={{ marginLeft: "60px", marginTop: "10px" }}>Add</button>
-                </form>
-            </Modal>
-
             <Modal
                 isOpen={modalTrainingIsOpen}
                 onAfterOpen={afterOpenModal}
@@ -253,12 +181,11 @@ export default function Model() {
                 </form>
             </Modal>
 
-            <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width : "90%" }}>
+            <table className="table is-hoverable" style={{ marginTop: "50px", marginLeft: "100px", width: "90%" }}>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Description</th>
+                        <th>Model ID</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -266,17 +193,19 @@ export default function Model() {
                 <tbody>
                     {model.map((x) => (
                         <tr key={x.id}>
-                            <td>{x.id}</td>
-                            <td>{x.title}</td>
-                            <td>{x.description}</td>
-                            <td><button className="button is-link" onClick={(e) => {
-                                e.preventDefault()
-
-                            }}>Test</button>
-                                <button className="button is-link" style={{ marginLeft: "5px" }} onClick={(e) => {
-                                e.preventDefault()
-                                setModalTraining(true)
-                            }}>Train</button>
+                            <td>{x.model_ID}</td>
+                            <th>
+                                {(() => {
+                                    switch (x.status) {
+                                        case "0": return <span className="tag is-warning is-medium">Progress</span>
+                                        case "1": return <span className="tag is-success is-medium">Success</span>
+                                        default: return <span className="tag is-danger is-medium">Error</span>
+                                    }
+                                })()}
+                            </th>
+                            <td>
+                                <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
+                                <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
                                 <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
                                     e.preventDefault()
                                     deleteModel(x.id)

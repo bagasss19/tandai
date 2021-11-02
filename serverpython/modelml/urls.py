@@ -6,5 +6,7 @@ from modelml.views import *
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', ModelmlView.as_view(), name="modelml"),
-    path('<pk>',ModelmlView.as_view() , name="modelml"),
+    path('<pk>',ModelmlidView.as_view() , name="modelml"),
+    path('dynamic/<pk>',ModelmlDynamicView.as_view() , name="modelmldynamic"),
+    path('review/<pk>',ReviewView.as_view() , name="review")
 ]

@@ -5,9 +5,11 @@ from user.views import *
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     # path('', UserView.as_view(), name="user"),
+    path('transfer/<pk>', TransferView.as_view(), name="transfer"),
     path('register', RegisterView.as_view(), name="register"),
     path('model',ModelView.as_view() , name="model"),
-    path('file',FileUploadView.as_view() , name="file"),
+    path('csv',CsvView.as_view() , name="csv"),
+    path('file/<pk>',FileUploadView.as_view() , name="file"),
     path('multiple',MultipleView.as_view() , name="multiple"),
     path('login', Login.as_view() , name="login"),
     path('package', PackageView.as_view() , name="package"),
