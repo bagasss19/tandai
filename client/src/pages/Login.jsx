@@ -23,6 +23,7 @@ export default function Login(props) {
                 localStorage.username = response.data.username
                 localStorage.id = response.data.id
                 localStorage.role = response.data.is_superuser
+                localStorage.paket = response.data.package
                 props.history.push('/')
                 window.location.reload();
             })
