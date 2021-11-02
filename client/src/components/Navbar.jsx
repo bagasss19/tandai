@@ -14,13 +14,14 @@ export default function Navbar() {
                 </div>
 
                 <div className="navbar-end" style={{ width: "300px" }} >
-                    <p style={{ marginTop: "10px" }}>{(() => {
-                        switch ("pro") {
+                    <Link to="/package"><p style={{ marginTop: "10px" }}>{(() => {
+                        switch (localStorage.paket) {
                             case "starter": return <span className="tag is-dark is-medium">Starter</span>
                             case "pro": return <span className="tag is-warning is-medium">Pro</span>
                             default: return <h5>Not Confirmed</h5>;
                         }
                     })()}</p>
+                    </Link>
 
                     <div className="navbar-item has-dropdown is-hoverable">
                         <p className="navbar-link">
@@ -47,7 +48,7 @@ export default function Navbar() {
                                     localStorage.clear()
                                     window.location.reload();
                                 }}>
-                                <p style={{color : "#CB3A31", fontWeight : "bold", textAlign : "left", cursor : "pointer"}}>Logout</p>
+                                <p style={{ color: "#CB3A31", fontWeight: "bold", textAlign: "left", cursor: "pointer" }}>Logout</p>
                             </p>
                         </div>
                     </div>

@@ -22,8 +22,8 @@ export default function Package() {
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 0</span>  / month</p>
                                 <p><span class="icon"><img src={check} /></span> Detection : 1000 requests / month</p>
-                                <p>Transfer Learning : 10k dataset records / month </p>
-                                <p>Email Support </p>
+                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 10k dataset records / month </p>
+                                <p><span class="icon"><img src={check} /></span> Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
@@ -42,9 +42,9 @@ export default function Package() {
                         <div className="card-content">
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 5.000.000</span>  / month</p>
-                                <p>Detection : Unlimited</p>
-                                <p>Transfer Learning : 100k dataset records / month </p>
-                                <p>Chat & Email Support </p>
+                                <p><span class="icon"><img src={check} /></span> Detection : Unlimited</p>
+                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 100k dataset records / month </p>
+                                <p><span class="icon"><img src={check} /></span> Chat & Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
@@ -63,9 +63,9 @@ export default function Package() {
                         <div className="card-content">
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Contact us for the price</span></p>
-                                <p>On Demand</p>
-                                <p>Unlimited Request </p>
-                                <p>Dedicated Team Support </p>
+                                <p><span class="icon"><img src={check} /></span> On Demand</p>
+                                <p><span class="icon"><img src={check} /></span> Unlimited Request </p>
+                                <p><span class="icon"><img src={check} /></span> Dedicated Team Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">

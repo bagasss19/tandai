@@ -24,7 +24,6 @@ export default function Home() {
     })
       .then(function (response) {
         // handle success
-        console.log(response, "<<<<<<<<<<<<<<RESPONSEEEEEEEe")
         setmodel(response.data.data)
         setloading(false)
       })
@@ -102,7 +101,7 @@ export default function Home() {
                 Model List
               </p>
 
-              <Link to="/model"><p className="card-header-title" >Full model list</p></Link>
+              {/* <Link to="/model"><p className="card-header-title" >Full model list</p></Link> */}
             </header>
             <div className="card-content">
               <div className="content" style={{ height: "150px" }}>
