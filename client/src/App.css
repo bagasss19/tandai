@@ -12,8 +12,22 @@
   min-height: 100vh;
 }
 
+.sticky{
+  position: sticky;
+  top: 0;
+}
+
+.table-fix {
+  position: relative;
+  border-collapse: collapse; 
+}
+
 .logout:hover {
   background-color: #FFF4F2;
+}
+
+.tablemodel:hover {
+  background-color: #F0F7F4;
 }
 
 .profile:hover {
@@ -24,6 +38,10 @@
   background-image: linear-gradient(to bottom right,   #23a96f, #006d3e);
 }
 
+#ph::placeholder {
+  color: grey;
+  opacity: 1;
+}
 .gold {
   background-image: linear-gradient(90deg, #FCEABB 0%, #F8B500 100%)
 }

@@ -206,7 +206,7 @@ export default function Testid() {
                 <div className="card-content" >
                     <div className="content" >
 
-                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
+                        <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
 
                         {isFile ?
 
@@ -252,7 +252,7 @@ export default function Testid() {
                                 }>
 
                                 <div className="field">
-                                    <input className="input" type="text" name="Word" defaultValue={word}
+                                    <input id="ph" className="input" type="text" name="Word" defaultValue={word}
                                         style={{ marginBottom: "3px" }}
                                         placeholder="Input your words here" onChange={e => setword(e.target.value)} />
                                 </div>

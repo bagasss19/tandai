@@ -206,7 +206,7 @@ export default function Trainid() {
                 <div className="card-content" >
                     <div className="content" >
 
-                        <input className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
+                        <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
 
                         <form className="form" style={{ width: "50%", margin: "auto" }}
                             encType="multipart/form-data"
@@ -217,7 +217,7 @@ export default function Trainid() {
 
                             <div className="field" style={{ marginTop: "10px" }}>
                                 {/* <label className="label is-family-code">Model Name</label> */}
-                                <input className="input" type="text" name="Model Name" placeholder="model name"
+                                <input id="ph" className="input" type="text" name="Model Name" placeholder="model name"
                                     defaultValue={name}
                                     onChange={(e) => {
                                         setname(e.target.value)

@@ -72,19 +72,25 @@ export default function Profile() {
     }
     return (
         <>
-            <p style={{fontFamily : "inter", fontSize : "25px", fontWeight : "bold"}}>
-                <Link to="/profile" style={{color : "black"}}>Profile</Link> | <Link to="/package">Package</Link>
+            <Link to="/">
+                <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
+                    &lt; Back
+                </p>
+            </Link>
+
+            <p style={{ fontFamily: "inter", fontSize: "25px", fontWeight: "bold" }}>
+                <Link to="/profile" style={{ color: "black" }}>Profile</Link> | <Link to="/package">Package</Link>
             </p>
-            
-            <figure className="image is-128x128" style={{ margin: "auto", marginTop: "50px" }}>
+
+            <figure className="image is-64x64" style={{ margin: "auto", marginTop: "50px" }}>
                 <img className="is-rounded" alt="profil" src="https://stickerly.pstatic.net/sticker_pack/hlmWGXRBp4SiGY7Y5ZqCHQ/VQG4JY/2/aa5ea56b-64ad-4779-9e30-0af35c43def3.png" />
             </figure>
 
             <div style={{ width: "30%", margin: "auto" }}>
                 <div className="field">
                     <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Username</label>
-                    <input className="input" type="text" name="Title"
-                        style={{ marginBottom: "30px" }}
+                    <input className="input is-small" type="text" name="Title"
+                        style={{ marginBottom: "10px" }}
                         defaultValue={user.username}
                         onChange={(e) => {
                             setuser({ ...user, username: e.target.value })
@@ -93,8 +99,8 @@ export default function Profile() {
 
                 <div className="field">
                     <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Company</label>
-                    <input className="input" type="text" name="Title"
-                        style={{ marginBottom: "30px" }}
+                    <input className="input is-small" type="text" name="Title"
+                        style={{ marginBottom: "10px" }}
                         defaultValue={user.company}
                         onChange={(e) => {
                             setuser({ ...user, company: e.target.value })
@@ -104,16 +110,16 @@ export default function Profile() {
 
                 <div className="field">
                     <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Email</label>
-                    <input className="input" type="email" name="Email"
-                        style={{ marginBottom: "30px" }}
+                    <input className="input is-small" type="email" name="Email"
+                        style={{ marginBottom: "10px" }}
                         defaultValue={user.email}
                         disabled />
                 </div>
 
                 <div className="field">
                     <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Package</label>
-                    <input className="input" type="text" name="Package"
-                        style={{ marginBottom: "30px" }}
+                    <input className="input is-small" type="text" name="Package"
+                        style={{ marginBottom: "10px" }}
                         defaultValue={user.package_name}
                         disabled />
                 </div>
