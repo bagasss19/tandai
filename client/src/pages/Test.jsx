@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
+import modelURL from '../config/axios'
 
 Modal.setAppElement('#root');
 
@@ -36,7 +37,7 @@ export default function Test() {
     function add(id) {
         setloading(true)
         axios({
-            url: 'http://162.55.37.249:8000/singletext',
+            url: `http://162.55.37.249:8000/singletext`,
             method: 'post',
             data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
         })

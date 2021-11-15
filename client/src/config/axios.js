@@ -1,8 +1,11 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-export const baseURL = 'http://20.195.24.100:8000/'
+// export const baseURL = 'https://20.195.24.100:8000/'
+export const baseURL = 'https://api.tand.ai:8000/'
 // export const baseURL = 'http://localhost:8000/'
+
+export const modelURL = "https://ml.tand.ai/"
 
 const instance = axios.create({
     baseURL
