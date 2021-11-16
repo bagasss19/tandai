@@ -6,6 +6,9 @@ import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { AiFillCloseCircle } from "react-icons/ai"
+import { BsLightbulb } from 'react-icons/bs';
+
+
 import {
     useParams,
     Link
@@ -38,6 +41,7 @@ export default function Testid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [time, settime] = useState(null)
+    const [show,setShow] = useState(true);
 
     function add() {
         setloading(true)
@@ -51,7 +55,7 @@ export default function Testid() {
             .then(function (response) {
                 // handle success
                 axios({
-                    url: 'http://162.55.37.249:8000/singletext',
+                    url: 'https://ml.tandai/singletext',
                     method: 'post',
                     data: { single_text: word, model_id: model.model_ID, userID: model.model_owner }
                 })
@@ -100,7 +104,7 @@ export default function Testid() {
                 // handle success
                 console.log(response.data, "<<<<<<<RESPONSEEEEEE")
                 axios({
-                    url: 'http://162.55.37.249:8000/multiple_text',
+                    url: 'https://ml.tandai/multiple_text',
                     method: 'post',
                     data: response.data
                 })
@@ -135,6 +139,8 @@ export default function Testid() {
         setFilename(event.target.files[0].name)
     };
 
+    
+
     function openModal() {
         setIsOpen(true);
     }
@@ -143,6 +149,31 @@ export default function Testid() {
     // references are now sync'd and can be accessed.
     // subtitle.style.color = '#000000';
     function afterOpenModal() {
+    }
+
+    function guideModal(){
+        Swal.fire({
+            title: 'EXAMPLE',
+            html:
+            '<div className="content">'+
+            '</br>'+
+                '<b>Simple</b>'+
+                '</br>'+
+                '</br>'+
+                '<i>"Barang itu Bagus"</i><p>Or</p><i>"Sifat dia sangat buruk"</i>'+
+                '</br>'+
+                '</br>'+
+                '<p>_________________________________________</p>'+
+                '</br>'+
+                '</br>'+
+                '<b>Upload File</b>'+
+                '</br>'+
+                '</br>'+
+                '<p>Choose one of your file that contain (.csv)</p>'+
+            '</div>',
+            confirmButtonText: 'Okay'
+        })
+        
     }
 
     function closeModal() {
@@ -170,24 +201,53 @@ export default function Testid() {
             style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
     }
 
+
     return (
-        <>
+        <div>
             <Link to="/">
                 <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
                     &lt; Back
                 </p>
             </Link>
+            <div class="columns" style={{marginLeft:"750px"}}>
+             <div class="is-1">
+                <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", fontFamily: "Inter" }}>Test Model</h1>
+             </div>
+             <div class="is-1">
+                 <a>
+                <BsLightbulb onClick={()=>setShow(!show)} size='2.5em' color='cornflowerblue'style={{marginTop:'20px' ,marginLeft:'15px'}}></BsLightbulb>
+                 </a>
+             </div>
+           </div>
+           {
+                show ?
+                <div className="card" style={{ height: "200px", width: "20%", marginLeft: "700px", marginTop: "50px", borderRadius:'15px'}}>
+                
+                <header className="card-header" style={{ backgroundColor: "#B8DBCA" }}> 
+                    <p class="card-header-title">
+                            How To Work It:
+                        </p>        
+                </header>
+                <div className="card-content" >
+                    <div className="content">
+                        <p style={{textAlign:"left"}}>1. Choose one of dropdown selected</p>
+                        <p style={{textAlign:'left'}}>2. Fill empty form in the box</p>
+                        <p style={{textAlign:'left'}}>3. Submit your test model</p>
+                    </div>
+                </div>
+             </div>
+             :null
+            }
+           
 
-            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Test Model</h1>
-            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>If you choose upload file, upload file with csv format</h1>
-
-            <div className="card" style={{ height: "250px", width: "60%", marginLeft: "300px", marginTop: "100px" }}>
+           
+            <div className="card" style={{ height: "250px", width: "65%", marginLeft: "300px", marginTop: "50px" }}>
                 <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         API Testing
                     </p>
 
-                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
+                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "10px" }}>
                         <select
                             defaultValue={isFile}
                             onChange={(e) => {
@@ -201,6 +261,11 @@ export default function Testid() {
                             <option value="true" >Upload File</option>
                         </select>
                     </div>
+                    <div class="is-1">
+                 <a>
+                <BsLightbulb onClick={()=>guideModal()} size='1.5em' color='cornflowerblue'style={{marginTop:'13px' ,marginLeft:'7px'}}></BsLightbulb>
+                 </a>
+             </div>
 
                 </header>
                 <div className="card-content" >
@@ -294,6 +359,6 @@ export default function Testid() {
                 </Modal>
 
             </div>
-        </>
+        </div>
     )
 }

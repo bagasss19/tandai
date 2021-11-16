@@ -36,7 +36,8 @@ export default function Test() {
     function add(id) {
         setloading(true)
         axios({
-            url: 'http://162.55.37.249:8000/singletext',
+            // url: 'https://ml.tandai/singletext',
+            url: 'https://ml.tandai/singletext',
             method: 'post',
             data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
         })

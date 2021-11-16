@@ -73,7 +73,7 @@ export default function Trainid() {
                     }
 
                     axios({
-                        url: 'http://162.55.37.249:8000/insert_name',
+                        url: 'https://ml.tandai/insert_name',
                         method: 'post',
                         data: body
                     })
@@ -81,7 +81,7 @@ export default function Trainid() {
                             // handle success
                             console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
                             axios({
-                                url: 'http://162.55.37.249:8000/upload',
+                                url: 'https://ml.tandai/upload',
                                 method: 'post',
                                 headers: {
                                     "Content-Type": "multipart/form-data"
