@@ -43,9 +43,9 @@ function App() {
           <Route path="/login" component={Login} />
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
-          <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/>
+          {/* <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/> */}
           <PrivateRoute path="/package" component={Package} auth={isAutheticated}/>
-          <PrivateRoute exact path="/test" component={Test} auth={isAutheticated}/>
+          {/* <PrivateRoute exact path="/test" component={Test} auth={isAutheticated}/> */}
           <PrivateRoute path="/train/:id" component={Trainid} auth={isAutheticated}/>
           <PrivateRoute path="/test/:id" component={Testid} auth={isAutheticated}/>
           <PrivateRoute path="/detail/:id" component={Detailid} auth={isAutheticated}/></div>

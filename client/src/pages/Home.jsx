@@ -104,7 +104,7 @@ export default function Home() {
               {/* <Link to="/model"><p className="card-header-title" >Full model list</p></Link> */}
             </header>
             <div className="card-content">
-              <div className="content" style={{ height: "150px" }}>
+              <div className="content" style={{ height: "150px", textAlign : "left" }}>
                 <table className="table is-hoverable is-fullwidth">
                   <thead>
                     <tr>
@@ -131,19 +131,19 @@ export default function Home() {
                         </th>
                         <td>
 
-                          <Link to={`/test/${x.id}`}><button className="button Mainkolor" style={{ color: "white" }}>Test</button></Link>
-                          <Link to={`/train/${x.id}`}><button className="button Mainkolor" style={{ marginLeft: "5px", color: "white" }}>Train</button></Link>
+                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59" }}>Test</button></Link>
+                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor : "#1D8C59" }}>Train</button></Link>
                           {(() => {
                             switch (x.model_ID) {
-                              case "lstmw07": return <button title="this is your default model!" disabled className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                              case "lstmw07": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
-                              case "lstmw13": return <button title="this is your default model!" disabled className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                              case "lstmw13": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
-                              default: return <button className="button is-danger" style={{ marginLeft: "5px" }} onClick={(e) => {
+                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor : "#CB3A31", color : "white" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
@@ -171,13 +171,13 @@ export default function Home() {
                 <div style={{ marginTop: "-20px" }}></div>
                 <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>API Usage</p>
                 <p style={{ textAlign: "left" }}>{JSON.stringify(paket.usage)} / {paket.limit === 999999999 ? "∞" : JSON.stringify(paket.limit)} Used</p>
-                <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />
+                {paket.limit === 999999999 ? <ProgressBar completed="∞" labelColor="white" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center"/> : <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="white" bgColor="#23a96f" labelAlignment="center" />}
 
                 <br></br>
 
-                <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>TF Learning Usage</p>
+                <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>Transfer Learning Usage</p>
                 <p style={{ textAlign: "left" }}>{JSON.stringify(paket.TF_usage)} / {JSON.stringify(paket.TF_limit)} Used</p>
-                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />
+                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="white" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center" />
                 <br></br>
                 <div className="columns">
                   <div className="column">

@@ -23,6 +23,7 @@ export default function Login(props) {
                 localStorage.username = response.data.username
                 localStorage.id = response.data.id
                 localStorage.role = response.data.is_superuser
+                localStorage.paket = response.data.package
                 props.history.push('/')
                 window.location.reload();
             })
@@ -61,7 +62,7 @@ export default function Login(props) {
                                 <div className="control">
                                     <button className="button is-success is-fullwidth">Login</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Doesn't Have Account? Please Contact Us</p>
+                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai">Contact Us</a></p>
                             </div>
                         </form>
                     </div>

@@ -6,6 +6,11 @@ import check from "../Assets/checklist.png"
 export default function Package() {
     return (
         <>
+            <Link to="/">
+                <p style={{ color: "black", textAlign: "left", marginLeft: "50px", marginTop: "30px", fontFamily: "Inter", fontWeight: "bold" }} >
+                    &lt; Back
+                </p>
+            </Link>
             <p style={{ fontFamily: "inter", fontSize: "25px", fontWeight: "bold" }}>
                 <Link to="/profile">Profile</Link> | <Link to="/package" style={{ color: "black" }}>Package</Link>
             </p>
@@ -22,12 +27,12 @@ export default function Package() {
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 0</span>  / month</p>
                                 <p><span class="icon"><img src={check} /></span> Detection : 1000 requests / month</p>
-                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 10k dataset records / month </p>
+                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 10k dataset records/month </p>
                                 <p><span class="icon"><img src={check} /></span> Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <Link to="/" className="card-footer-item"><button className="button bronze">Contact Us</button></Link>
+                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button bronze"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -43,12 +48,12 @@ export default function Package() {
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 5.000.000</span>  / month</p>
                                 <p><span class="icon"><img src={check} /></span> Detection : Unlimited</p>
-                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 100k dataset records / month </p>
+                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 100k dataset records/month</p>
                                 <p><span class="icon"><img src={check} /></span> Chat & Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <Link to="/" className="card-footer-item"><button className="button silver">Contact Us</button></Link>
+                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button silver"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -69,7 +74,7 @@ export default function Package() {
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <Link to="/" className="card-footer-item"><button className="button gold">Contact Us</button></Link>
+                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button gold"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>

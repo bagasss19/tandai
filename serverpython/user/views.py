@@ -40,14 +40,15 @@ class Login(CreateAPIView):
             )
 
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user:
             token, _ = Token.objects.get_or_create(user=user)
+            package = Package.objects.filter(id=user.package_id).values()
             return Response({
                 "key": token.key,
                 "username": user.username,
                 "id" : user.id,
-                "is_superuser" : user.is_superuser
+                "is_superuser" : user.is_superuser,
+                "package" : package[0]['title']
             })
         else :
             return Response(
@@ -408,6 +409,70 @@ class CsvView(CreateAPIView):
 
         except Exception as error:
             print(error, "<<<<ERRRORRRRa")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class EndpointView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        try:
+            #Check Api Usage
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['API_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['API_quota']
+
+            if usage >= limit :
+                return Response({
+                    "Error" : "Kuota Abis Cuy"
+                })
+            
+            content = {'single_text' : request.data['single_text'], 'model_id' : request.data['model_id'], 'userID' : request.user.id}
+            output = requests.post('https://ml.tandai/singletext', json=content)
+
+            user = User.objects.filter(id=request.user.id).get()
+            user.API_usage = usage + 1
+            user.save()
+
+            return Response(output.json())
+        except Exception as error:
+            print(error, "ERRORR NICH")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class MultipleEndpointView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        try:
+            #Check Api Usage
+            u = User.objects.filter(id=request.user.id).values()
+            usage = u[0]['API_usage']
+            package = u[0]['package_id']
+            p = Package.objects.filter(id=package).values()
+            limit = p[0]['API_quota']
+
+            if usage >= limit :
+                return Response({
+                    "Error" : "Kuota Abis Cuy"
+                })
+            
+            content = {'review' : request.data['review'], 'model_id' : request.data['model_id'], 'username' : request.user.id}
+            output = requests.post('https://ml.tandai/multiple_text', json=content)
+
+            user = User.objects.filter(id=request.user.id).get()
+            user.API_usage = usage + 1
+            user.save()
+
+            return Response(output.json())
+        except Exception as error:
+            print(error, "ERRORR NICH")
             return Response({
                 "detail": str(error)
             },

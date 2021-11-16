@@ -120,17 +120,17 @@ export default function Testid() {
                         </header>
 
                         <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
-                            <table className="table is-hoverable" style={{textAlign : "left"}}>
-                                <thead>
+                            <table className="table" style={{textAlign : "left"}}>
+                                <thead className="sticky" style={{backgroundColor : "white", zIndex : 100}}>
                                     <tr>
                                         <th>Review</th>
-                                        <th>Sent</th>
-                                        <th>Sent Pred</th>
+                                        <th>Before</th>
+                                        <th>After</th>
                                     </tr>
                                 </thead>
 
                                 {filter === "default" && review.map((x) => (
-                                    <tbody>
+                                    <tbody className="tablemodel">
                                         <tr>
                                             <td>{x.review}</td>
                                             <td>{x.sent}</td>
@@ -141,7 +141,7 @@ export default function Testid() {
 
                                 {filter === "bagasganteng" && review.map((x) => (
                                     x.sent !== x.sent_pred && x.sent === "1" ?
-                                        <tbody>
+                                    <tbody className="tablemodel">
                                             <tr>
                                                 <td>{x.review}</td>
                                                 <td>{x.sent}</td>
@@ -154,7 +154,7 @@ export default function Testid() {
 
                                 {filter === "bagastampan" && review.slice(1).map((x) => (
                                     x.sent !== x.sent_pred && x.sent === "0" ?
-                                        <tbody>
+                                    <tbody className="tablemodel">
                                             <tr>
                                                 <td>{x.review}</td>
                                                 <td>{x.sent}</td>
@@ -178,7 +178,7 @@ export default function Testid() {
                         </header>
 
                         <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
-                            <table className="table is-hoverable" style={{width : "100%", textAlign : "left"}}>
+                            <table className="table" style={{width : "100%", textAlign : "left"}}>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -186,77 +186,77 @@ export default function Testid() {
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Test Accuracy</td>
                                         <td>{`${mathRound(model.statistics_test_acc).slice(0, 5)} %`}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Test Loss</td>
                                         <td>{model.statistics_test_loss.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Train Accuracy</td>
                                         <td>{`${mathRound(model.statistics_train_acc).slice(0, 5)} %`}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Train Loss</td>
                                         <td>{model.statistics_train_loss.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>F1 Score</td>
                                         <td>{model.statistics_f1.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Precision Score</td>
                                         <td>{model.statistics_precision.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Recall Score</td>
                                         <td>{model.statistics_recall.toFixed(2)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>True Positive</td>
                                         <td>{thousand(model.statistics_tp)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>False Positive</td>
                                         <td>{thousand(model.statistics_fp)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>True Negative</td>
                                         <td>{thousand(model.statistics_tn)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>False Negative</td>
                                         <td>{thousand(model.statistics_fn)}</td>
@@ -277,7 +277,7 @@ export default function Testid() {
                         </header>
 
                         <div className="card-content">
-                            <table className="table is-hoverable" style={{textAlign : "left"}}>
+                            <table className="table" style={{textAlign : "left"}}>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -285,21 +285,21 @@ export default function Testid() {
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Taining Start Time</td>
                                         <td>{generateDate(model.training_starttime)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Training End Time</td>
                                         <td>{generateDate(model.training_endtime)}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody>
+                                <tbody className="tablemodel">
                                     <tr>
                                         <td>Duration</td>
                                         <td>{duration(model.training_starttime, model.training_endtime)}</td>
@@ -311,8 +311,8 @@ export default function Testid() {
                 </div>
             </div>
 
-            <div className="columns" style={{ marginLeft: "138px", marginRight: "100px" }}>
-                    <div className="columns" style={{ marginTop: "50px", width: "90%" }}>
+            <div className="columns">
+                    <div className="columns" style={{ marginTop: "50px", margin : "auto", marginLeft : "50px" }}>
                         <Zoom>
                             <figure className="item-wrap fancybox">
                                 <img src={`http://20.195.24.100:8000${model.accuracy_image}`} alt="accuracy" className="img-fluid" />
