@@ -55,7 +55,7 @@ export default function Testid() {
             .then(function (response) {
                 // handle success
                 axios({
-                    url: 'https://ml.tandai/singletext',
+                    url: 'https://ml.tand.ai/singletext',
                     method: 'post',
                     data: { single_text: word, model_id: model.model_ID, userID: model.model_owner }
                 })
@@ -104,7 +104,7 @@ export default function Testid() {
                 // handle success
                 console.log(response.data, "<<<<<<<RESPONSEEEEEE")
                 axios({
-                    url: 'https://ml.tandai/multiple_text',
+                    url: 'https://ml.tand.ai/multiple_text',
                     method: 'post',
                     data: response.data
                 })
