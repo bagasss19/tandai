@@ -432,7 +432,7 @@ class EndpointView(CreateAPIView):
                 })
             
             content = {'single_text' : request.data['single_text'], 'model_id' : request.data['model_id'], 'userID' : request.user.id}
-            output = requests.post('https://ml.tandai/singletext', json=content)
+            output = requests.post('https://ml.tand.ai/singletext', json=content)
 
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
@@ -464,7 +464,7 @@ class MultipleEndpointView(CreateAPIView):
                 })
             
             content = {'review' : request.data['review'], 'model_id' : request.data['model_id'], 'username' : request.user.id}
-            output = requests.post('https://ml.tandai/multiple_text', json=content)
+            output = requests.post('https://ml.tand.ai/multiple_text', json=content)
 
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1

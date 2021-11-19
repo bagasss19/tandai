@@ -36,8 +36,8 @@ export default function Test() {
     function add(id) {
         setloading(true)
         axios({
-            // url: 'https://ml.tandai/singletext',
-            url: 'https://ml.tandai/singletext',
+            // url: 'https://ml.tand.ai/singletext',
+            url: 'https://ml.tand.ai/singletext',
             method: 'post',
             data: { single_text : word, model_id : model.model_ID, userID : model.model_owner }
         })

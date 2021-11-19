@@ -10,6 +10,7 @@ import {
     useParams,
     Link
 } from "react-router-dom";
+import Sample from '../sampletrain.csv'
 
 Modal.setAppElement('#root');
 
@@ -35,7 +36,6 @@ export default function Trainid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [name, setname] = useState(null)
-    const [filename, setfilename] = useState(null)
 
     const postApi = () => {
         setloading(true)
@@ -62,9 +62,8 @@ export default function Trainid() {
             })
                 .then(function (response) {
                     // handle success
-                    setfilename(response.data.filename)
                     input.append('file', file, response.data.filename)
-                    console.log(response.data.filename, "<<<FIELNAMEEE")
+                    // console.log(response.data.filename, "<<<FIELNAMEEE")
                     const body = {
                         model_name: name,
                         model_owner_id: localStorage.id,
@@ -73,7 +72,7 @@ export default function Trainid() {
                     }
 
                     axios({
-                        url: 'https://ml.tandai/insert_name',
+                        url: 'https://ml.tand.ai/insert_name',
                         method: 'post',
                         data: body
                     })
@@ -81,7 +80,7 @@ export default function Trainid() {
                             // handle success
                             console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
                             axios({
-                                url: 'https://ml.tandai/upload',
+                                url: 'https://ml.tand.ai/upload',
                                 method: 'post',
                                 headers: {
                                     "Content-Type": "multipart/form-data"
@@ -129,7 +128,7 @@ export default function Trainid() {
                     setloading(false)
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Error di Local!',
+                        text: error,
                         icon: 'error',
                         confirmButtonText: 'Okay'
                     })
@@ -193,11 +192,11 @@ export default function Trainid() {
                     &lt; Back
                 </p>
             </Link>
-            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Train Model</h1>
-            <h1 className="title is-5" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Upload file with .csv extention, if success, it will create new model</h1>
+            <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Train Model</h1>
+            <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Create a model based on previous existing ones by adding your own theme-specific dataset.</h1>
 
-            <div className="card" style={{ height: "280px", width: "60%", marginLeft: "300px", marginTop: "50px" }}>
-                <header className="card-header">
+            <div className="card" style={{ width: "60%", marginLeft: "300px", marginTop: "50px" }}>
+                <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         Train Model
                     </p>
@@ -205,7 +204,8 @@ export default function Trainid() {
 
                 <div className="card-content" >
                     <div className="content" >
-
+                        <p style={{ textAlign: "left", fontSize: "small" }}>Upload your CSV file containing the dataset and click "Submit" to start creating a new model. CSV template can be downloaded <a href={Sample} >here.</a>
+                        </p>
                         <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
 
                         <form className="form" style={{ width: "50%", margin: "auto" }}

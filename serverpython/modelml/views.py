@@ -79,7 +79,7 @@ class ModelmlView(CreateAPIView):
             )
 
 class ModelmlidView(CreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     parser_class = (FileUploadParser,)
     def get(self, request, pk):
         try:
@@ -148,8 +148,8 @@ class ModelmlDynamicView(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-
 class ReviewView(CreateAPIView):
+    permission_classes = (AllowAny,)
     def get(self, request, pk):
         try:
             # return Response("ASHUPPP")

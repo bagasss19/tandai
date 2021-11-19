@@ -64,7 +64,7 @@ export default function Testid() {
             url: 'model/' + id,
             method: 'get',
             headers: {
-                "Authorization": localStorage.token
+                // "Authorization": localStorage.token
             }
         })
             .then(function (response) {
@@ -119,7 +119,7 @@ export default function Testid() {
                             </div>
                         </header>
 
-                        <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
+                        <div className="card-content" style={{ overflow: "scroll", height: "300px", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
                             <table className="table" style={{textAlign : "left"}}>
                                 <thead className="sticky" style={{backgroundColor : "white", zIndex : 100}}>
                                     <tr>
@@ -170,16 +170,16 @@ export default function Testid() {
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px", width: "100%" }}>
+                    <div className="card" style={{ height: "350px"}}>
                         <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Statistic
                             </p>
                         </header>
 
-                        <div className="card-content" style={{ overflow: "scroll", height: "300px" }}>
+                        <div className="card-content" style={{ overflow: "scroll", height: "300px", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
                             <table className="table" style={{width : "100%", textAlign : "left"}}>
-                                <thead>
+                                <thead className="sticky" style={{backgroundColor : "white", zIndex : 100}}>
                                     <tr>
                                         <th>Name</th>
                                         <th>Value</th>
@@ -269,7 +269,7 @@ export default function Testid() {
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px", width: "100%" }}>
+                    <div className="card" style={{ height: "350px", width: "100%", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
                         <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Train Time
