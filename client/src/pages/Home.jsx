@@ -171,13 +171,13 @@ export default function Home() {
                 <div style={{ marginTop: "-20px" }}></div>
                 <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>API Usage</p>
                 <p style={{ textAlign: "left" }}>{JSON.stringify(paket.usage)} / {paket.limit === 999999999 ? "∞" : JSON.stringify(paket.limit)} Used</p>
-                {paket.limit === 999999999 ? <ProgressBar completed="∞" labelColor="white" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center"/> : <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="white" bgColor="#23a96f" labelAlignment="center" />}
+                {paket.limit === 999999999 ? <ProgressBar completed="∞" labelColor="black" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center"/> : <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />}
 
                 <br></br>
 
                 <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>Transfer Learning Usage</p>
                 <p style={{ textAlign: "left" }}>{JSON.stringify(paket.TF_usage)} / {JSON.stringify(paket.TF_limit)} Used</p>
-                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="white" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center" />
+                <ProgressBar completed={Math.round(paket.TF_usage / paket.TF_limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="left" />
                 <br></br>
                 <div className="columns">
                   <div className="column">

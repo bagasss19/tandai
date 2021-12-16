@@ -42,44 +42,28 @@ export default function Testid() {
     function add() {
         setloading(true)
         Axios({
-            url: 'user/model',
+            url: 'user/endpoint/singletext',
             method: 'post',
             headers: {
                 "Authorization": localStorage.token
             },
+            data: { single_text: word, model_id: model.model_ID }
         })
             .then(function (response) {
                 // handle success
-                axios({
-                    url: 'https://ml.tand.ai/singletext',
-                    method: 'post',
-                    data: { single_text: word, model_id: model.model_ID, userID: model.model_owner }
+                Swal.fire({
+                    title: 'Success!',
+                    // text: `${response.data.result}`,
+                    html: `${response.data.result} <br/> time : ${response.data.detection_time} second(s)`,
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
                 })
-                    .then(function (response) {
-                        // handle success
-                        console.log(response.data, "<<<<<<<<<< RESPONSE")
-                        Swal.fire({
-                            title: 'Success!',
-                            // text: `${response.data.result}`,
-                            html: `${response.data.result} <br/> time : ${response.data.detection_time} second(s)`,
-                            icon: 'success',
-                            confirmButtonText: 'Cool'
-                        })
-                        setloading(false)
-                    })
-                    .catch(function (response) {
-                        // handle success
-                        Swal.fire({
-                            title: 'Error!',
-                            text: response,
-                            icon: 'error',
-                            confirmButtonText: 'Okay'
-                        })
-                    })
+                setloading(false)
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                setloading(false)
             })
     }
 

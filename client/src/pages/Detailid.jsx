@@ -315,13 +315,13 @@ export default function Testid() {
                     <div className="columns" style={{ marginTop: "50px", margin : "auto", marginLeft : "50px" }}>
                         <Zoom>
                             <figure className="item-wrap fancybox">
-                                <img src={`http://20.195.24.100:8000${model.accuracy_image}`} alt="accuracy" className="img-fluid" />
+                                <img src={`https://api.tand.ai${model.accuracy_image}`} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
 
                         <Zoom>
                             <figure className="image" style={{ marginLeft: "5px" }}>
-                                <img src={`http://20.195.24.100:8000${model.loss_image}`} alt="accuracy" className="img-fluid" />
+                                <img src={`https://api.tand.ai${model.loss_image}`} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
                     </div>

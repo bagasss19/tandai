@@ -32,7 +32,7 @@ export default function Package() {
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button bronze"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button bronze"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ export default function Package() {
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button silver"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button silver"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ export default function Package() {
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button gold"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button gold"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>

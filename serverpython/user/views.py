@@ -219,7 +219,7 @@ class FileUploadView(APIView):
             f = request.data['file']
 
             df = pd.read_csv(f)
-            words = df['sentiment']
+            words = df['review']
             # output = []
             print(words, ">>>>>>>>>>>>WORDSS")
             # for x in words:
@@ -437,7 +437,7 @@ class EndpointView(CreateAPIView):
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
             user.save()
-
+            print(output, "<<<??")
             return Response(output.json())
         except Exception as error:
             print(error, "ERRORR NICH")

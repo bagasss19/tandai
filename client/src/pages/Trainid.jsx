@@ -62,6 +62,7 @@ export default function Trainid() {
             })
                 .then(function (response) {
                     // handle success
+                    console.log(response, "<<<ASHUUPP");
                     input.append('file', file, response.data.filename)
                     // console.log(response.data.filename, "<<<FIELNAMEEE")
                     const body = {
@@ -124,7 +125,7 @@ export default function Trainid() {
                 })
                 .catch(function (error) {
                     // handle ERROR
-                    console.log(error, "<<<<<<ERRR")
+                    console.log(error, "<<<<<<ERRR user transfer")
                     setloading(false)
                     Swal.fire({
                         title: 'Error!',
