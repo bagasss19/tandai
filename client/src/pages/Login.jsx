@@ -62,7 +62,7 @@ export default function Login(props) {
                                 <div className="control">
                                     <button className="button is-success is-fullwidth">Login</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai">Contact Us</a></p>
+                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai">Contact Us</a></p>
                             </div>
                         </form>
                     </div>
