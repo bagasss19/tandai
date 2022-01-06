@@ -6,6 +6,7 @@ from user.views import *
 urlpatterns = [
     # path('', UserView.as_view(), name="user"),
     path('transfer/<pk>', TransferView.as_view(), name="transfer"),
+    path('transfer2/<pk>', TransferView2.as_view(), name="transfer2"),
     path('register', RegisterView.as_view(), name="register"),
     path('model',ModelView.as_view() , name="model"),
     path('csv',CsvView.as_view() , name="csv"),

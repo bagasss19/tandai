@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FaUpload } from "react-icons/fa";
 import Axios from '../config/axios'
-import axios from 'axios'
 import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
@@ -49,7 +48,9 @@ export default function Trainid() {
             setloading(false)
         } else {
             const input = new FormData()
-            input.append('file', file)
+            input.append('model_name', name)
+            input.append('model_owner_id', localStorage.id,)
+            input.append('baseline_ID', model.model_ID)
 
             Axios({
                 url: 'user/transfer/' + id,
@@ -63,64 +64,29 @@ export default function Trainid() {
                 .then(function (response) {
                     // handle success
                     console.log(response, "<<<ASHUUPP");
-                    input.append('file', file, response.data.filename)
-                    // console.log(response.data.filename, "<<<FIELNAMEEE")
-                    const body = {
-                        model_name: name,
-                        model_owner_id: localStorage.id,
-                        baseline_ID: model.model_ID,
-                        model_ID: response.data.modelID
-                    }
-
-                    axios({
-                        url: 'https://ml.tand.ai/insert_name',
+                    const input2 = new FormData()
+                    input2.append('file', file, response.data.filename)
+                    input2.append('filename', response.data.filename)
+                    Axios({
+                        url: 'user/transfer2/' + id,
                         method: 'post',
-                        data: body
+                        headers: {
+                            "Authorization": localStorage.token,
+                            "Content-Type": "multipart/form-data"
+                        },
+                        data: input2
                     })
                         .then(function (response) {
                             // handle success
-                            console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
-                            axios({
-                                url: 'https://ml.tand.ai/upload',
-                                method: 'post',
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
-                                },
-                                data: input
-                            })
-                                .then(function (response) {
-                                    // handle success
-                                    console.log(response, "<<<<<<<<<RESPONSEEEEEEEEEEEEE")
-                                    console.log("SUKSESSSSSSSSSSSSSSSSS")
-                                    setloading(false)
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Upload Model Success',
-                                        icon: 'success',
-                                        confirmButtonText: 'Cool'
-                                    })
-                                })
-                                .catch(function (error) {
-                                    // handle ERROR
-                                    console.log(error, "<<<<<<ERRR")
-                                    setloading(false)
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Upload File Failed!',
-                                        icon: 'error',
-                                        confirmButtonText: 'Okay'
-                                    })
-                                })
-                        }).catch(function (error) {
-                            // handle ERROR
-                            console.log(error, "<<<<<<ERRR")
+                            console.log(response, "<<<ASHUUPP");
                             setloading(false)
                             Swal.fire({
-                                title: 'Error!',
-                                text: 'Upload File Failed!',
-                                icon: 'error',
-                                confirmButtonText: 'Okay'
+                                title: 'Success!',
+                                text: 'Upload Model Success',
+                                icon: 'success',
+                                confirmButtonText: 'Cool'
                             })
+
                         })
                 })
                 .catch(function (error) {

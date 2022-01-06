@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FaUpload } from "react-icons/fa";
 import Axios from '../config/axios'
-import axios from 'axios'
 import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
@@ -67,7 +66,7 @@ export default function Testid() {
             })
     }
 
-    function addFile(id) {
+    function addFile() {
         setloading(true)
         const input = new FormData();
         input.append('file', file)
@@ -82,35 +81,11 @@ export default function Testid() {
         })
             .then(function (response) {
                 // handle success
-                console.log(response.data, "<<<<<<<RESPONSEEEEEE")
-                axios({
-                    url: 'https://ml.tand.ai/multiple_text',
-                    method: 'post',
-                    data: response.data
-                })
-                    .then(function (response) {
-                        // handle success
-                        console.log(response, "<<<<<<<<<< RESPONSE")
-                        setanswer(response.data.data)
-                        settime(response.data.time)
-                        setloading(false)
-                        openModal()
-                        // Swal.fire({
-                        //     title: 'Success!',
-                        //     text: response.data.data,
-                        //     icon: 'success',
-                        //     confirmButtonText: 'Cool'
-                        // })
-                    })
-                    .catch(function (response) {
-                        // handle success
-                        Swal.fire({
-                            title: 'Error!',
-                            text: response,
-                            icon: 'error',
-                            confirmButtonText: 'Okay'
-                        })
-                    })
+                console.log(response.data.data, "<<<<<<<RESPONSEEEEEE")
+                setanswer(response.data.data)
+                settime(response.data.time)
+                setloading(false)
+                openModal()
             })
     }
 
@@ -163,7 +138,7 @@ export default function Testid() {
             </Link>
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Test Model</h1>
-            <h1 className="title is-6" style={{ textAlign: "center", margin : "auto", marginTop: "1em"}}>Here you can test your models - as well as the built-in ones - by by inputting your own sentences.</h1>
+            <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Here you can test your models - as well as the built-in ones - by by inputting your own sentences.</h1>
 
             <div className="card" style={{ width: "60%", margin: "auto", marginTop: "5em" }}>
                 <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
@@ -191,9 +166,9 @@ export default function Testid() {
                     <div className="content" >
                         {
                             isFile ?
-                                <p style={{textAlign : "left", fontSize : "small"}}>Upload your CSV file containing multiple sentences and click "Submit" to get the sentiment result. CSV template can be downloaded <a href={Sample} >here.</a></p>
+                                <p style={{ textAlign: "left", fontSize: "small" }}>Upload your CSV file containing multiple sentences and click "Submit" to get the sentiment result. CSV template can be downloaded <a href={Sample} >here.</a></p>
                                 :
-                                <p style={{textAlign : "left", fontSize : "small"}}>Type your sentence in the text box and click "Submit" to get the sentiment result.</p>
+                                <p style={{ textAlign: "left", fontSize: "small" }}>Type your sentence in the text box and click "Submit" to get the sentiment result.</p>
                         }
                         <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
 
