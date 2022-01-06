@@ -373,9 +373,11 @@ class TransferView2(CreateAPIView):
                 },status=status.HTTP_400_BAD_REQUEST)
 
             filename = request.data['filename']
-            f = request.data['file']
-            df = pd.read_csv(f)
+            f = request.data['file'].file.getvalue()
+            row = request.data['file']
+            df = pd.read_csv(row)
             print(len(df), "<<<<ROWW")
+            print(type(f), "<<<<<<<<??????????FILEE")
             
             user = User.objects.filter(id=request.user.id).get()
             user.TF_usage = usage + len(df)

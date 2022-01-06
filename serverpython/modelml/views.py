@@ -107,7 +107,7 @@ class ModelmlidView(CreateAPIView):
             )
 
 class ModelmlDynamicView(CreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     parser_class = (FileUploadParser,)
     def post(self, request, pk):
         try:

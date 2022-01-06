@@ -52,6 +52,8 @@ export default function Trainid() {
             input.append('model_owner_id', localStorage.id,)
             input.append('baseline_ID', model.model_ID)
 
+            const input2 = new FormData()
+            input2.append('file', file)
             Axios({
                 url: 'user/transfer/' + id,
                 method: 'post',
@@ -63,10 +65,8 @@ export default function Trainid() {
             })
                 .then(function (response) {
                     // handle success
-                    console.log(response, "<<<ASHUUPP");
-                    const input2 = new FormData()
-                    input2.append('file', file, response.data.filename)
-                    input2.append('filename', response.data.filename)
+                    console.log(response.data.filename + '.csv', "<<<ASHUUPP");
+                    input2.append('filename', response.data.filename + '.csv')
                     Axios({
                         url: 'user/transfer2/' + id,
                         method: 'post',
