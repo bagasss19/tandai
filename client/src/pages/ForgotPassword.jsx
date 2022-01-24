@@ -57,18 +57,16 @@ export default function Login(props) {
                                 <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
                                 <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
                             </div>
+
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Remember me</label>
-                                <label className="label is-family-code" href="/forgot-password" style={{ textAlign: "right", marginTop:"-33px"}}>
-                                    <a href='/forgot-password' style={{color:"black"}}>{"Forgot Password ?"}</a>
-                                </label>
+                                <label className="label is-family-code" style={{ textAlign: "left" }}>Confirm Password:</label>
+                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
                             </div>
 
                             <div className="field">
                                 <div className="control">
-                                    <button className="button is-success is-fullwidth">Login</button>
+                                    <button className="button is-success is-fullwidth">Submit</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai">Contact Us</a></p>
                             </div>
                         </form>
                     </div>
