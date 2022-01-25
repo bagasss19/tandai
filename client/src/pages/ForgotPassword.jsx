@@ -6,16 +6,10 @@ import form from '../Assets/Login.png'
 // import {
 //     Link,
 // } from "react-router-dom"
-import { AiFillEye } from "react-icons/ai";
 
 export default function Login(props) {
     const [password, setpassword] = useState("")
     const [username, setusername] = useState("")
-    const [passwordShown, setPasswordShown] = useState(false);
-
-    const togglePasswordVisiblity = () => {
-        setPasswordShown(passwordShown ? false : true);
-      };
 
     function login() {
         // axios.defaults.withCredentials = true
@@ -43,7 +37,7 @@ export default function Login(props) {
     return (
         
         <div class="login">
-            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "400px", width: "500px"}}>
+            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "250px", width: "500px"}}>
                 <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
                     Welcome to Tand.ai
                 </p>
@@ -60,24 +54,10 @@ export default function Login(props) {
                             </div>
 
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
-                                <div className="pass-wrapper">
-                                <input className="input"  type={passwordShown ? "text" : "password"} placeholder="Password" onChange={e => setpassword(e.target.value)} />
-                                <i onClick={togglePasswordVisiblity}><AiFillEye/></i>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Remember me</label>
-                                <label className="label is-family-code" href="/forgot-password" style={{ textAlign: "right", marginTop:"-33px"}}>
-                                    <a href='/forgot-password' style={{color:"black"}}>{"Forgot Password ?"}</a>
-                                </label>
-                            </div>
-
-                            <div className="field">
                                 <div className="control">
-                                    <button className="button is-success is-fullwidth">Login</button>
+                                    <button className="button is-success is-fullwidth">Submit</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai">Contact Us</a></p>
+                                <p style={{marginTop : "15px"}}>Already remember your password? <a href="/login">Login</a></p>
                             </div>
                         </form>
                     </div>

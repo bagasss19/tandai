@@ -118,17 +118,15 @@ export default function Testid() {
                                 </select>
                             </div>
                         </header>
-
-                        <div className="card-content" style={{ overflow: "scroll", height: "300px", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
+                        <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
                             <table className="table" style={{textAlign : "left"}}>
-                                <thead className="sticky" style={{backgroundColor : "white", zIndex : 100}}>
+                                <thead className="sticky" style={{backgroundColor : "white",zIndex : 200}}>
                                     <tr>
                                         <th>Review</th>
                                         <th>Before</th>
                                         <th>After</th>
                                     </tr>
                                 </thead>
-
                                 {filter === "default" && review.map((x) => (
                                     <tbody className="tablemodel">
                                         <tr>
@@ -176,10 +174,9 @@ export default function Testid() {
                                 Statistic
                             </p>
                         </header>
-
-                        <div className="card-content" style={{ overflow: "scroll", height: "300px", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
+                        <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
                             <table className="table" style={{width : "100%", textAlign : "left"}}>
-                                <thead className="sticky" style={{backgroundColor : "white", zIndex : 100}}>
+                                <thead className="sticky" style={{backgroundColor : "white",zIndex : 200}}>
                                     <tr>
                                         <th>Name</th>
                                         <th>Value</th>
@@ -276,7 +273,7 @@ export default function Testid() {
                             </p>
                         </header>
 
-                        <div className="card-content">
+                        <div className="card-content" >
                             <table className="table" style={{textAlign : "left"}}>
                                 <thead>
                                     <tr>
@@ -310,7 +307,8 @@ export default function Testid() {
                     </div>
                 </div>
             </div>
-
+            <br/>
+            <br/>
             <div className="columns">
                     <div className="columns" style={{ marginTop: "50px", margin : "auto", marginLeft : "50px" }}>
                         <Zoom>
