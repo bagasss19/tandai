@@ -14,6 +14,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 
+#Send Email
+from django.conf import settings
+from django.core.mail import send_mail
+
 import pandas as pd
 import json
 import pickle
@@ -394,7 +398,6 @@ class TransferView2(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-
 class CsvView(CreateAPIView):
     parser_class = (FileUploadParser,)
     def post(self, request):
@@ -474,6 +477,31 @@ class MultipleEndpointView(CreateAPIView):
             user.save()
 
             return Response(output.json())
+        except Exception as error:
+            print(error, "ERRORR NICH")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class SendMail(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request):
+        try:
+            print(settings.EMAIL_IMAP_SECRETS[0]['USER'], "<<????")
+            send_mail(
+            'Subject here',
+            'Here is the message.',
+            settings.EMAIL_IMAP_SECRETS[0]['USER'],
+            ['alesandrogerard@gmail.com'],
+            fail_silently=False,
+            )
+            return Response({
+                "status": "OK!"
+            },
+                status=status.HTTP_200_OK,
+            )
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({

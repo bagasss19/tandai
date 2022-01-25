@@ -5,6 +5,7 @@ from user.views import *
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     # path('', UserView.as_view(), name="user"),
+    path('forgot', SendMail.as_view(), name="forgot"),
     path('transfer/<pk>', TransferView.as_view(), name="transfer"),
     path('transfer2/<pk>', TransferView2.as_view(), name="transfer2"),
     path('register', RegisterView.as_view(), name="register"),

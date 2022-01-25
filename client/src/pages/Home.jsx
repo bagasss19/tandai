@@ -95,13 +95,11 @@ export default function Home() {
 
       <div className="columns" style={{ marginTop: "50px" }} >
         <div className="column">
-          <div className="card" style={{ marginLeft: "10px", width: "850px", height: "400px" }}>
+          <div className="card" style={{ marginLeft: "10px", height: "400px" }}>
             <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
               <p className="card-header-title">
                 Model List
               </p>
-
-              {/* <Link to="/model"><p className="card-header-title" >Full model list</p></Link> */}
             </header>
             <div className="card-content">
               <div className="content" style={{ height: "150px", textAlign : "left" }}>
@@ -118,7 +116,7 @@ export default function Home() {
                   <tbody>
                     {model.map((x) => (
                       <tr key={x.id}>
-                        <td><Link to={`/detail/${x.id}`}>{x.model_ID}</Link></td>
+                        <td>{x.model_ID}</td>
                         <td>{x.model_name}</td>
                         <th>
                           {(() => {
@@ -130,7 +128,7 @@ export default function Home() {
                           })()}
                         </th>
                         <td>
-
+                        <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59" }}>Detail</button></Link>
                           <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59" }}>Test</button></Link>
                           <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor : "#1D8C59" }}>Train</button></Link>
                           {(() => {

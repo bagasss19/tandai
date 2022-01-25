@@ -138,3 +138,19 @@
     transform: rotate(360deg);
   }
 }
+
+.pass-wrapper {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+
+i {
+  position: absolute;
+  top: 25%;
+  right: 2%;
+}
+i:hover {
+  color: #23a96f;
+  cursor: pointer;
+}
