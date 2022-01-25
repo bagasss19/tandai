@@ -1,7 +1,6 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-// export const baseURL = 'https://api.tand.ai:8000/'
 export const baseURL = 'https://api.tand.ai/'
 // export const baseURL = 'http://localhost:8000/'
 

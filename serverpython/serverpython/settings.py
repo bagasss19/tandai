@@ -187,3 +187,23 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django_imap_backend.ImapBackend'
+
+EMAIL_IMAP_SECRETS = [
+    {
+        'HOST': 'mail.venation.io',
+        'PORT': 143,  # default 143 and for SSL 993
+        'USER': 'bagas@venation.io',
+        'PASSWORD': '3=5PlD1OJ,s8',
+        'MAILBOX': 'my_project',  # Created if not exists
+        'SSL': False  # Default
+    }
+]
+
+# EMAIL_HOST = 'mail.venation.io'
+# EMAIL_PORT = 143
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'bagas@venation.io'
+# EMAIL_HOST_PASSWORD = 'Venation1234599'

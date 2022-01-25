@@ -6,10 +6,16 @@ import form from '../Assets/Login.png'
 // import {
 //     Link,
 // } from "react-router-dom"
+import { AiFillEye } from "react-icons/ai";
 
 export default function Login(props) {
     const [password, setpassword] = useState("")
     const [username, setusername] = useState("")
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+      };
 
     function login() {
         // axios.defaults.withCredentials = true
@@ -55,7 +61,10 @@ export default function Login(props) {
 
                             <div className="field">
                                 <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
-                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
+                                <div className="pass-wrapper">
+                                <input className="input"  type={passwordShown ? "text" : "password"} placeholder="Password" onChange={e => setpassword(e.target.value)} />
+                                <i onClick={togglePasswordVisiblity}><AiFillEye/></i>
+                                </div>
                             </div>
                             <div className="field">
                                 <label className="label is-family-code" style={{ textAlign: "left" }}>Remember me</label>
@@ -68,7 +77,7 @@ export default function Login(props) {
                                 <div className="control">
                                     <button className="button is-success is-fullwidth">Login</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai">Contact Us</a></p>
+                                <p style={{marginTop : "15px"}}>Don't Have Account? <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai">Contact Us</a></p>
                             </div>
                         </form>
                     </div>

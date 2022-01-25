@@ -14,6 +14,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 
+#Send Email
+from django.conf import settings
+from django.core.mail import send_mail
+
 import pandas as pd
 import json
 import pickle
@@ -190,16 +194,6 @@ class FileUploadView(APIView):
         try :
             if 'file' not in request.data:
                 raise ParseError("Empty content")
-            
-            # module_dir = os.path.dirname(__file__)  
-            # tfdifloc = os.path.join(module_dir, 'tfidf.pickle')  
-            # mnbloc = os.path.join(module_dir, 'mnb.pickle')
-            
-            #Load tfidf matrix
-            # tfidf = pickle.load(open(tfdifloc, "rb"))
-
-            #Load mnb model
-            # mnb = pickle.load(open(mnbloc, "rb"))
 
             #Check Api Usage
             u = User.objects.filter(id=request.user.id).values()
@@ -219,30 +213,20 @@ class FileUploadView(APIView):
             f = request.data['file']
 
             df = pd.read_csv(f)
-            words = df['sentiment']
-            # output = []
-            print(words, ">>>>>>>>>>>>WORDSS")
-            # for x in words:
-            #     obj = {}
-            #     tfidf_baru = tfidf.transform([x])
-            #     hasil = mnb.predict(tfidf_baru)
+            words = df['review']
+            output = []
+            for x in words :
+                output.append(x)
 
-            #     if hasil == 0:
-            #         obj['word'] = x
-            #         obj['sentiment'] = "negative"
-            #         output.append(obj)
-            #     else :
-            #         obj['word'] = x
-            #         obj['sentiment'] = "positive"
-            #         output.append(obj)
+            content = {'review' : output, 'model_id' : model_ID, 'username' : uname}
+            output = requests.post('https://ml.tand.ai/multiple_text', json=content)
+            print(output, "<<?????")
 
-            # print(output, "<<<hasil nich")
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
             user.save()
-            return Response({
-                "username" : uname, "model_id" : model_ID,"review" : words},
-            status=status.HTTP_201_CREATED)
+
+            return Response(output.json())
 
         except Exception as error:
             return Response({
@@ -344,13 +328,41 @@ class PackageView(CreateAPIView):
 
 class TransferView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
+
+    def post(self, request, pk):
+        try :
+            S = 10
+            model = Modelml.objects.filter(id=pk).values()
+            baseName = model[0]['model_ID']
+            ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
+            filename = str(request.user.id) + "_" + baseName + "_" + ran
+
+            content = {
+                        "model_name":  request.data['model_name'],
+                        "model_owner_id":  request.data['model_owner_id'],
+                        "baseline_ID":  request.data['baseline_ID'],
+                        "model_ID": ran
+                }
+            output = requests.post('https://ml.tand.ai/insert_name', json=content)
+            return Response({"filename" : filename, "modelID" : ran},
+            status=status.HTTP_200_OK)
+
+        except Exception as error:
+            print(error, "<<<<ERRRORRRR")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class TransferView2(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
     def post(self, request, pk):
         try :
             if 'file' not in request.data:
                 raise ParseError("Empty content")
-            S = 10
 
             #Check Api Usage
             u = User.objects.filter(id=request.user.id).values()
@@ -364,24 +376,18 @@ class TransferView(CreateAPIView):
                     "Error" : "Kuota Abis Cuy"
                 },status=status.HTTP_400_BAD_REQUEST)
 
-            f = request.data['file']
-            df = pd.read_csv(f)
+            filename = request.data['filename']
+            f = request.data['file'].file.getvalue()
+            row = request.data['file']
+            df = pd.read_csv(row)
             print(len(df), "<<<<ROWW")
-
-            u = User.objects.filter(id=request.user.id).values()
-            username = u[0]['username']
-            model = Modelml.objects.filter(id=pk).values()
-            baseName = model[0]['model_ID']
-            
+            print(type(f), "<<<<<<<<??????????FILEE")
             
             user = User.objects.filter(id=request.user.id).get()
             user.TF_usage = usage + len(df)
             user.save()
-
-            ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
-
-            filename = str(request.user.id) + "_" + baseName + "_" + ran
-            return Response({"filename" : filename, "modelID" : ran},
+            output = requests.post('https://ml.tand.ai/upload', files={'file': (filename, f, 'text/csv', {'Expires': '0'})})
+            return Response({"status" : "OK!"},
             status=status.HTTP_200_OK)
 
         except Exception as error:
@@ -437,7 +443,7 @@ class EndpointView(CreateAPIView):
             user = User.objects.filter(id=request.user.id).get()
             user.API_usage = usage + 1
             user.save()
-
+            print(output, "<<<??")
             return Response(output.json())
         except Exception as error:
             print(error, "ERRORR NICH")
@@ -471,6 +477,31 @@ class MultipleEndpointView(CreateAPIView):
             user.save()
 
             return Response(output.json())
+        except Exception as error:
+            print(error, "ERRORR NICH")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class SendMail(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request):
+        try:
+            print(settings.EMAIL_IMAP_SECRETS[0]['USER'], "<<????")
+            send_mail(
+            'Subject here',
+            'Here is the message.',
+            settings.EMAIL_IMAP_SECRETS[0]['USER'],
+            ['alesandrogerard@gmail.com'],
+            fail_silently=False,
+            )
+            return Response({
+                "status": "OK!"
+            },
+                status=status.HTTP_200_OK,
+            )
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({

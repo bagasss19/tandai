@@ -26,13 +26,13 @@ export default function Package() {
                         <div className="card-content">
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 0</span>  / month</p>
-                                <p><span class="icon"><img src={check} /></span> Detection : 1000 requests / month</p>
-                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 10k dataset records/month </p>
-                                <p><span class="icon"><img src={check} /></span> Email Support </p>
+                                <p><span class="icon"><img src={check} alt="check" /></span> Detection : 1000 requests / month</p>
+                                <p><span class="icon"><img src={check} alt="check" /></span> Transfer Learning : 10k dataset records/month </p>
+                                <p><span class="icon"><img src={check} alt="check" /></span> Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button bronze"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button bronze"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -47,13 +47,13 @@ export default function Package() {
                         <div className="card-content">
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Rp 5.000.000</span>  / month</p>
-                                <p><span class="icon"><img src={check} /></span> Detection : Unlimited</p>
-                                <p><span class="icon"><img src={check} /></span> Transfer Learning : 100k dataset records/month</p>
-                                <p><span class="icon"><img src={check} /></span> Chat & Email Support </p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> Detection : Unlimited</p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> Transfer Learning : 100k dataset records/month</p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> Chat & Email Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button silver"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button silver"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
@@ -68,13 +68,13 @@ export default function Package() {
                         <div className="card-content">
                             <div className="content" style={{ textAlign: "left", fontSize: "Inter" }}>
                                 <p><span style={{ fontSize: "30px", fontWeight: "bold" }}>Contact us for the price</span></p>
-                                <p><span class="icon"><img src={check} /></span> On Demand</p>
-                                <p><span class="icon"><img src={check} /></span> Unlimited Request </p>
-                                <p><span class="icon"><img src={check} /></span> Dedicated Team Support </p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> On Demand</p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> Unlimited Request </p>
+                                <p><span class="icon"><img src={check} alt="check"/></span> Dedicated Team Support </p>
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <a href="mailto:registration@tand.ai" className="card-footer-item"><button className="button gold"><strong>Contact Us</strong></button></a>
+                            <a href="mailto:registration@tand.ai?subject=Registrasi Akun Tandai&body=Halo, saya ingin registrasi akun tandai" className="card-footer-item"><button className="button gold"><strong>Contact Us</strong></button></a>
                         </footer>
                     </div>
                 </div>
