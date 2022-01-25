@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import Logo from '../Assets/tandai_hires.png'
 
-export default function Navbar() {
+export default function Navbar(props) {
     //admin login
     if (localStorage.token) {
         return (
@@ -47,6 +47,7 @@ export default function Navbar() {
                                     e.preventDefault()
                                     localStorage.clear()
                                     window.location.reload();
+                                    props.history.push('/login')
                                 }}>
                                 <p style={{ color: "#CB3A31", fontWeight: "bold", textAlign: "left", cursor: "pointer" }}>Logout</p>
                             </p>

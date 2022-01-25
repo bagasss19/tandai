@@ -3,9 +3,9 @@ import '../App.css'
 import Axios from '../config/axios'
 import "bulma/css/bulma.css";
 import form from '../Assets/Login.png'
-// import {
-//     Link,
-// } from "react-router-dom"
+import {
+    Link,
+} from "react-router-dom"
 import { AiFillEye } from "react-icons/ai";
 
 export default function Login(props) {
@@ -67,9 +67,8 @@ export default function Login(props) {
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Remember me</label>
-                                <label className="label is-family-code" href="/forgot-password" style={{ textAlign: "right", marginTop:"-33px"}}>
-                                    <a href='/forgot-password' style={{color:"black"}}>{"Forgot Password ?"}</a>
+                                <label className="label is-family-code" href="/forgot-password" style={{ textAlign: "right" }}>
+                                <Link to="/forgot-password"><p style={{color:"black"}}>{"Forgot Password ?"}</p></Link>
                                 </label>
                             </div>
 

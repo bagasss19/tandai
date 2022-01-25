@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import '../App.css'
 import Axios from '../config/axios'
 import "bulma/css/bulma.css";
-import form from '../Assets/Login.png'
-// import {
-//     Link,
-// } from "react-router-dom"
+// import form from '../Assets/Login.png'
+import {
+    Link,
+} from "react-router-dom"
 
 export default function Login(props) {
     const [password, setpassword] = useState("")
@@ -57,7 +57,7 @@ export default function Login(props) {
                                 <div className="control">
                                     <button className="button is-success is-fullwidth">Submit</button>
                                 </div>
-                                <p style={{marginTop : "15px"}}>Already remember your password? <a href="/login">Login</a></p>
+                                <p style={{marginTop : "15px"}}>Already remember your password? <Link to="/login">Login</Link></p>
                             </div>
                         </form>
                     </div>

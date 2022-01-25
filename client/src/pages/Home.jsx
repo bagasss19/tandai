@@ -94,7 +94,7 @@ export default function Home() {
 
 
       <div className="columns" style={{ marginTop: "50px" }} >
-        <div className="column">
+        <div className="column is-two-thirds">
           <div className="card" style={{ marginLeft: "10px", height: "400px" }}>
             <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
               <p className="card-header-title">
