@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 export default function Profile() {
     const [user, setuser] = useState("null")
     const [loading, setloading] = useState(true)
+    const [password, setpassword] = useState("")
 
     const getUser = () => {
         axios({
@@ -79,7 +80,7 @@ export default function Profile() {
             </Link>
 
             <p style={{ fontFamily: "inter", fontSize: "25px", fontWeight: "bold" }}>
-                <Link to="/profile" style={{ color: "black" }}>Profile</Link> | <Link to="/package">Package</Link>
+                <Link to="/profile" style={{ color: "black" }}>Profile</Link> 
             </p>
 
             <figure className="image is-64x64" style={{ margin: "auto", marginTop: "50px" }}>
@@ -97,16 +98,6 @@ export default function Profile() {
                         }} />
                 </div>
 
-                <div className="field">
-                    <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Company</label>
-                    <input className="input is-small" type="text" name="Title"
-                        style={{ marginBottom: "10px" }}
-                        defaultValue={user.company}
-                        onChange={(e) => {
-                            setuser({ ...user, company: e.target.value })
-                        }} />
-                </div>
-
 
                 <div className="field">
                     <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Email</label>
@@ -114,6 +105,16 @@ export default function Profile() {
                         style={{ marginBottom: "10px" }}
                         defaultValue={user.email}
                         disabled />
+                </div>
+
+                <div className="field">
+                                <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
+                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
+                            </div>
+
+                            <div className="field">
+                                <label className="label is-family-code" style={{ textAlign: "left" }}>Confirm Password:</label>
+                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
                 </div>
 
                 <div className="field">
@@ -136,12 +137,8 @@ export default function Profile() {
                 draggable
                 pauseOnHover
             />
-            <button className="button Mainkolor" style={{ color: "white" }} onClick={() => { navigator.clipboard.writeText(localStorage.token); notify() }}>Get API Token</button>
-            <button className="button Mainkolor" style={{ marginLeft: "20px", color: "white" }} onClick={update}>Update Profile</button>
-            <button className="button Mainkolor" style={{ marginLeft: "25px", color: "white" }} onClick={(e) => {
-                                                e.preventDefault()
-                                                window.location.href = "/change-password";
-                                            }}>Change Password</button>
+            <button className="button Mainkolor" style={{ marginLeft: "20px", color: "white" }} onClick={(e) => {update() 
+                window.location.href = "/profile";}}>Update Profile</button>
         </>
     )
 }

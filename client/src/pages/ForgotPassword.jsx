@@ -37,7 +37,7 @@ export default function Login(props) {
     return (
         
         <div class="login">
-            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "400px", width: "500px"}}>
+            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "250px", width: "500px"}}>
                 <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
                     Welcome to Tand.ai
                 </p>
@@ -54,19 +54,10 @@ export default function Login(props) {
                             </div>
 
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
-                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
-                            </div>
-
-                            <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Confirm Password:</label>
-                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
-                            </div>
-
-                            <div className="field">
                                 <div className="control">
                                     <button className="button is-success is-fullwidth">Submit</button>
                                 </div>
+                                <p style={{marginTop : "15px"}}>Already remember your password? <a href="/login">Login</a></p>
                             </div>
                         </form>
                     </div>
