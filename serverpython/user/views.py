@@ -489,19 +489,29 @@ class SendMail(CreateAPIView):
     permission_classes = (AllowAny,)
     def get(self, request):
         try:
-            print(settings.EMAIL_IMAP_SECRETS[0]['USER'], "<<????")
-            send_mail(
-            'Subject here',
-            'Here is the message.',
-            settings.EMAIL_IMAP_SECRETS[0]['USER'],
-            ['alesandrogerard@gmail.com'],
-            fail_silently=False,
-            )
-            return Response({
+            email = request.data.get('email')
+            check = User.objects.filter(email=email).values()
+            link = "app.tand.ai"
+            if check : 
+                send_mail(
+                'Forgot Password Confirmation',
+                'You are receiving this email because you requested a password reset for your user account at tand.ai. Click link to reset password. If it is not you, abort this email',
+                settings.EMAIL_HOST_USER,
+                ["alesandrogerard@gmail.com"],
+                fail_silently=False,
+                )
+                return Response({
                 "status": "OK!"
-            },
+                },
                 status=status.HTTP_200_OK,
             )
+
+            else : 
+                return Response(
+                {'error': 'email is not registered!'},
+                status=status.HTTP_400_BAD_REQUEST
+        )
+
         except Exception as error:
             print(error, "ERRORR NICH")
             return Response({
