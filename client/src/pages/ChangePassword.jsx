@@ -12,6 +12,21 @@ export default function Profile() {
     const [user, setuser] = useState("null")
     const [loading, setloading] = useState(true)
     const [password, setpassword] = useState("")
+    const [confirmpassword, setconfirmpassword] = useState("")
+
+    function updatepassword() {
+        if (password !== confirmpassword) {
+            Swal.fire({
+                title: 'Failed!',
+                text: 'Password and confirm password not match!',
+                icon: 'error',
+                confirmButtonText: 'Okay'
+            })
+        }
+        
+    }
+
+
 
     const getUser = () => {
         axios({
@@ -108,13 +123,13 @@ export default function Profile() {
                 </div>
 
                 <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Password:</label>
+                                <label className="label" style={{ fontFamily: "Inter",textAlign: "left" }}>Password:</label>
                                 <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
                             </div>
 
                             <div className="field">
-                                <label className="label is-family-code" style={{ textAlign: "left" }}>Confirm Password:</label>
-                                <input className="input" type="password" placeholder="Password" onChange={e => setpassword(e.target.value)} />
+                                <label className="label" style={{ fontFamily: "Inter",textAlign: "left" }}>Confirm Password:</label>
+                                <input className="input" type="password" placeholder="Password" onChange={e => setconfirmpassword(e.target.value)} />
                 </div>
 
                 <div className="field">
@@ -137,8 +152,12 @@ export default function Profile() {
                 draggable
                 pauseOnHover
             />
-            <button className="button Mainkolor" style={{ marginLeft: "20px", color: "white" }} onClick={(e) => {update() 
-                window.location.href = "/profile";}}>Update Profile</button>
+            <button className="button Mainkolor" style={{ marginLeft: "20px", color: "white" }} 
+            onClick={(e) => {
+                update();
+                updatepassword() ;
+                window.location.href = "/profile";}}
+            >Update Profile</button>
         </>
     )
 }
