@@ -23,6 +23,7 @@ import Testid from './pages/Testid'
 import Detailid from './pages/Detailid'
 import ForgotPassword from './pages/ForgotPassword'
 import ChangePassword from './pages/ChangePassword'
+import LinkChangePassword from './pages/LinkChangePassword'
 
 function App() {
   const[isAutheticated] = useState(localStorage.token ? true : false)
@@ -45,6 +46,7 @@ function App() {
           <PrivateRoute path="/change-password" component={ChangePassword} auth={isAutheticated}/>
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword}/>
+          <Route path="/link-changes-password" component={LinkChangePassword}/>
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
           {/* <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/> */}
