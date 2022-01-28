@@ -42,6 +42,15 @@ export default function LinkChangePassword(props) {
                 })
                 setloading(false)
             })
+            .catch(function (response) {
+                Swal.fire({
+                    title: 'Failed!',
+                    text: 'Wrong code or code expired!',
+                    icon: 'error',
+                    confirmButtonText: 'Okay'
+                })
+                setloading(false)
+            })
         
     }
 
