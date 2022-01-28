@@ -491,7 +491,7 @@ class SendMail(CreateAPIView):
         try:
             email = request.data.get('email')
             check = User.objects.filter(email=email).values()
-            link = "https://app.tand.ai/link-changes-password/" + email
+            link = "https://app.tand.ai/#/link-changes-password/" + email
             S = 10
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
             if check : 
