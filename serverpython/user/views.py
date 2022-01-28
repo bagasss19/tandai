@@ -487,17 +487,25 @@ class MultipleEndpointView(CreateAPIView):
 
 class SendMail(CreateAPIView):
     permission_classes = (AllowAny,)
-    def get(self, request):
+    def post(self, request):
         try:
             email = request.data.get('email')
             check = User.objects.filter(email=email).values()
-            link = "app.tand.ai"
+            link = "http://localhost:3000/link-changes-password/" + email
+            S = 10
+            ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
             if check : 
+                print('You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code .If it is not you, abort this email')
+                request.data['email'] = email
+                request.data['code'] = ran
+                serializer = ForgotSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
                 send_mail(
                 'Forgot Password Confirmation',
-                'You are receiving this email because you requested a password reset for your user account at tand.ai. Click link to reset password. If it is not you, abort this email',
+                'You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code. This code will expired in 15 minutes. If it is not you, abort this email',
                 settings.EMAIL_HOST_USER,
-                ["alesandrogerard@gmail.com"],
+                [email],
                 fail_silently=False,
                 )
                 return Response({
@@ -514,6 +522,29 @@ class SendMail(CreateAPIView):
 
         except Exception as error:
             print(error, "ERRORR NICH")
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def put(self, request):
+        try:
+            email = request.data.get("email")
+            code = request.data.get("code")
+            check = ForgotPassword.objects.filter(email=email, code=code).values()
+            if check :
+                expires_check = check[0]['Expires']
+                if expires_check > timezone.now() :  
+                    user = User.objects.filter(email=email).get()
+                    user.set_password(request.data.get("password"))
+                    # user.password = request.data.get("password")
+                    user.save()
+                    return Response({"status": "Success Change Password!"},status=status.HTTP_200_OK,)
+                return Response({"detail": "Code Expired!"},
+                status=status.HTTP_400_BAD_REQUEST,)
+            return Response({"detail": "wrong code!"},status=status.HTTP_400_BAD_REQUEST,)
+        except Exception as error:
             return Response({
                 "detail": str(error)
             },

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import '../App.css'
 import "bulma/css/bulma.css";
-// import form from '../Assets/Login.png'
+
 import {
-    Link,
+    useParams,
 } from "react-router-dom"
 import ReactLoading from 'react-loading'
 import Axios from '../config/axios'
 import Swal from 'sweetalert2'
 
-export default function Login(props) {
-    // const [user, setuser] = useState("null")
-    // const [loading, setloading] = useState(true)
+export default function LinkChangePassword(props) {
+    let { email } = useParams()
+    const [loading, setloading] = useState(false)
     const [password, setpassword] = useState("")
+    const [code, setcode] = useState("")
     const [confirmpassword, setconfirmpassword] = useState("")
 
     function updatepassword() {
@@ -24,38 +25,36 @@ export default function Login(props) {
                 confirmButtonText: 'Okay'
             })
         }
+
+        setloading(true)
+        Axios({
+            url: 'user/forgot',
+            method: 'put',
+            data : {email, code, password}
+        })
+            .then(function (response) {
+                // handle success
+                Swal.fire({
+                    title: 'Success!',
+                    text: `Change Password Success`,
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                })
+                setloading(false)
+            })
         
     }
 
-    // const getUser = () => {
-    //     Axios({
-    //         url: 'user/' + localStorage.id,
-    //         method: 'get',
-    //         headers: {
-    //             "Authorization": localStorage.token
-    //         }
-    //     })
-    //         .then(function (response) {
-    //             // handle success
-    //             setuser(response.data)
-    //             console.log(response.data, "<<<DANDANJADN")
-    //             setloading(false)
-    //         })
-    // }
 
-    // useEffect(() => {
-    //     getUser()
-    // }, [])
-
-    // if (loading) {
-    //     return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
-    //         style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
-    // }
+    if (loading) {
+        return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
+            style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
+    }
     return (
         <div class="login">
             <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "320px", width: "500px"}}>
                 <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
-                    Welcome to Tand.ai
+                    Change Password
                 </p>
                 <div className="card-content">
                     <div className="content">
@@ -64,13 +63,20 @@ export default function Login(props) {
                                 e.preventDefault()
                                 updatepassword()
                             }}>
-                            {/* <div className="field">
+                            <div className="field">
                                 <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Email</label>
                                 <input className="input is-small" type="email" name="Email"
                                     style={{ marginBottom: "10px" }}
-                                    defaultValue={user.email}
+                                    defaultValue={email}
                                     disabled />
-                            </div> */}
+                            </div>
+
+                            <div className="field">
+                                <label className="label" style={{ fontFamily: "Inter", textAlign: "left" }}>Code</label>
+                                <input className="input is-small" type="text" name="Code" placeholder='code' onChange={e => setcode(e.target.value)}
+                                    style={{ marginBottom: "10px" }} />
+                            </div>
+
 
                             <div className="field">
                                 <label className="label" style={{ fontFamily: "Inter",textAlign: "left" }}>Password:</label>

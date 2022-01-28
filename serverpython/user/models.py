@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, UserManager
+from django.utils import timezone
 # Create your models here.
 class Package(models.Model):
     title = models.CharField(max_length=100)
@@ -34,3 +35,11 @@ class User(AbstractBaseUser):
     def __str__(self):
         """A string representation of the model."""
         return self.username
+
+def ten_minute_hence():
+   return timezone.now() + timezone.timedelta(minutes=10)
+   
+class ForgotPassword(models.Model):
+    code = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    Expires = models.DateTimeField(default=ten_minute_hence())

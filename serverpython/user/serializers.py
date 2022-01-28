@@ -12,11 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id','username', 'email', 'password', 'is_superuser', 'company')
 
-class PackageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Package
-        fields = ('id','title', 'API_quota')
-
 class CreateUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     email = serializers.CharField()
@@ -46,3 +41,17 @@ class CreateUserSerializer(serializers.Serializer):
             },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+class PackageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Package
+        fields = ('id','title', 'API_quota')
+
+class ForgotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ForgotPassword
+        fields = ('id','code', 'email', 'Expires')
+
+class ForgotPasswordChangeSerializer(serializers.Serializer):
+    model = User
+    password = serializers.CharField(required=True)

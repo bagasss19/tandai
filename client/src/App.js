@@ -46,7 +46,7 @@ function App() {
           <PrivateRoute path="/change-password" component={ChangePassword} auth={isAutheticated}/>
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword}/>
-          <Route path="/link-changes-password" component={LinkChangePassword}/>
+          <Route path="/link-changes-password/:email" component={LinkChangePassword}/>
           {/* <Route path="/register" component={Register} /> */}
           <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
           {/* <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/> */}

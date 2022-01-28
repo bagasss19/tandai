@@ -10,10 +10,10 @@ Django + React JS + Postgres
 - One to many relation
 - Upload csv file
 - Postgresql
+- Forgot Email Confirmation with sending email to user
 
 # Frontend
 - React JS
-- Redux
 - Bulma.io
 - Axios
 - Sweet Alert
