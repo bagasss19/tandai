@@ -12,7 +12,7 @@ export default function ForgotPassword(props) {
 
     function forgot() {
         // axios.defaults.withCredentials = true
-        Axios.post('user/forgor', {
+        Axios.post('user/forgot', {
             email,
         })
             .then(function (response) {

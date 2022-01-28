@@ -495,7 +495,6 @@ class SendMail(CreateAPIView):
             S = 10
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
             if check : 
-                print('You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code .If it is not you, abort this email')
                 request.data['email'] = email
                 request.data['code'] = ran
                 serializer = ForgotSerializer(data=request.data)
