@@ -491,7 +491,7 @@ class SendMail(CreateAPIView):
         try:
             email = request.data.get('email')
             check = User.objects.filter(email=email).values()
-            link = "http://localhost:3000/link-changes-password/" + email
+            link = "https://app.tand.ai/link-changes-password/" + email
             S = 10
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
             if check : 
@@ -502,7 +502,7 @@ class SendMail(CreateAPIView):
                     serializer.save()
                 send_mail(
                 'Forgot Password Confirmation',
-                'You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code. This code will expired in 15 minutes. If it is not you, abort this email',
+                'You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code. This code will expired in 10 minutes. If it is not you, abort this email',
                 settings.EMAIL_HOST_USER,
                 [email],
                 fail_silently=False,
