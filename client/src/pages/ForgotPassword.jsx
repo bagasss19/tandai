@@ -32,7 +32,7 @@ export default function ForgotPassword(props) {
     }
     return (
         <div class="login">
-            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "250px", width: "500px"}}>
+            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "300px", width: "500px"}}>
                 <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
                     Please input your email to request reset password
                 </p>

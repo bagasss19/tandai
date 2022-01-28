@@ -52,7 +52,7 @@ export default function LinkChangePassword(props) {
     }
     return (
         <div class="login">
-            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "320px", width: "500px"}}>
+            <div class="card" style={{margin:"auto", justifyContent: "center", borderRadius:"10px",top:"30%",padding:"10px",position: "sticky", height: "500px", width: "500px"}}>
                 <p style={{ justifyContent: "center", fontFamily: "inter", fontWeight: "bolder", fontSize: "22px", marginTop: "10px" }}>
                     Change Password
                 </p>
