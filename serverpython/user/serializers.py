@@ -50,6 +50,7 @@ class PackageSerializer(serializers.ModelSerializer):
 class ForgotSerializer(serializers.ModelSerializer):
     class Meta:
         model = ForgotPassword
+        Expires = serializers.DateTimeField()
         fields = ('id','code', 'email', 'Expires')
 
 class ForgotPasswordChangeSerializer(serializers.Serializer):

@@ -17,17 +17,18 @@ from rest_framework.parsers import FileUploadParser
 #Send Email
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils import timezone
 
 import pandas as pd
 import json
 import pickle
 import os
-
+import pytz
 
 import string    
 import random
 import requests
-
+import datetime
 # Create your views here.
 class Login(CreateAPIView):
     permission_classes = (AllowAny,)
@@ -485,6 +486,11 @@ class MultipleEndpointView(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+
+def token_expires():
+   return datetime.datetime.now(pytz.timezone('Asia/Jakarta')) + timezone.timedelta(minutes=15)
+
+
 class SendMail(CreateAPIView):
     permission_classes = (AllowAny,)
     def post(self, request):
@@ -494,12 +500,16 @@ class SendMail(CreateAPIView):
             link = "https://app.tand.ai/#/link-changes-password/" + email
             S = 10
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
+            print(ran)
             if check : 
                 request.data['email'] = email
                 request.data['code'] = ran
+                request.data['Expires'] = token_expires()
+                print(token_expires(), "<<<???")
                 serializer = ForgotSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
+                    print(serializer.data, "<<<<data")
                 send_mail(
                 'Forgot Password Confirmation',
                 'You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code. This code will expired in 10 minutes. If it is not you, abort this email',
@@ -534,15 +544,16 @@ class SendMail(CreateAPIView):
             check = ForgotPassword.objects.filter(email=email, code=code).values()
             if check :
                 expires_check = check[0]['Expires']
-                if expires_check > timezone.now() :  
+                if expires_check > datetime.datetime.now(pytz.timezone('Asia/Jakarta')) :  
                     user = User.objects.filter(email=email).get()
                     user.set_password(request.data.get("password"))
-                    # user.password = request.data.get("password")
                     user.save()
+                    token = ForgotPassword.objects.get(email=email, code=code)
+                    token.delete()
                     return Response({"status": "Success Change Password!"},status=status.HTTP_200_OK,)
                 return Response({"detail": "Code Expired!"},
                 status=status.HTTP_400_BAD_REQUEST,)
-            return Response({"detail": "wrong code!"},status=status.HTTP_400_BAD_REQUEST,)
+            return Response({"detail": "wrong code/email or code already used!!"},status=status.HTTP_400_BAD_REQUEST,)
         except Exception as error:
             return Response({
                 "detail": str(error)
