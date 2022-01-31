@@ -24,9 +24,8 @@ export default function LinkChangePassword(props) {
                 icon: 'error',
                 confirmButtonText: 'Okay'
             })
-        }
-
-        setloading(true)
+        } else {
+            setloading(true)
         Axios({
             url: 'user/forgot',
             method: 'put',
@@ -38,9 +37,11 @@ export default function LinkChangePassword(props) {
                     title: 'Success!',
                     text: `Change Password Success`,
                     icon: 'success',
-                    confirmButtonText: 'Cool'
+                    confirmButtonText: 'Cool',
+                    timer: 3000
                 })
                 setloading(false)
+                props.history.push('/login')
             })
             .catch(function (response) {
                 Swal.fire({
@@ -51,7 +52,7 @@ export default function LinkChangePassword(props) {
                 })
                 setloading(false)
             })
-        
+        }  
     }
 
 
