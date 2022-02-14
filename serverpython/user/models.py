@@ -15,7 +15,7 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True
         )
-    company = models.EmailField(
+    company = models.CharField(
         max_length=255,
     )
     password = models.CharField(max_length=100)
@@ -28,6 +28,7 @@ class User(AbstractBaseUser):
     API_usage = models.IntegerField(default=0)
     TF_usage = models.IntegerField(default=0)
     package = models.ForeignKey(Package,on_delete=models.CASCADE, default=1)
+    Getting_Started = models.BooleanField(default=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'password']
     objects = UserManager()

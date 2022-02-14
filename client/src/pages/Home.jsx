@@ -96,13 +96,13 @@ export default function Home() {
       <div className="columns" style={{ marginTop: "50px" }} >
         <div className="column is-two-thirds">
           <div className="card" style={{ marginLeft: "10px", height: "400px" }}>
-            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
+            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
               <p className="card-header-title">
                 Model List
               </p>
             </header>
             <div className="card-content">
-              <div className="content" style={{ height: "150px", textAlign : "left" }}>
+              <div className="content" style={{ height: "150px", textAlign: "left" }}>
                 <table className="table is-hoverable is-fullwidth">
                   <thead>
                     <tr>
@@ -128,20 +128,20 @@ export default function Home() {
                           })()}
                         </th>
                         <td>
-                        <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59" }}>Detail</button></Link>
-                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59" }}>Test</button></Link>
-                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor : "#1D8C59" }}>Train</button></Link>
+                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor: "#1D8C59" }}>Train</button></Link>
+                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Test</button></Link>
+                          <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Detail</button></Link>
                           {(() => {
                             switch (x.model_ID) {
-                              case "lstmw07": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" }} onClick={(e) => {
+                              case "lstmw07": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
-                              case "lstmw13": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" }} onClick={(e) => {
+                              case "lstmw13": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
-                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor : "#CB3A31", color : "white" }} onClick={(e) => {
+                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor: "#CB3A31", color: "white" }} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
@@ -159,7 +159,7 @@ export default function Home() {
 
         <div className="column" style={{ marginLeft: "10px", marginRight: "10px" }}>
           <div className="card" style={{ height: "400px" }}>
-            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
+            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
               <p className="card-header-title">
                 Usage
               </p>
@@ -169,7 +169,7 @@ export default function Home() {
                 <div style={{ marginTop: "-20px" }}></div>
                 <p className="is-size-6 has-text-weight-bold" style={{ textAlign: "left" }}>API Usage</p>
                 <p style={{ textAlign: "left" }}>{JSON.stringify(paket.usage)} / {paket.limit === 999999999 ? "∞" : JSON.stringify(paket.limit)} Used</p>
-                {paket.limit === 999999999 ? <ProgressBar completed="∞" labelColor="black" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center"/> : <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />}
+                {paket.limit === 999999999 ? <ProgressBar completed="∞" labelColor="black" bgColor="linear-gradient(to bottom right,   #23a96f, #006d3e)" labelAlignment="center" /> : <ProgressBar completed={Math.round(paket.usage / paket.limit * 100)} labelColor="black" bgColor="#23a96f" labelAlignment="center" />}
 
                 <br></br>
 
@@ -180,8 +180,8 @@ export default function Home() {
                 <div className="columns">
                   <div className="column">
                     <span className="icon-text">
-                      <span className="icon" style={{width : "50px"}}>
-                      <progress className="progress is-success is-small" value="100" max="100">Used</progress>
+                      <span className="icon" style={{ width: "50px" }}>
+                        <progress className="progress is-success is-small" value="100" max="100">Used</progress>
                       </span>
                       <span>Used</span>
                     </span>
@@ -189,8 +189,8 @@ export default function Home() {
 
                   <div className="column">
                     <span className="icon-text">
-                      <span className="icon" style={{width : "50px"}}>
-                      <progress className="progress is-success is-small" value="0" max="100">Left</progress>
+                      <span className="icon" style={{ width: "50px" }}>
+                        <progress className="progress is-success is-small" value="0" max="100">Left</progress>
                       </span>
                       <span>Left</span>
                     </span>
