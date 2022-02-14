@@ -18,5 +18,6 @@ urlpatterns = [
     path('package/<pk>', PackageView.as_view() , name="package"),
     path('endpoint/singletext', EndpointView.as_view() , name="single"),
     path('endpoint/multiple', MultipleEndpointView.as_view() , name="multiple"),
+    path('logout/<pk>',Logout.as_view() , name="logout"),
     path('<pk>',UserView.as_view() , name="user"),
 ]

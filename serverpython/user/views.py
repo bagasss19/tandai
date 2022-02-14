@@ -53,7 +53,8 @@ class Login(CreateAPIView):
                 "username": user.username,
                 "id" : user.id,
                 "is_superuser" : user.is_superuser,
-                "package" : package[0]['title']
+                "package" : package[0]['title'],
+                "getting_started" : user.Getting_Started
             })
         else :
             return Response(
@@ -490,7 +491,6 @@ class MultipleEndpointView(CreateAPIView):
 def token_expires():
    return datetime.datetime.now(pytz.timezone('Asia/Jakarta')) + timezone.timedelta(minutes=15)
 
-
 class SendMail(CreateAPIView):
     permission_classes = (AllowAny,)
     def post(self, request):
@@ -500,16 +500,13 @@ class SendMail(CreateAPIView):
             link = "https://app.tand.ai/#/link-changes-password/" + email
             S = 10
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
-            print(ran)
             if check : 
                 request.data['email'] = email
                 request.data['code'] = ran
                 request.data['Expires'] = token_expires()
-                print(token_expires(), "<<<???")
                 serializer = ForgotSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
-                    print(serializer.data, "<<<<data")
                 send_mail(
                 'Forgot Password Confirmation',
                 'You are receiving this email because you requested a password reset for your user account at tand.ai. Click ' + link + ' to reset password. And input ' + ran + ' as confirmation code. This code will expired in 10 minutes. If it is not you, abort this email',
@@ -522,7 +519,6 @@ class SendMail(CreateAPIView):
                 },
                 status=status.HTTP_200_OK,
             )
-
             else : 
                 return Response(
                 {'error': 'email is not registered!'},
@@ -554,6 +550,26 @@ class SendMail(CreateAPIView):
                 return Response({"detail": "Code Expired!"},
                 status=status.HTTP_400_BAD_REQUEST,)
             return Response({"detail": "wrong code/email or code already used!!"},status=status.HTTP_400_BAD_REQUEST,)
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class Logout(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request,pk):
+        try:
+            user = User.objects.filter(id=pk).get()
+            user.Getting_Started = False
+            user.save()
+            return Response({
+                "status": "Getting Started change to false  !"
+                },
+                status=status.HTTP_200_OK,
+            )
+
         except Exception as error:
             return Response({
                 "detail": str(error)
