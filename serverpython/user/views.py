@@ -54,7 +54,10 @@ class Login(CreateAPIView):
                 "id" : user.id,
                 "is_superuser" : user.is_superuser,
                 "package" : package[0]['title'],
-                "getting_started" : user.Getting_Started
+                "started_home" : user.started_home,
+                "started_test" : user.started_test,
+                "started_detail" : user.started_detail,
+                "started_train" : user.started_train
             })
         else :
             return Response(
@@ -557,15 +560,75 @@ class SendMail(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-class Logout(CreateAPIView):
+class StartedHome(CreateAPIView):
     permission_classes = (AllowAny,)
     def get(self, request,pk):
         try:
             user = User.objects.filter(id=pk).get()
-            user.Getting_Started = False
+            user.started_home = False
             user.save()
             return Response({
-                "status": "Getting Started change to false  !"
+                "status": "Started Home change to false!"
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class StartedTest(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request,pk):
+        try:
+            user = User.objects.filter(id=pk).get()
+            user.started_test = False
+            user.save()
+            return Response({
+                "status": "Started Test change to false!"
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class StartedTrain(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request,pk):
+        try:
+            user = User.objects.filter(id=pk).get()
+            user.started_train = False
+            user.save()
+            return Response({
+                "status": "Started Train change to false!"
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        except Exception as error:
+            return Response({
+                "detail": str(error)
+            },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+class StartedDetail(CreateAPIView):
+    permission_classes = (AllowAny,)
+    def get(self, request,pk):
+        try:
+            user = User.objects.filter(id=pk).get()
+            user.started_detail = False
+            user.save()
+            return Response({
+                "status": "Started Detail change to false!"
                 },
                 status=status.HTTP_200_OK,
             )
