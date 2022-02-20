@@ -4,6 +4,48 @@
   /* background-color: #ebebeb; */
 }
 
+
+.help{
+    background: lightblue;
+    border: none;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    right: 100%;
+    background: linear-gradient(to bottom right,   #23a96f, #006d3e);
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    width: 99px;
+    height: 99px;
+    border-radius: 101px;
+    right: 10px;
+}
+
+.dropdown {
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  /* max-width: 100%; */
+  height: 30px;
+  outline: none;
+  border-radius: 20px;
+}
+
+
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
 .login{
   background-image: url("./Assets/bg-tandai.png");
   /* background-size: 1500px; */
@@ -11,7 +53,6 @@
   background-size: cover;
   min-height: 100vh;
 }
-
 .sticky{
   position: sticky;
   top: 0;

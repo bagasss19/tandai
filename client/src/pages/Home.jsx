@@ -4,6 +4,9 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import Axios from '../config/axios'
 import ReactLoading from 'react-loading'
 import Swal from 'sweetalert2'
+import GetStart from '../components/GettingStarted/GettingStarted'
+import { BiHelpCircle } from "react-icons/bi";
+
 import {
   Link,
 } from "react-router-dom";
@@ -13,6 +16,8 @@ export default function Home() {
   const [paket, setpaket] = useState(null)
   const [loading, setloading] = useState(true)
   const [model, setmodel] = useState(null)
+  const [modalOpen,setModalOpen] = useState(false)
+  
 
   const getModel = () => {
     Axios({
@@ -90,13 +95,21 @@ export default function Home() {
 
   return (
     <>
+    {
+    modalOpen?
+    <div>
+      <GetStart/>
+      <span className="button" onClick={()=>setModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"580px",marginLeft:"-640px",position:"fixed", border:"none"}} > Skip </span>
+    </div>
+
+    :
+    null
+    }
       <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Welcome, {localStorage.username} !</h1>
-
-
       <div className="columns" style={{ marginTop: "50px" }} >
         <div className="column is-two-thirds">
-          <div className="card" style={{ marginLeft: "10px", height: "400px" }}>
-            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
+          <div className="card" style={{ marginLeft: "40px", height: "400px" ,position:"static"}}>
+            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
               <p className="card-header-title">
                 Model List
               </p>
@@ -128,20 +141,18 @@ export default function Home() {
                           })()}
                         </th>
                         <td>
-                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor: "#1D8C59" }}>Train</button></Link>
-                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Test</button></Link>
-                          <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Detail</button></Link>
+                        <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59", position:"static" }}>Detail</button></Link>
+                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor : "#1D8C59", position:"static" }}>Test</button></Link>
+                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor : "#1D8C59", position:"static" }}>Train</button></Link>
                           {(() => {
                             switch (x.model_ID) {
-                              case "lstmw07": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
-                                e.preventDefault()
-                                deleteModel(x.id)
+                              case "lstmw07": return <button title="this is your default model!"  className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" , position:"static"}} onClick={(e) => {
+
                               }}>Delete</button>
-                              case "lstmw13": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
-                                e.preventDefault()
-                                deleteModel(x.id)
+                              case "lstmw13": return <button title="this is your default model!"  className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" , position:"static" }} onClick={(e) => {
+
                               }}>Delete</button>
-                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor: "#CB3A31", color: "white" }} onClick={(e) => {
+                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor : "#CB3A31", color : "white" , position:"static"}} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
@@ -157,9 +168,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="column" style={{ marginLeft: "10px", marginRight: "10px" }}>
-          <div className="card" style={{ height: "400px" }}>
-            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
+        <div className="column" style={{ marginLeft: "10px", marginRight: "40px" }}>
+          <div className="card" style={{ height: "400px" ,position:"static"}}>
+            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
               <p className="card-header-title">
                 Usage
               </p>
@@ -195,13 +206,15 @@ export default function Home() {
                       <span>Left</span>
                     </span>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div style={{marginTop:"100px",marginLeft:"1300px"}}>
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={60} marginLeft="100px" color="#1A8856"/></button>   
+        </div>
     </>
   )
 }
