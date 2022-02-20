@@ -28,7 +28,10 @@ class User(AbstractBaseUser):
     API_usage = models.IntegerField(default=0)
     TF_usage = models.IntegerField(default=0)
     package = models.ForeignKey(Package,on_delete=models.CASCADE, default=1)
-    Getting_Started = models.BooleanField(default=True)
+    started_home = models.BooleanField(default=True)
+    started_test = models.BooleanField(default=True)
+    started_detail = models.BooleanField(default=True)
+    started_train = models.BooleanField(default=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'password']
     objects = UserManager()
