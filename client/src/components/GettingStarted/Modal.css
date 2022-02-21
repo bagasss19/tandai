@@ -1,0 +1,71 @@
+.Apps {
+    text-align: center;
+    min-height: 100vh;
+    position: fixed;
+  }
+
+  .cbutton {
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 5px 6px;
+    min-width: 90px;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: -1;
+  }
+  
+  .modal-backdrop{
+  position: absolute;
+  overflow-y: none;
+  width: 1440px;
+  height: 789px;
+  left: 0px;
+  top: 0px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  }
+  
+  .modal-content-wrapper{
+    position: fixed;
+    background: white;
+    background-image: url("../../Assets/Model\ List.png");
+    margin: auto;
+    height: 400px;
+    width: 862px;
+    left: 85px;
+    top: 154px;
+    border-radius: 7px;
+    
+  }
+  
+  .modal-content-wrapper2{
+    position: fixed;
+    background: white;
+    background-image: url("../../Assets/Usage.png");
+    margin: auto;
+    height: 461px;
+    width: 455px;
+    left: 285px;
+    top: 117px;
+    border-radius: 7px;
+    
+  }
+
+  .modal-content-wrapper3{
+    position: fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+    /* background-image: url("../../Assets/Usage.png"); */
+    margin: auto;
+    height: 410px;
+    width: 455px;
+    left: 285px;
+    top: 117px;
+    border-radius: 7px;
+    
+  }

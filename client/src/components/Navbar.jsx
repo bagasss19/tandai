@@ -15,6 +15,7 @@ export default function Navbar(props) {
 
     //admin login
     if (localStorage.token) {
+        console.log(localStorage,"test")
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation" style={{ position: 'static', top: 0, backgroundColor: "#ffffff" }}>
                 <div className="navbar-brand" style={{ position: "absolute", marginTop: "10px", marginLeft: "10px" }}>

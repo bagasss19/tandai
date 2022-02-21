@@ -37,7 +37,7 @@ export default function Trainid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [name, setname] = useState(null)
-    const [testModalOpen,setTestModalOpen] = useState(false)
+    const [trainModalOpen,setTrainModalOpen] = useState(localStorage.started_train=="true"?true:false)
 
 
     const postApi = () => {
@@ -136,6 +136,31 @@ export default function Trainid() {
         setIsOpen(false);
     }
 
+    const getChangesStarted = () => {
+        if (localStorage.started_train=='true'){
+          Axios({
+            url: 'user/started/detail/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_train = false;
+              setTrainModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setTrainModalOpen(false)
+        }
+      }
+
     useEffect(() => {
         Axios({
             url: 'model/' + id,
@@ -164,10 +189,10 @@ export default function Trainid() {
                 </p>
             </Link>
             {
-                    testModalOpen?
+                    trainModalOpen?
                         <div>
                             <GetTrain/>
-                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"540px",marginLeft:"-640px",position:"fixed", border:"none"}} > Skip </span>
+                             <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"460px",marginLeft:"40px",position:"fixed", border:"none"}} > FINISH </span>
                         </div>
                     :
                     null
@@ -246,7 +271,7 @@ export default function Trainid() {
                 </Modal>
             </div>
             <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-          <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={60} marginLeft="100px" color="#1A8856"/></button>   
+          <button className='button' onClick={()=>setTrainModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
         </div>
         </>
     )

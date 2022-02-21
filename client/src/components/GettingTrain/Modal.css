@@ -1,0 +1,40 @@
+.Apps {
+    text-align: center;
+    min-height: 100vh;
+    position: fixed;
+  }
+  
+  .modal-backdrop{
+    position: absolute;
+  width: 1440px;
+  height: 900px;
+  left: 0px;
+  top: 0px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  }
+  
+  .modal-test-train{
+    position: fixed;
+    background: white;
+    background-image: url("../../Assets/Train.png");
+    margin: auto;
+    height: 440px;
+    width: 879px;
+    left: 45px;
+    top: 84px;
+    border-radius: 7px;
+    
+  }
+  
+  /* .modal-test-wrapper{
+    position: fixed;
+    background: white;
+    background-image: url("../../Assets/GetTesting.png");
+    margin: auto;
+    height: 450px;
+    width: 435px;
+    left: 285px;
+    top: 117px;
+    border-radius: 7px;
+    
+  } */

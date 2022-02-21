@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Axios from '../config/axios'
+import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import {
@@ -21,7 +22,7 @@ export default function Testid() {
     const [model, setmodel] = useState(null)
     const [review, setreview] = useState(null)
     const [filter, setfilter] = useState("default")
-    const [testModalOpen,setTestModalOpen] = useState(false)
+    const [detailModalOpen,setDetailModalOpen] = useState(localStorage.started_detail=="true"?true:false)
 
 
     const generateDate = (date) => {
@@ -62,6 +63,31 @@ export default function Testid() {
 
         return `${Math.floor((e - d) / (1000 * 60))} Minute(s)`
     }
+
+    const getChangesStarted = () => {
+        if (localStorage.started_detail=='true'){
+          Axios({
+            url: 'user/started/detail/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_detail = false;
+              setDetailModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setDetailModalOpen(false)
+        }
+      }
 
     useEffect(() => {
         Axios({
@@ -104,10 +130,11 @@ export default function Testid() {
             </Link>
 
             {
-                    testModalOpen?
+                    detailModalOpen?
                         <div className="modal-detail">
                             <GetDetail/>
-                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",marginTop:"190px",marginLeft:"-640px",backgroundColor:"#333333",position:"fixed", border:"none"}} > Skip </span>
+                            {/* <span className="button" onClick={()=>setTrainModalOpen(false)} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"460px",marginLeft:"40px",position:"fixed", border:"none"}} > FINISH </span> */}
+                            <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",marginTop:"180px",marginLeft:"125px",backgroundColor:"#2DAA72",position:"fixed", border:"none"}} > FINISH </span>
                         </div>
                     :
                     null
@@ -116,7 +143,7 @@ export default function Testid() {
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Model Detail</h1>
             <h1 className="title is-6" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>{model.model_ID}</h1>
             <div style={{marginTop:"0px",marginLeft:"92%",textAlign:"left"}}>
-             <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={60} marginLeft="100px" color="#1A8856"/></button>   
+             <button className='button' onClick={()=>setDetailModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
             </div>
             <div className="columns" style={{ marginLeft: "25px", marginTop: "10px", marginRight: "25px" }}>
 

@@ -6,6 +6,7 @@ import ReactLoading from 'react-loading'
 import Swal from 'sweetalert2'
 import GetStart from '../components/GettingStarted/GettingStarted'
 import { BiHelpCircle } from "react-icons/bi";
+import "../components/GettingStarted/Modal.css"
 
 import {
   Link,
@@ -16,7 +17,7 @@ export default function Home() {
   const [paket, setpaket] = useState(null)
   const [loading, setloading] = useState(true)
   const [model, setmodel] = useState(null)
-  const [modalOpen,setModalOpen] = useState(false)
+  const [modalOpen,setModalOpen] = useState(localStorage.started_home=="true"?true:false)
   
 
   const getModel = () => {
@@ -33,6 +34,33 @@ export default function Home() {
         setloading(false)
       })
   }
+
+  const getChangesStarted = () => {
+    if (localStorage.started_home=='true'){
+      Axios({
+        url: 'user/started/home/' + localStorage.id,
+        method: 'get',
+        headers: {
+          "Authorization": localStorage.token
+      }
+      })
+        .then(function (){
+          localStorage.started_home = false;
+          setModalOpen(false)
+          setloading(false)
+          Swal.fire({
+            title: 'Success!',
+            text: 'You Already know use this page',
+            icon: 'success',
+            confirmButtonText: 'Cool'
+        })
+        })
+    } else {
+      setModalOpen(false)
+    }
+    
+  }
+
 
   const deleteModel = (id) => {
     Swal.fire({
@@ -67,7 +95,10 @@ export default function Home() {
     })
   }
 
+
+
   useEffect(() => {
+
     const interval = setInterval(() => {
 
       Axios({
@@ -97,9 +128,11 @@ export default function Home() {
     <>
     {
     modalOpen?
-    <div>
+    <div className="modal-backdrop">
       <GetStart/>
-      <span className="button" onClick={()=>setModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"580px",marginLeft:"-640px",position:"fixed", border:"none"}} > Skip </span>
+      <span className="button" onClick={()=>setModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"650px",marginLeft:"-430px",position:"fixed", border:"none"}} > Skip </span>
+      <span className="cbutton" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"650px",marginLeft:"350px", border:"none"}} > FINISH </span>
+
     </div>
 
     :
@@ -213,7 +246,7 @@ export default function Home() {
         </div>
       </div>
       <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={60} marginLeft="100px" color="#1A8856"/></button>   
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
         </div>
     </>
   )

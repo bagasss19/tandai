@@ -12,6 +12,7 @@ import {
 import Sample from '../sampletest.csv'
 import GetTest from '../components/GettingTest/GetTest'
 import { BiHelpCircle } from "react-icons/bi";
+import "../components/GettingTest/Modal.css"
 import '../App.css'
 Modal.setAppElement('#root');
 
@@ -40,7 +41,7 @@ export default function Testid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [time, settime] = useState(null)
-    const [testModalOpen,setTestModalOpen] = useState(false)
+    const [testModalOpen,setTestModalOpen] = useState(localStorage.started_test=="true"?true:false)
 
     function add() {
         setloading(true)
@@ -112,6 +113,31 @@ export default function Testid() {
         setIsOpen(false);
     }
 
+    const getChangesStarted = () => {
+        if (localStorage.started_test=='true'){
+          Axios({
+            url: 'user/started/test/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_test = false;
+              setTestModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setTestModalOpen(false)
+        }
+      }
+
     useEffect(() => {
         Axios({
             url: 'model/' + id,
@@ -142,9 +168,10 @@ export default function Testid() {
             </Link>
                 {
                     testModalOpen?
-                        <div>
+                        <div className="modal-backdrop">
                             <GetTest/>
-                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"540px",marginLeft:"-640px",position:"fixed", border:"none"}} > Skip </span>
+                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"650px",marginLeft:"-430px",position:"fixed", border:"none"}} > Skip </span>
+                            <span className="cbutton" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"650px",marginLeft:"300px", border:"none"}} > FINISH </span>
                         </div>
                     :
                     null
@@ -272,7 +299,7 @@ export default function Testid() {
 
             </div>
         <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-          <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={60} marginLeft="100px" color="#1A8856"/></button>   
+          <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
         </div>
         </>
     )
