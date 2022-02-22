@@ -35,29 +35,29 @@ function App() {
 };
 
   return (
-    <div className="App">
-  <Router>
-      <Navbar/>
-      {/* <Sidebar setSideNavExpanded={setSideNavExpanded} sideNavExpanded={sideNavExpanded}/> */}
-        <Switch>
-          <div style={contentStyle}><PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
-          <PrivateRoute path="/profile" component={Profile} auth={isAutheticated}/>
-          <PrivateRoute path="/model" component={Model} auth={isAutheticated}/>
-          <PrivateRoute path="/change-password" component={ChangePassword} auth={isAutheticated}/>
-          <Route path="/login" component={Login} />
-          <Route path="/forgot-password" component={ForgotPassword}/>
-          <Route path="/link-changes-password/:email" component={LinkChangePassword}/>
-          {/* <Route path="/register" component={Register} /> */}
-          <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
-          {/* <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/> */}
-          <PrivateRoute path="/package" component={Package} auth={isAutheticated}/>
-          {/* <PrivateRoute exact path="/test" component={Test} auth={isAutheticated}/> */}
-          <PrivateRoute path="/train/:id" component={Trainid} auth={isAutheticated}/>
-          <PrivateRoute path="/test/:id" component={Testid} auth={isAutheticated}/>
-          <PrivateRoute path="/detail/:id" component={Detailid} auth={isAutheticated}/></div>
-        </Switch>
-      </Router>
-    </div>
+      <div className="App">
+        <Router>
+            <Navbar/>
+            {/* <Sidebar setSideNavExpanded={setSideNavExpanded} sideNavExpanded={sideNavExpanded}/> */}
+              <Switch>
+                <div style={contentStyle}><PrivateRoute exact path="/" component={Home} auth={isAutheticated}/>
+                <PrivateRoute path="/profile" component={Profile} auth={isAutheticated}/>
+                <PrivateRoute path="/model" component={Model} auth={isAutheticated}/>
+                <PrivateRoute path="/change-password" component={ChangePassword} auth={isAutheticated}/>
+                <Route path="/login" component={Login} />
+                <Route path="/forgot-password" component={ForgotPassword}/>
+                <Route path="/link-changes-password/:email" component={LinkChangePassword}/>
+                {/* <Route path="/register" component={Register} /> */}
+                <PrivateRoute path="/faq" component={Faq} auth={isAutheticated}/>
+                {/* <PrivateRoute exact path="/train" component={Train} auth={isAutheticated}/> */}
+                <PrivateRoute path="/package" component={Package} auth={isAutheticated}/>
+                {/* <PrivateRoute exact path="/test" component={Test} auth={isAutheticated}/> */}
+                <PrivateRoute path="/train/:id" component={Trainid} auth={isAutheticated}/>
+                <PrivateRoute path="/test/:id" component={Testid} auth={isAutheticated}/>
+                <PrivateRoute path="/detail/:id" component={Detailid} auth={isAutheticated}/></div>
+              </Switch>
+            </Router>
+          </div>
   );
 }
 

@@ -10,6 +10,10 @@ import {
     Link
 } from "react-router-dom"
 import Sample from '../sampletest.csv'
+import GetTest from '../components/GettingTest/GetTest'
+import { BiHelpCircle } from "react-icons/bi";
+import "../components/GettingTest/Modal.css"
+import '../App.css'
 Modal.setAppElement('#root');
 
 const customStyles = {
@@ -37,6 +41,7 @@ export default function Testid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [time, settime] = useState(null)
+    const [testModalOpen,setTestModalOpen] = useState(localStorage.started_test=="true"?true:false)
 
     function add() {
         setloading(true)
@@ -108,6 +113,31 @@ export default function Testid() {
         setIsOpen(false);
     }
 
+    const getChangesStarted = () => {
+        if (localStorage.started_test=='true'){
+          Axios({
+            url: 'user/started/test/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_test = false;
+              setTestModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setTestModalOpen(false)
+        }
+      }
+
     useEffect(() => {
         Axios({
             url: 'model/' + id,
@@ -136,18 +166,29 @@ export default function Testid() {
                     &lt; Back
                 </p>
             </Link>
+                {
+                    testModalOpen?
+                        <div className="modal-backdrop">
+                            <GetTest/>
+                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"650px",marginLeft:"-430px",position:"fixed", border:"none"}} > Skip </span>
+                            <span className="cbutton" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"650px",marginLeft:"300px", border:"none"}} > FINISH </span>
+                        </div>
+                    :
+                    null
+                }
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Test Model</h1>
             <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Here you can test your models - as well as the built-in ones - by by inputting your own sentences.</h1>
 
-            <div className="card" style={{ width: "60%", margin: "auto", marginTop: "5em" }}>
+            <div className="card" style={{ position: "static",width: "60%", margin: "auto", marginTop: "5em" }}>
                 <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         API Testing
                     </p>
 
-                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
+                    <div className="dropdown" style={{ marginTop: "10px", marginRight: "10px", position:"static"}}>
                         <select
+                            style={{position:"static"}}
                             defaultValue={isFile}
                             onChange={(e) => {
                                 if (e.target.value === 'false') {
@@ -166,22 +207,22 @@ export default function Testid() {
                     <div className="content" >
                         {
                             isFile ?
-                                <p style={{ textAlign: "left", fontSize: "small" }}>Upload your CSV file containing multiple sentences and click "Submit" to get the sentiment result. CSV template can be downloaded <a href={Sample} >here.</a></p>
+                                <p style={{ textAlign: "left", fontSize: "small", position:"static"}}>Upload your CSV file containing multiple sentences and click "Submit" to get the sentiment result. CSV template can be downloaded <a href={Sample} >here.</a></p>
                                 :
-                                <p style={{ textAlign: "left", fontSize: "small" }}>Type your sentence in the text box and click "Submit" to get the sentiment result.</p>
+                                <p style={{ textAlign: "left", fontSize: "small" ,position:"static" }}>Type your sentence in the text box and click "Submit" to get the sentiment result.</p>
                         }
-                        <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
+                        <input id="ph" className="input is-dark" style={{ width: "325px" , position:"static"}} disabled type="text" placeholder={model.model_ID} />
 
                         {isFile ?
 
-                            <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px" }}
+                            <form className="form" style={{ width: "50%", margin: "auto", marginTop: "10px",position:"static"  }}
                                 encType="multipart/form-data"
                                 onSubmit={(e) => {
                                     e.preventDefault()
                                     addFile(model.id)
                                 }}>
 
-                                <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px" }}>
+                                <div className="file is-small" style={{ marginTop: "10px", marginLeft: "125px",position:"static"  }}>
                                     <label className="file-label">
                                         <input className="file-input" type="file" name="resume" onChange={uploadFile} />
                                         <span className="file-cta">
@@ -203,7 +244,7 @@ export default function Testid() {
                                     </label>
                                 </div>
 
-                                <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
+                                <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white",position:"static"  }}>Submit</button>
                             </form>
                             :
 
@@ -217,10 +258,10 @@ export default function Testid() {
 
                                 <div className="field">
                                     <input id="ph" className="input" type="text" name="Word" defaultValue={word}
-                                        placeholder="Input your words here" onChange={e => setword(e.target.value)} />
+                                        placeholder="Input your words here" style={{position:"static"}} onChange={e => setword(e.target.value)} />
                                 </div>
 
-                                <button className="button Mainkolor" type="submit" style={{ color: "white" }}>Submit</button>
+                                <button className="button Mainkolor" type="submit" style={{ color: "white" ,position:"static" }}>Submit</button>
                             </form>
                         }
                     </div>
@@ -234,7 +275,7 @@ export default function Testid() {
                     contentLabel="Example Modal"
                 >
                     <AiFillCloseCircle onClick={closeModal}
-                        style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
+                        style={{ cursor: "pointer", position: "static", marginLeft: "600px", marginTop: "1px" }} />
                     <p style={{ textAlign: "center" }}>time : {time} second(s)</p>
                     {answer ? <table className="table is-hoverable is-fullwidth">
                         <thead>
@@ -257,6 +298,9 @@ export default function Testid() {
                 </Modal>
 
             </div>
+        <div style={{marginTop:"100px",marginLeft:"1300px"}}>
+          <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
+        </div>
         </>
     )
 }
