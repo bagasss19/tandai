@@ -10,7 +10,7 @@ export default function StartedTestPage1() {
               <div className="column is-8">
               <figure>
                 <br/><br/><br/>
-                <img src={Logo} alt="tandai" style={{height:"300px"}}/>
+                <img src={Logo} alt="tandai" style={{height:"300px", width:"620px"}}/>
               </figure>
                 </div>  
               <div className="column is-4 has-text-left" style={{marginLeft:"-5%"}}>

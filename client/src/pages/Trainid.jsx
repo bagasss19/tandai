@@ -200,7 +200,7 @@ export default function Trainid() {
                         <GetTrain/>
                     </div>
                     <div>
-                    <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none", marginTop:"-100px"}} > FINISH </span>
+                    <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
                 </div>  
                 </div>  
                 </div>
