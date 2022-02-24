@@ -10,10 +10,13 @@ import {
     Link
 } from "react-router-dom"
 import Sample from '../sampletest.csv'
-import GetTest from '../components/GettingTest/GetTest'
 import { BiHelpCircle } from "react-icons/bi";
-import "../components/GettingTest/Modal.css"
 import '../App.css'
+import Page1 from '../components/GettingTest/Page1'
+import Page2 from '../components/GettingTest/Page2'
+import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io";
+
 Modal.setAppElement('#root');
 
 const customStyles = {
@@ -42,6 +45,38 @@ export default function Testid() {
     const [model, setmodel] = useState(null)
     const [time, settime] = useState(null)
     const [testModalOpen,setTestModalOpen] = useState(localStorage.started_test=="true"?true:false)
+    const [page, setPage] = useState(1);
+
+  function goNextPage() {
+    if (page === 2) return;
+    setPage((page) => page + 1);
+  }
+
+  function goPrevPage() {
+    if (page === 3) return;
+    setPage((page) => page - 1);
+  }
+
+
+
+function OnboardingOne({ }) {
+    const newData = {};
+  
+    return (
+      <div>
+       <Page1/>
+      </div>
+    );
+  }
+  
+  function OnboardingTwo({ }) {
+    return (
+    <div>
+      <Page2/>
+    </div>
+    );
+  }
+    
 
     function add() {
         setloading(true)
@@ -166,16 +201,71 @@ export default function Testid() {
                     &lt; Back
                 </p>
             </Link>
-                {
-                    testModalOpen?
-                        <div className="modal-backdrop">
-                            <GetTest/>
-                            <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#333333",marginTop:"650px",marginLeft:"-430px",position:"fixed", border:"none"}} > Skip </span>
-                            <span className="cbutton" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"650px",marginLeft:"300px", border:"none"}} > FINISH </span>
-                        </div>
-                    :
-                    null
-                }
+    {
+    testModalOpen?
+      // {/* ======modal====== */}
+      <div className="modal is-active">
+      <div className="modal-background"></div>
+       <div className="Apps-home">
+         {/* the content goes here */}
+         <div>
+            {page === 1 && <OnboardingOne/>}
+            {page === 2 && <OnboardingTwo/>}
+        </div>
+       <div className="columns" style={{marginTop:"-15%"}}>
+       <div className="column is-two-thirds">
+       <div class="columns" style={{alignItems:"end"}}>
+       <div class="column is-1"></div>
+       <div className="column"></div>
+       <div className="column">
+       {page === 2 && (
+         <div>
+           <span className="button" onClick={goPrevPage} style={{marginLeft:"20%",color:"white",backgroundColor:"#2d2d2d", border:"none"}} > <IoIosArrowRoundBack size={32}/> Back </span>
+         </div>     
+         )}
+       </div>
+       <div className="column">
+       
+       
+       {
+         page === 1 ? 
+         <div>
+           <span className="button" onClick={()=>setTestModalOpen(false)} style={{color:"white",backgroundColor:"#2d2d2d", border:"none"}} > Skip </span>
+       </div>     
+       :
+       <div>
+     <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
+     </div>     
+       }    
+       </div>
+       <div className="column">
+       {page === 1 && (
+         <div>
+           <span className="button" onClick={goNextPage} style={{marginLeft:"20%",color:"white",backgroundColor:"#2d2d2d", border:"none"}} > Next <IoIosArrowRoundForward size={32}/> </span>
+         </div>     
+         )}
+       </div>
+       <div className="column"></div>
+       <div className="column is-1"></div>
+       </div>
+      <div className="columns">
+        <div className="column is-full">
+             <progress class="progress is-success" max="4" value={page} style={{ width:"650px", height:"20px", display:"inline-block"}} /> 
+        </div>
+     </div> 
+       </div>
+       <div className="column"></div>
+       <div className="column"></div>  
+       </div>  
+     </div>  
+    </div>
+
+      :
+      null
+      }
+
+
+            
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Test Model</h1>
             <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Here you can test your models - as well as the built-in ones - by by inputting your own sentences.</h1>
@@ -298,9 +388,13 @@ export default function Testid() {
                 </Modal>
 
             </div>
-        <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-          <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
+            <br /><br /><br /><br /><br /><br />
+      <div className="columns">
+        <div className="column is-11"></div>
+        <div className="column is-1">
+        <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static", backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
         </div>
+      </div>
         </>
     )
 }

@@ -35,7 +35,6 @@ export default function Home() {
     setPage((page) => page - 1);
   }
 
-
 function OnboardingOne({ }) {
     return (
       <div>
@@ -352,7 +351,7 @@ function OnboardingOne({ }) {
       <div className="columns">
         <div className="column is-11"></div>
         <div className="column is-1">
-        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
         </div>
       </div>
     </>

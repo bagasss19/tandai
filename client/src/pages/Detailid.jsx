@@ -9,10 +9,10 @@ import {
 } from "react-router-dom"
 // import csv from '../Assets/review.csv'
 // import { readString } from 'react-papaparse'
-import GetDetail from '../components/GettingDetail/GetDetail'
+import GetDetail from '../components/GetDetail'
 import { BiHelpCircle } from "react-icons/bi";
 import Zoom from 'react-medium-image-zoom'
-import '../components/GettingDetail/ModalDetail.css'
+import '../App.css'
 Modal.setAppElement('#root');
 
 
@@ -128,22 +128,33 @@ export default function Testid() {
                     &lt; Back
                 </p>
             </Link>
-
+            
             {
-                    detailModalOpen?
-                        <div className="modal-detail">
-                            <GetDetail/>
-                            {/* <span className="button" onClick={()=>setTrainModalOpen(false)} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"460px",marginLeft:"40px",position:"fixed", border:"none"}} > FINISH </span> */}
-                            <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",marginTop:"180px",marginLeft:"125px",backgroundColor:"#2DAA72",position:"fixed", border:"none"}} > FINISH </span>
-                        </div>
-                    :
-                    null
-                }
+    detailModalOpen?
+      // {/* ======modal====== */}
+      <div className="modal is-active">
+      <div className="modal-background"></div>
+       <div className="Apps-home">
+         {/* the content goes here */}
+         <div>
+            <GetDetail/>
+        </div>
+        <div>
+        <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none", marginTop:"-100px"}} > FINISH </span>
+       </div>  
+     </div>  
+    </div>
+
+      :
+      null
+      }
+
+            
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Model Detail</h1>
             <h1 className="title is-6" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>{model.model_ID}</h1>
             <div style={{marginTop:"0px",marginLeft:"92%",textAlign:"left"}}>
-             <button className='button' onClick={()=>setDetailModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
+             <button className='button' onClick={()=>setDetailModalOpen(true)} style={{border:"none" , position:"static", backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
             </div>
             <div className="columns" style={{ marginLeft: "25px", marginTop: "10px", marginRight: "25px" }}>
 

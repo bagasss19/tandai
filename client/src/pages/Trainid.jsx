@@ -9,7 +9,8 @@ import {
     useParams,
     Link
 } from "react-router-dom";
-import GetTrain from '../components/GettingTrain/GetTrain'
+import GetTrain from '../components/GetTrain'
+import '../App.css'
 import { BiHelpCircle } from "react-icons/bi";
 import Sample from '../sampletrain.csv'
 
@@ -189,14 +190,25 @@ export default function Trainid() {
                 </p>
             </Link>
             {
-                    trainModalOpen?
-                        <div>
-                            <GetTrain/>
-                             <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72",marginTop:"460px",marginLeft:"40px",position:"fixed", border:"none"}} > FINISH </span>
-                        </div>
-                    :
-                    null
+                trainModalOpen?
+                // {/* ======modal====== */}
+                <div className="modal is-active">
+                <div className="modal-background"></div>
+                <div className="Apps-home">
+                    {/* the content goes here */}
+                    <div>
+                        <GetTrain/>
+                    </div>
+                    <div>
+                    <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none", marginTop:"-100px"}} > FINISH </span>
+                </div>  
+                </div>  
+                </div>
+
+                :
+                null
                 }
+
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Train Model</h1>
             <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Create a model based on previous existing ones by adding your own theme-specific dataset.</h1>
 
@@ -270,9 +282,13 @@ export default function Trainid() {
 
                 </Modal>
             </div>
-            <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-          <button className='button' onClick={()=>setTrainModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
-        </div>
+            <br /><br />
+      <div className="columns">
+        <div className="column is-11"></div>
+            <div className="column is-1">
+            <button className='button' onClick={()=>setTrainModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+            </div>
+      </div>
         </>
     )
 }
