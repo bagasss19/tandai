@@ -1,4 +1,3 @@
-import "./Modal.css";
 import Logo from '../../Assets/Model List.png'
 
 
@@ -11,18 +10,18 @@ export default function StartedHomePage1() {
               <div className="column is-8">
               <figure>
                 <br/><br/><br/>
-                <img src={Logo} alt="tandai"/>
+                <img src={Logo} alt="tandai" style={{height:"300px"}}/>
               </figure>
                 </div>  
-              <div className="column is-4 has-text-left">
-                  <h1 className="is-size-3 title" style={{color:"white"}}>Model List</h1>
-                  <h2 className="is-size-4 subtitle" style={{color:"white",margin:"auto"}}>Model Id</h2>
+              <div className="column is-4 has-text-left" style={{marginLeft:"-5%"}}>
+                  <h1 className="is-size-5 title" style={{color:"white"}}>Model List</h1>
+                  <h2 className="is-size-6 subtitle" style={{color:"white",margin:"auto"}}>Model Id</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Model ID is a combination of unique special letters and numbers that are generated automatically. The model with the ID “lstmw13” is our baseline model.</p>
                   <br />
-                  <h2 className="is-size-4 subtitle" style={{color:"white", margin:"auto"}}>Model Name</h2>
+                  <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto"}}>Model Name</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Model Name is used as the display name of the model. It is editable, so that the user can easily recognize which model is which</p>
                   <br />
-                  <h2 className="is-size-4 subtitle" style={{color:"white", margin:"auto"}}>Status</h2>
+                  <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto"}}>Status</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Status provides you the conditions and progresses of the models.</p>
                   <br />
                   <div className="columns">
