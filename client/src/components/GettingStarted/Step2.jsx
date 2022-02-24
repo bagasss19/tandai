@@ -18,7 +18,7 @@ export default function StartedHomePage2() {
                   <h2 className="is-size-6 subtitle" style={{color:"white",margin:"auto"}}>Action</h2>
                   <br />
                   <p style={{color:"white",fontSize:"14px"}}>This section consists of a list of actionable buttons.</p>
-                  <br /><br />
+                  <br />
                   <div className="columns">
                     <div className="column is-3">
                         <span className="tag is-success is-normal">detail</span>
