@@ -8,7 +8,7 @@ import Step1 from '../components/GettingStarted/Step1'
 import Step2 from '../components/GettingStarted/Step2'
 import Step3 from '../components/GettingStarted/Step3'
 import Step4 from '../components/GettingStarted/Step4'
-import '../components/GettingStarted/Modal.css'
+import '../App.css'
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { BiHelpCircle } from "react-icons/bi";
@@ -33,10 +33,6 @@ export default function Home() {
   function goPrevPage() {
     if (page === 5) return;
     setPage((page) => page - 1);
-  }
-
-  function submit() {
-    setPage(0)
   }
 
 
@@ -152,8 +148,8 @@ function OnboardingOne({ }) {
 
 
     useEffect(() => {
-
-      
+      const interval = setInterval(() => {
+  
         Axios({
           url: `user/${localStorage.id}`,
           method: 'get',
@@ -164,7 +160,12 @@ function OnboardingOne({ }) {
           .then(function (response) {
             setpaket(response.data)
             getModel()
-          });
+          })
+  
+        console.log('Every 3 seconds');
+      }, 3000);
+  
+      return () => clearInterval(interval);
     }, [])
 
     if (loading) {
@@ -179,7 +180,7 @@ function OnboardingOne({ }) {
       // {/* ======modal====== */}
       <div className="modal is-active">
       <div className="modal-background"></div>
-       <div className="Apps-test">
+       <div className="Apps-home">
          {/* the content goes here */}
          <div>
            {page === 1 && <OnboardingOne/>}
@@ -187,7 +188,9 @@ function OnboardingOne({ }) {
            {page === 3 && <OnboardingThree/>}
            {page === 4 && <OnboardingFour/>}
        </div>
-       <div class="columns" style={{alignItems:"end", marginTop:"-100px"}}>
+       <div className="columns" style={{marginTop:"-15%"}}>
+       <div className="column is-two-thirds">
+       <div class="columns" style={{alignItems:"end"}}>
        <div class="column is-1"></div>
        <div className="column"></div>
        <div className="column">
@@ -197,9 +200,7 @@ function OnboardingOne({ }) {
          </div>     
          )}
        </div>
-       <div className="column">
-       
-       
+       <div className="column"> 
        {
          page !== 4 ? 
          <div>
@@ -207,11 +208,9 @@ function OnboardingOne({ }) {
        </div>     
        :
        <div>
-     <span className="cbutton" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
+     <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
      </div>     
-       }
-            
-        
+       }    
        </div>
        <div className="column">
        {page !== 4 && (
@@ -225,9 +224,13 @@ function OnboardingOne({ }) {
        </div>
       <div className="columns">
         <div className="column is-full">
-             <progress class="progress is-success" max="4" value={page} style={{ width:"1000px", height:"20px", display:"inline-block"}} /> 
+             <progress class="progress is-success" max="4" value={page} style={{ width:"650px", height:"20px", display:"inline-block"}} /> 
         </div>
-     </div>          
+     </div> 
+       </div>
+       <div className="column"></div>
+       <div className="column"></div>  
+       </div>  
      </div>  
     </div>
 
@@ -345,10 +348,13 @@ function OnboardingOne({ }) {
           </div>
         </div>
       </div>
-      <div style={{marginTop:"100px",marginLeft:"1300px"}}>
-        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
+      <br /><br />
+      <div className="columns">
+        <div className="column is-11"></div>
+        <div className="column is-1">
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
         </div>
+      </div>
     </>
   )
 }
-
