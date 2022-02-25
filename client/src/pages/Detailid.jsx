@@ -139,7 +139,7 @@ export default function Testid() {
          <div>
             <GetDetail/>
         </div>
-        <div style={{marginTop:"-4%"}}>
+        <div style={{marginTop:"5%"}}>
         <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none", marginTop:"-100px"}} > FINISH </span>
        </div>  
      </div>  

@@ -244,12 +244,12 @@ function OnboardingOne({ }) {
       <div className="columns" style={{ marginTop: "50px" }} >
         <div className="column is-two-thirds">
           <div className="card" style={{ margin: "20px", height: "400px" ,position:"static"}}>
-            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
+            <header className="card-header" style={{backgroundColor : "#F0F7F4", position:"static"}}>
               <p className="card-header-title">
                 Model List
               </p>
             </header>
-            <div className="card-content">
+            <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
               <div className="content" style={{ height: "150px", textAlign: "left" }}>
                 <table className="table is-hoverable is-fullwidth">
                   <thead>
