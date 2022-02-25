@@ -43,11 +43,14 @@ export default function Navbar(props) {
                                 </p>
                             </Link>
 
-                            <Link to="/faq">
+                          
                                 <p className="navbar-item profile">
-                                    Documentation
+                                <a href="https://docs.tand.ai/" target="_blank">Documentation</a>
                                 </p>
-                            </Link>
+                        
+
+                            
+
                             <hr className="navbar-divider" />
                             <p className="navbar-item logout"
                                 onClick={(e) => {
