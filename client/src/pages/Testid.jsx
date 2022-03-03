@@ -250,7 +250,7 @@ function OnboardingOne({ }) {
        </div>
       <div className="columns">
         <div className="column is-full">
-             <progress class="progress is-success" max="4" value={page} style={{ width:"650px", height:"20px", display:"inline-block"}} /> 
+             <progress class="progress is-success" max="2" value={page} style={{ width:"650px", height:"20px", display:"inline-block"}} /> 
         </div>
      </div> 
        </div>

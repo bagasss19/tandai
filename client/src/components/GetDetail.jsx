@@ -1,4 +1,6 @@
-import Logo from '../Assets/Detail.png'
+import Logo from '../Assets/detail1.png'
+import Logo2 from '../Assets/detail2.png'
+import Logo3 from '../Assets/detail3.png'
 import { BiChevronDown } from "react-icons/bi";
 
 export default function StartedDetailPage() {
@@ -7,11 +9,23 @@ export default function StartedDetailPage() {
       <section class="section">
           <div class="container">
             <div className="columns">
-              <div className="column is-6-tablet">
-              <figure style={{marginTop:"20%"}}>
-                <img src={Logo} alt="tandai" style={{height:"200px"}}/>
-              </figure>
-                </div>  
+              <div className="columns">
+              <div class="column is-one-quarter">
+              </div>
+              <div class="column is-half">
+                 <figure >
+                    <img src={Logo} alt="tandai" style={{height:"200px", width:"650px"}}/>
+                  </figure>
+                  <figure >
+                    <img src={Logo2} alt="tandai" style={{height:"197px", width:"297px"}}/>
+                  </figure>
+                  <figure >
+                    <img src={Logo3} alt="tandai" style={{height:"197px", width:"297px"}}/>
+                  </figure>
+              </div>
+              <div class="column is-one-quarter">
+              </div>
+              </div> 
               <div className="column is-6-tablet has-text-left">
                   <h1 className="is-size-5 subtitle" style={{color:"white"}}>Model Detail</h1>
                   <h2 className="is-size-6 subtitle" style={{color:"white",margin:"auto", fontWeight:"bold"}}>Review</h2>
