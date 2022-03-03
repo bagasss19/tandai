@@ -12,7 +12,7 @@ export default function StartedDetailPage() {
               <div className="columns">
               <div class="column is-one-quarter">
               </div>
-              <div class="column is-half">
+              <div class="column is-half" style={{marginTop:"40px"}}>
                  <figure >
                     <img src={Logo} alt="tandai" style={{height:"180px", width:"600px"}}/>
                   </figure>
