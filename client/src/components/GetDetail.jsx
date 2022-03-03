@@ -14,19 +14,19 @@ export default function StartedDetailPage() {
               </div>
               <div class="column is-half">
                  <figure >
-                    <img src={Logo} alt="tandai" style={{height:"200px", width:"650px"}}/>
+                    <img src={Logo} alt="tandai" style={{height:"180px", width:"600px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo2} alt="tandai" style={{height:"197px", width:"297px"}}/>
+                    <img src={Logo2} alt="tandai" style={{height:"177px", width:"277px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo3} alt="tandai" style={{height:"197px", width:"297px"}}/>
+                    <img src={Logo3} alt="tandai" style={{height:"177px", width:"277px"}}/>
                   </figure>
               </div>
               <div class="column is-one-quarter">
               </div>
               </div> 
-              <div className="column is-6-tablet has-text-left">
+              <div className="column is-6-tablet has-text-left" style={{marginTop:"40px"}}>
                   <h1 className="is-size-5 subtitle" style={{color:"white"}}>Model Detail</h1>
                   <h2 className="is-size-6 subtitle" style={{color:"white",margin:"auto", fontWeight:"bold"}}>Review</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Review is a comparison of the sentiment values between the dataset and the results from the model post-training. There are 3 filters available to navigate the results better: </p>
@@ -61,8 +61,7 @@ export default function StartedDetailPage() {
                   <p style={{color:"white",fontSize:"14px"}}>The Statistic section gives detailed information of the training process. Accuracies and losses as well as other related data can be viewed here.</p>
                   <br />
                   <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto", fontWeight:"bold"}}>Train Time</h2>
-                  <p style={{color:"white",fontSize:"14px"}}>Train time keeps record of the duration it took to create your model in the training process, along with the start and end time.</p>
-                  <br />    
+                  <p style={{color:"white",fontSize:"14px"}}>Train time keeps record of the duration it took to create your model in the training process, along with the start and end time.</p>  
               </div>
             </div>
           </div>
