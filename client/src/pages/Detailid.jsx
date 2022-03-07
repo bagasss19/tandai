@@ -180,7 +180,7 @@ export default function Testid() {
                                 Review 
                             </p>
                                 </div>
-                                <div className="column is-3" style={{marginLeft:"20%"}}>
+                                <div className="column is-3" style={{marginLeft:"-10px"}}>
                                 <p className="card-header-title">
                                 Before
                             </p>
