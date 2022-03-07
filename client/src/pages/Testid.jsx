@@ -269,16 +269,20 @@ function OnboardingOne({ }) {
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Test Model</h1>
             <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Here you can test your models - as well as the built-in ones - by by inputting your own sentences.</h1>
-
-            <div className="card" style={{ position: "static",width: "60%", margin: "auto", marginTop: "5em" }}>
+            <div className="columns">
+        <div className="column is-11"></div>
+        <div className="column is-1">
+        <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static", backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+        </div>
+      </div>
+            <div className="card" style={{ position: "static",width: "60%", margin: "auto" }}>
                 <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         API Testing
                     </p>
 
-                    <div className="dropdown" style={{ marginTop: "10px", marginRight: "10px", position:"static"}}>
+                    <div className="select is-dark is-small" style={{ marginTop: "10px", marginRight: "5px" }}>
                         <select
-                            style={{position:"static"}}
                             defaultValue={isFile}
                             onChange={(e) => {
                                 if (e.target.value === 'false') {
@@ -388,13 +392,6 @@ function OnboardingOne({ }) {
                 </Modal>
 
             </div>
-            <br /><br /><br /><br /><br /><br />
-      <div className="columns">
-        <div className="column is-11"></div>
-        <div className="column is-1">
-        <button className='button' onClick={()=>setTestModalOpen(true)} style={{border:"none" , position:"static", backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
-        </div>
-      </div>
         </>
     )
 }

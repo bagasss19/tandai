@@ -19,7 +19,7 @@ export default function StartedHomePage4() {
                   <h2 className="is-size-6 subtitle" style={{color:"white",margin:"auto"}}>Help Feature</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Try to help you on every way while you using our product.This sign button are already put for each pages to helpyou configure what was happening.</p>
                   <br />
-                  <p style={{color:"white",fontSize:"14px"}}>PS: (You can find it on corner or right side the page.)</p>
+                  <p style={{color:"white",fontSize:"14px"}}>PS: (You can find the icon at the right side above any table on the page.)</p>
                   <br />
                   <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto"}}>Status</h2>
                   <p style={{color:"white",fontSize:"14px"}}>Status provides you the conditions and progresses of the models.</p>

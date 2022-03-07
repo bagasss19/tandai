@@ -10,21 +10,19 @@ export default function StartedDetailPage() {
           <div class="container">
             <div className="columns">
               <div className="columns">
-              <div class="column is-one-quarter">
-              </div>
-              <div class="column is-half" style={{marginTop:"40px"}}>
+              <div class="column is-one-fifth"></div>
+              <div class="column is-halfis-three-fifths" style={{marginTop:"40px"}}>
                  <figure >
-                    <img src={Logo} alt="tandai" style={{height:"180px", width:"600px"}}/>
+                    <img src={Logo} alt="tandai" style={{height:"200px", width:"570px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo2} alt="tandai" style={{height:"177px", width:"277px"}}/>
+                    <img src={Logo2} alt="tandai" style={{height:"200px", width:"570px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo3} alt="tandai" style={{height:"177px", width:"277px"}}/>
+                    <img src={Logo3} alt="tandai" style={{height:"200px", width:"570px"}}/>
                   </figure>
               </div>
-              <div class="column is-one-quarter">
-              </div>
+              <div class="column is-one-fifth"></div>
               </div> 
               <div className="column is-6-tablet has-text-left" style={{marginTop:"40px"}}>
                   <h1 className="is-size-5 subtitle" style={{color:"white"}}>Model Detail</h1>

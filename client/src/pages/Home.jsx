@@ -241,7 +241,13 @@ function OnboardingOne({ }) {
 
 
       <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Welcome, {localStorage.username} !</h1>
-      <div className="columns" style={{ marginTop: "50px" }} >
+      <div className="columns">
+        <div className="column is-11"></div>
+        <div className="column is-1">
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+        </div>
+      </div>
+      <div className="columns" >
         <div className="column is-two-thirds">
           <div className="card" style={{ margin: "20px", height: "400px" ,position:"static"}}>
             <header className="card-header" style={{backgroundColor : "#F0F7F4", position:"static"}}>
@@ -345,13 +351,6 @@ function OnboardingOne({ }) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <br /><br />
-      <div className="columns">
-        <div className="column is-11"></div>
-        <div className="column is-1">
-        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
         </div>
       </div>
     </>

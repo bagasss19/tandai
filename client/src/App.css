@@ -12,6 +12,14 @@
   display: grid;
 }
 
+.details {
+  text-align: end;
+  min-height: 100vh;
+  position: fixed;
+  justify-content: center;
+  display: grid;
+}
+
 
 .help{
     background: lightblue;
@@ -215,3 +223,4 @@ i:hover {
   color: #23a96f;
   cursor: pointer;
 }
+
