@@ -13,13 +13,13 @@ export default function StartedDetailPage() {
               <div class="column is-one-fifth"></div>
               <div class="column is-halfis-three-fifths" style={{marginTop:"40px"}}>
                  <figure >
-                    <img src={Logo} alt="tandai" style={{height:"200px", width:"570px"}}/>
+                    <img src={Logo} alt="tandai" style={{height:"185px", width:"316px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo2} alt="tandai" style={{height:"200px", width:"570px"}}/>
+                    <img src={Logo2} alt="tandai" style={{height:"185px", width:"316px"}}/>
                   </figure>
                   <figure >
-                    <img src={Logo3} alt="tandai" style={{height:"200px", width:"570px"}}/>
+                    <img src={Logo3} alt="tandai" style={{height:"185px", width:"460px"}}/>
                   </figure>
               </div>
               <div class="column is-one-fifth"></div>

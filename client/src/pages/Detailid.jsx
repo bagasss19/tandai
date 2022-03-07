@@ -174,17 +174,22 @@ export default function Testid() {
                             </div>
                         </header>
                         <header className="card-header" style={{backgroundColor : "white", position:"static",borderBottom:"1px solid black"}}>
-                            <p className="card-header-title">
-                                Review
+                            <div className="columns">
+                                <div className="column is-full">
+                                     <p className="card-header-title">
+                                Review 
                             </p>
-
-                            <div className="dropdown" style={{ marginTop: "10px", marginRight: "5px", position:"static" }}>
-                            <p className="card-header-title">
+                                </div>
+                                <div className="column is-3" style={{marginLeft:"20%"}}>
+                                <p className="card-header-title">
                                 Before
                             </p>
-                            <p className="card-header-title">
+                                </div>
+                                <div className="column">
+                                <p className="card-header-title">
                                 After
                             </p>
+                                </div>
                             </div>
                         </header>
                         <div className="card-content" style={{ overflow: "scroll", height: "300px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
