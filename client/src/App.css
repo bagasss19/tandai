@@ -3,7 +3,7 @@
   min-height: 100vh;
   /* background-color: #ebebeb; */
 }
-
+     
 .Apps-home {
   text-align: center;
   min-height: 100vh;
@@ -86,9 +86,14 @@
   top: 0;
 }
 
+.table {
+  position: relative;
+  border-collapse: unset; 
+}
+
 .table-fix {
   position: relative;
-  border-collapse: collapse; 
+  border-collapse: unset; 
 }
 
 .logout:hover {
@@ -97,6 +102,7 @@
 
 .tablemodel:hover {
   background-color: #F0F7F4;
+
 }
 
 .profile:hover {

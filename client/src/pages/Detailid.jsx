@@ -173,38 +173,19 @@ export default function Testid() {
                                 </select>
                             </div>
                         </header>
-                        <header className="card-header" style={{backgroundColor : "white", position:"static",borderBottom:"1px solid black"}}>
-                            <div className="columns">
-                                <div className="column is-full">
-                                     <p className="card-header-title">
-                                Review 
-                            </p>
-                                </div>
-                                <div className="column is-3" style={{marginLeft:"-10px"}}>
-                                <p className="card-header-title">
-                                Before
-                            </p>
-                                </div>
-                                <div className="column">
-                                <p className="card-header-title">
-                                After
-                            </p>
-                                </div>
-                            </div>
-                        </header>
-                        <div className="card-content" style={{ overflow: "scroll", height: "300px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
+                        <div className="card-content" style={{ overflow: "scroll", height: "350px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
                             <table className="table is-hoverable is-fullwidth" style={{textAlign : "left"}}>
-                                {/* <thead className="sticky" style={{backgroundColor : "white",zIndex : 200, position:"static"}}>
+                                <thead className="sticky" style={{backgroundColor : "#f7fbf9"}}>
                                     <tr>
                                         <th>Review</th>
                                         <th>Before</th>
                                         <th>After</th>
                                     </tr>
-                                </thead> */}
+                                </thead>
                                 {filter === "default" && review.map((x) => (
                                     <tbody className="tablemodel">
                                         <tr>
-                                            <td width="75%">{x.review}</td>
+                                            <td>{x.review}</td>
                                             <td>{x.sent}</td>
                                             <td>{x.sent_pred}</td>
                                         </tr>
@@ -215,7 +196,7 @@ export default function Testid() {
                                     x.sent !== x.sent_pred && x.sent === "1" ?
                                     <tbody className="tablemodel">
                                             <tr>
-                                                <td width="75%">{x.review}</td>
+                                                <td>{x.review}</td>
                                                 <td>{x.sent}</td>
                                                 <td>{x.sent_pred}</td>
                                             </tr>
@@ -248,23 +229,22 @@ export default function Testid() {
                                 Statistic
                             </p>
                         </header>
-                        <header className="card-header" style={{backgroundColor : "white",borderBottom:"1px solid black"}}>
+                        {/* <header className="card-header" style={{backgroundColor : "white",borderBottom:"1px solid black"}}>
                             <p className="card-header-title">
                                 Name
                             </p>
                             <p className="card-header-title" style={{marginLeft:"18%"}}>
                                 Value
                             </p>
-                        </header>
-                        <div className="card-content" style={{ overflow: "scroll",height: "300px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
-                            <table className="table" style={{width : "100%", textAlign : "left"}}>
-                                {/* <thead className="sticky" style={{backgroundColor : "white",zIndex : 200, position:"static"}}>
+                        </header> */}
+                        <div className="card-content" style={{ overflow: "scroll",height: "350px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
+                            <table className="table is-hoverable is-fullwidth" style={{width : "100%", textAlign : "left"}}>
+                                <thead className="sticky" style={{backgroundColor : "white"}}>
                                     <tr>
                                         <th>Name</th>
                                         <th>Value</th>
                                     </tr>
-                                </thead> */}
-
+                                </thead>
                                 <tbody className="tablemodel">
                                     <tr>
                                         <td>Test Accuracy</td>

@@ -257,8 +257,8 @@ function OnboardingOne({ }) {
             </header>
             <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
               <div className="content" style={{ height: "150px", textAlign: "left" }}>
-                <table className="table is-hoverable is-fullwidth">
-                  <thead>
+              <table className="table is-hoverable is-fullwidth" style={{textAlign : "left"}}>
+                  <thead className="sticky" style={{backgroundColor : "#f7fbf9"}}>
                     <tr>
                       <th>Model ID</th>
                       <th>Model Name</th>
