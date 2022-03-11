@@ -366,8 +366,47 @@ class TransferView2(CreateAPIView):
 
     def post(self, request, pk):
         try :
+            print("hublaaa")
             if 'file' not in request.data:
                 raise ParseError("Empty content")
+
+            '''
+            Trying to read csv and open specific cols ['review','sentiment']
+            If error, return 
+            If no error, read_csv and store into variable df
+            '''
+
+            filename = request.data['filename']
+            f = request.data['file'].file.getvalue()
+            row = request.data['file']
+            df = pd.read_csv(row, usecols=['review','sentiment'])
+
+            if ('review' not in df.columns) or ('sentiment' not in df.columns):
+                return Response({
+                    "Error" : "Please insert review and sentiment as header!"
+                },status=status.HTTP_400_BAD_REQUEST)
+    
+            '''
+            Trying to detect if there is more than 2 sentiments (existing tand.ai only support 2 sentiment)
+            ''' 
+
+            if df['sentiment'].nunique() != 2:
+                return Response({
+                    "Error" : "Please insert 2 Sentiment as existing tand.ai only support 2 sentiment"
+                },status=status.HTTP_400_BAD_REQUEST)
+    
+    
+            '''
+            Trying to check if 'sentiment' column have the proper values
+            '''
+
+            unique_val = list(df['sentiment'].unique())
+            unique_val.sort()
+
+            if (unique_val != ['negative','positive']):
+                return Response({
+                    "Error" : 'Please input sentiment column value as "positive" and "negative"'
+                },status=status.HTTP_400_BAD_REQUEST)
 
             #Check Api Usage
             u = User.objects.filter(id=request.user.id).values()
@@ -380,13 +419,6 @@ class TransferView2(CreateAPIView):
                 return Response({
                     "Error" : "Kuota Abis Cuy"
                 },status=status.HTTP_400_BAD_REQUEST)
-
-            filename = request.data['filename']
-            f = request.data['file'].file.getvalue()
-            row = request.data['file']
-            df = pd.read_csv(row)
-            print(len(df), "<<<<ROWW")
-            print(type(f), "<<<<<<<<??????????FILEE")
             
             user = User.objects.filter(id=request.user.id).get()
             user.TF_usage = usage + len(df)
