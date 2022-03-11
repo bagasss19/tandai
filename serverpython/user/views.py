@@ -366,7 +366,6 @@ class TransferView2(CreateAPIView):
 
     def post(self, request, pk):
         try :
-            print("hublaaa")
             if 'file' not in request.data:
                 raise ParseError("Empty content")
 
