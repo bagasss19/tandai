@@ -4,6 +4,15 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import Axios from '../config/axios'
 import ReactLoading from 'react-loading'
 import Swal from 'sweetalert2'
+import Step1 from '../components/GettingStarted/Step1'
+import Step2 from '../components/GettingStarted/Step2'
+import Step3 from '../components/GettingStarted/Step3'
+import Step4 from '../components/GettingStarted/Step4'
+import '../App.css'
+import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { BiHelpCircle } from "react-icons/bi";
+
 import {
   Link,
 } from "react-router-dom";
@@ -13,6 +22,52 @@ export default function Home() {
   const [paket, setpaket] = useState(null)
   const [loading, setloading] = useState(true)
   const [model, setmodel] = useState(null)
+  const [modalOpen,setModalOpen] = useState(localStorage.started_home=="true"?true:false)
+  const [page, setPage] = useState(1);
+
+  function goNextPage() {
+    if (page === 4) return;
+    setPage((page) => page + 1);
+  }
+
+  function goPrevPage() {
+    if (page === 5) return;
+    setPage((page) => page - 1);
+  }
+
+function OnboardingOne({ }) {
+    return (
+      <div>
+       <Step1/>
+      </div>
+    );
+  }
+  
+  function OnboardingTwo({ }) {
+    return (
+    <div>
+      <Step2/>
+    </div>
+    );
+    
+  }
+  
+  function OnboardingThree({ }) {
+    return (
+      <div>
+      <Step3/>
+    </div>
+    );
+  }
+
+  function OnboardingFour({ }) {
+    return (
+      <div>
+      <Step4/>
+    </div>
+    );
+  }
+  
 
   const getModel = () => {
     Axios({
@@ -28,6 +83,33 @@ export default function Home() {
         setloading(false)
       })
   }
+
+  const getChangesStarted = () => {
+    if (localStorage.started_home=='true'){
+      Axios({
+        url: 'user/started/home/' + localStorage.id,
+        method: 'get',
+        headers: {
+          "Authorization": localStorage.token
+      }
+      })
+        .then(function (){
+          localStorage.started_home = false;
+          setModalOpen(false)
+          setloading(false)
+          Swal.fire({
+            title: 'Success!',
+            text: 'You Already know use this page',
+            icon: 'success',
+            confirmButtonText: 'Cool'
+        })
+        })
+    } else {
+      setModalOpen(false)
+    }
+    
+  }
+
 
   const deleteModel = (id) => {
     Swal.fire({
@@ -52,59 +134,131 @@ export default function Home() {
             // handle success
             Swal.fire({
               title: 'Success!',
-              text: 'Delete Model Success',
-              icon: 'success',
-              confirmButtonText: 'Cool'
+                text: 'Delete Model Success',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+              })
+              getModel()
             })
-            getModel()
-          })
-      }
-    })
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-
-      Axios({
-        url: `user/${localStorage.id}`,
-        method: 'get',
-        headers: {
-          "Authorization": localStorage.token
         }
       })
-        .then(function (response) {
-          setpaket(response.data)
-          getModel()
+    }
+
+
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+  
+        Axios({
+          url: `user/${localStorage.id}`,
+          method: 'get',
+          headers: {
+            "Authorization": localStorage.token
+          }
         })
+          .then(function (response) {
+            setpaket(response.data)
+            getModel()
+          })
+  
+        console.log('Every 3 seconds');
+      }, 3000);
+  
+      return () => clearInterval(interval);
+    }, [])
 
-      console.log('Every 3 seconds');
-    }, 3000);
+    if (loading) {
+      return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
+        style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
+    }
 
-    return () => clearInterval(interval);
-  }, [])
+    return (
+      <>
+      {
+      modalOpen?
+      // {/* ======modal====== */}
+      <div className="modal is-active">
+      <div className="modal-background"></div>
+       <div className="Apps-home">
+         {/* the content goes here */}
+         <div>
+           {page === 1 && <OnboardingOne/>}
+           {page === 2 && <OnboardingTwo/>}
+           {page === 3 && <OnboardingThree/>}
+           {page === 4 && <OnboardingFour/>}
+       </div>
+       <div className="columns" style={{marginTop:"-15%"}}>
+       <div className="column is-two-thirds">
+       <div class="columns" style={{alignItems:"end"}}>
+       <div class="column is-1"></div>
+       <div className="column"></div>
+       <div className="column">
+       {page !== 1 && (
+         <div>
+           <span className="button" onClick={goPrevPage} style={{marginLeft:"20%",color:"white",backgroundColor:"#2d2d2d", border:"none"}} > <IoIosArrowRoundBack size={32}/> Back </span>
+         </div>     
+         )}
+       </div>
+       <div className="column"> 
+       {
+         page !== 4 ? 
+         <div>
+           <span className="button" onClick={()=>setModalOpen(false)} style={{color:"white",backgroundColor:"#2d2d2d", border:"none"}} > Skip </span>
+       </div>     
+       :
+       <div>
+     <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
+     </div>     
+       }    
+       </div>
+       <div className="column">
+       {page !== 4 && (
+         <div>
+           <span className="button" onClick={goNextPage} style={{marginLeft:"20%",color:"white",backgroundColor:"#2d2d2d", border:"none"}} > Next <IoIosArrowRoundForward size={32}/> </span>
+         </div>     
+         )}
+       </div>
+       <div className="column"></div>
+       <div className="column is-1"></div>
+       </div>
+      <div className="columns">
+        <div className="column is-full">
+             <progress class="progress is-success" max="4" value={page} style={{ width:"650px", height:"20px", display:"inline-block"}} /> 
+        </div>
+     </div> 
+       </div>
+       <div className="column"></div>
+       <div className="column"></div>  
+       </div>  
+     </div>  
+    </div>
 
-  if (loading) {
-    return (<ReactLoading type={'bars'} color={"black"} height={10} width={20}
-      style={{ margin: "auto", width: "10%", marginTop: "200px" }} />)
-  }
+      :
+      null
+      }
 
-  return (
-    <>
+        
+
+
       <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Welcome, {localStorage.username} !</h1>
-
-
-      <div className="columns" style={{ marginTop: "50px" }} >
+      <div className="columns">
+        <div className="column is-11"></div>
+        <div className="column is-1">
+        <button className='button' onClick={()=>setModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+        </div>
+      </div>
+      <div className="columns" >
         <div className="column is-two-thirds">
-          <div className="card" style={{ marginLeft: "10px", height: "400px" }}>
-            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
+          <div className="card" style={{ margin: "20px", height: "400px" ,position:"static"}}>
+            <header className="card-header" style={{backgroundColor : "#F0F7F4", position:"static"}}>
               <p className="card-header-title">
                 Model List
               </p>
             </header>
-            <div className="card-content">
+            <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
               <div className="content" style={{ height: "150px", textAlign: "left" }}>
-                <table className="table is-hoverable is-fullwidth">
-                  <thead>
+              <table className="table is-hoverable is-fullwidth" style={{textAlign : "left"}}>
+                  <thead className="sticky" style={{backgroundColor : "#f7fbf9"}}>
                     <tr>
                       <th>Model ID</th>
                       <th>Model Name</th>
@@ -128,20 +282,18 @@ export default function Home() {
                           })()}
                         </th>
                         <td>
-                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor: "#1D8C59" }}>Train</button></Link>
-                          <Link to={`/test/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Test</button></Link>
-                          <Link to={`/detail/${x.id}`}><button className="button" style={{ color: "white", backgroundColor: "#1D8C59" }}>Detail</button></Link>
+                        <Link to={`/detail/${x.id}`}><button className="button" style={{ marginLeft: "5px",color: "white", backgroundColor : "#1D8C59", position:"static" }}>Detail</button></Link>
+                          <Link to={`/test/${x.id}`}><button className="button" style={{ marginLeft: "5px",color: "white", backgroundColor : "#1D8C59", position:"static" }}>Test</button></Link>
+                          <Link to={`/train/${x.id}`}><button className="button" style={{ marginLeft: "5px", color: "white", backgroundColor : "#1D8C59", position:"static" }}>Train</button></Link>
                           {(() => {
                             switch (x.model_ID) {
-                              case "lstmw07": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
-                                e.preventDefault()
-                                deleteModel(x.id)
+                              case "lstmw07": return <button title="this is your default model!"  className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" , position:"static"}} onClick={(e) => {
+
                               }}>Delete</button>
-                              case "lstmw13": return <button title="this is your default model!" disabled className="button" style={{ marginLeft: "5px", backgroundColor: "#D5D5D5" }} onClick={(e) => {
-                                e.preventDefault()
-                                deleteModel(x.id)
+                              case "lstmw13": return <button title="this is your default model!"  className="button" style={{ marginLeft: "5px", backgroundColor : "#D5D5D5" , position:"static" }} onClick={(e) => {
+
                               }}>Delete</button>
-                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor: "#CB3A31", color: "white" }} onClick={(e) => {
+                              default: return <button className="button" style={{ marginLeft: "5px", backgroundColor : "#CB3A31", color : "white" , position:"static"}} onClick={(e) => {
                                 e.preventDefault()
                                 deleteModel(x.id)
                               }}>Delete</button>
@@ -157,9 +309,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="column" style={{ marginLeft: "10px", marginRight: "10px" }}>
-          <div className="card" style={{ height: "400px" }}>
-            <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
+        <div className="column" style={{ margin:"20px"}}>
+          <div className="card" style={{ height: "400px" ,position:"static"}}>
+            <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
               <p className="card-header-title">
                 Usage
               </p>
@@ -195,7 +347,6 @@ export default function Home() {
                       <span>Left</span>
                     </span>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -205,4 +356,3 @@ export default function Home() {
     </>
   )
 }
-

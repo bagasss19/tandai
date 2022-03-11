@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Axios from '../config/axios'
+import Swal from 'sweetalert2'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import {
@@ -8,8 +9,10 @@ import {
 } from "react-router-dom"
 // import csv from '../Assets/review.csv'
 // import { readString } from 'react-papaparse'
+import GetDetail from '../components/GetDetail'
+import { BiHelpCircle } from "react-icons/bi";
 import Zoom from 'react-medium-image-zoom'
-
+import '../App.css'
 Modal.setAppElement('#root');
 
 
@@ -19,6 +22,8 @@ export default function Testid() {
     const [model, setmodel] = useState(null)
     const [review, setreview] = useState(null)
     const [filter, setfilter] = useState("default")
+    const [detailModalOpen,setDetailModalOpen] = useState(localStorage.started_detail=="true"?true:false)
+
 
     const generateDate = (date) => {
         let d = new Date(date),
@@ -59,6 +64,31 @@ export default function Testid() {
         return `${Math.floor((e - d) / (1000 * 60))} Minute(s)`
     }
 
+    const getChangesStarted = () => {
+        if (localStorage.started_detail=='true'){
+          Axios({
+            url: 'user/started/detail/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_detail = false;
+              setDetailModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setDetailModalOpen(false)
+        }
+      }
+
     useEffect(() => {
         Axios({
             url: 'model/' + id,
@@ -98,14 +128,39 @@ export default function Testid() {
                     &lt; Back
                 </p>
             </Link>
+            
+            {
+    detailModalOpen?
+      // {/* ======modal====== */}
+      <div className="modal is-active">
+      <div className="modal-background"></div>
+       <div className="details">
+         {/* the content goes here */}
+         <div>
+            <GetDetail/>
+        </div>
+        <div>
+        <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none", marginTop:"-10%", marginRight:"10%", width:"120px"}} > FINISH </span>
+       </div>  
+     </div>  
+    </div>
+
+      :
+      null
+      }
+
+            
 
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>Model Detail</h1>
             <h1 className="title is-6" style={{ marginTop: "20px", textAlign: "center", marginLeft: "100px", fontFamily: "Inter" }}>{model.model_ID}</h1>
+            <div style={{marginTop:"0px",marginLeft:"92%",textAlign:"left"}}>
+             <button className='button' onClick={()=>setDetailModalOpen(true)} style={{border:"none" , position:"static", backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>   
+            </div>
             <div className="columns" style={{ marginLeft: "25px", marginTop: "10px", marginRight: "25px" }}>
 
                 <div className="column is-two-fifths">
-                    <div className="card" style={{ height: "350px" }}>
-                        <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
+                    <div className="card" style={{ height: "400px" ,position:"static"}}>
+                        <header className="card-header" style={{backgroundColor : "#F0F7F4", position:"static"}}>
                             <p className="card-header-title">
                                 Review
                             </p>
@@ -118,9 +173,9 @@ export default function Testid() {
                                 </select>
                             </div>
                         </header>
-                        <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
-                            <table className="table" style={{textAlign : "left"}}>
-                                <thead className="sticky" style={{backgroundColor : "white",zIndex : 200}}>
+                        <div className="card-content" style={{ overflow: "scroll", height: "350px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
+                            <table className="table is-hoverable is-fullwidth" style={{textAlign : "left"}}>
+                                <thead className="sticky" style={{backgroundColor : "#f7fbf9"}}>
                                     <tr>
                                         <th>Review</th>
                                         <th>Before</th>
@@ -168,21 +223,28 @@ export default function Testid() {
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px"}}>
+                    <div className="card" style={{ height: "400px" , position:"static"}}>
                         <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Statistic
                             </p>
                         </header>
-                        <div className="card-content" style={{ overflow: "scroll",height: "320px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
-                            <table className="table" style={{width : "100%", textAlign : "left"}}>
-                                <thead className="sticky" style={{backgroundColor : "white",zIndex : 200}}>
+                        {/* <header className="card-header" style={{backgroundColor : "white",borderBottom:"1px solid black"}}>
+                            <p className="card-header-title">
+                                Name
+                            </p>
+                            <p className="card-header-title" style={{marginLeft:"18%"}}>
+                                Value
+                            </p>
+                        </header> */}
+                        <div className="card-content" style={{ overflow: "scroll",height: "350px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
+                            <table className="table is-hoverable is-fullwidth" style={{width : "100%", textAlign : "left"}}>
+                                <thead className="sticky" style={{backgroundColor : "white"}}>
                                     <tr>
                                         <th>Name</th>
                                         <th>Value</th>
                                     </tr>
                                 </thead>
-
                                 <tbody className="tablemodel">
                                     <tr>
                                         <td>Test Accuracy</td>
@@ -266,7 +328,7 @@ export default function Testid() {
                 </div>
 
                 <div className="column">
-                    <div className="card" style={{ height: "350px", width: "100%", paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px" }}>
+                    <div className="card" style={{ height: "400px" , width: "100%", position:"static" }}>
                         <header className="card-header" style={{backgroundColor : "#F0F7F4"}}>
                             <p className="card-header-title">
                                 Train Time
@@ -310,10 +372,10 @@ export default function Testid() {
             <br/>
             <br/>
             <div className="columns">
-                    <div className="columns" style={{ marginTop: "50px", margin : "auto", marginLeft : "50px" }}>
+                    <div className="columns" style={{ marginTop: "50px", margin : "auto", marginLeft : "50px", position:"static" }}>
                         <Zoom>
-                            <figure className="item-wrap fancybox">
-                                <img src={`https://api.tand.ai${model.accuracy_image}`} alt="accuracy" className="img-fluid" />
+                            <figure className="item-wrap fancybox" style={{position:"static"}}>
+                                <img src={`https://api.tand.ai${model.accuracy_image}`} style={{position:"static"}} alt="accuracy" className="img-fluid" />
                             </figure>
                         </Zoom>
 
@@ -324,7 +386,7 @@ export default function Testid() {
                         </Zoom>
                     </div>
             </div>
-
+            
         </>
     )
 }

@@ -9,6 +9,9 @@ import {
     useParams,
     Link
 } from "react-router-dom";
+import GetTrain from '../components/GetTrain'
+import '../App.css'
+import { BiHelpCircle } from "react-icons/bi";
 import Sample from '../sampletrain.csv'
 
 Modal.setAppElement('#root');
@@ -35,6 +38,8 @@ export default function Trainid() {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [model, setmodel] = useState(null)
     const [name, setname] = useState(null)
+    const [trainModalOpen,setTrainModalOpen] = useState(localStorage.started_train=="true"?true:false)
+
 
     const postApi = () => {
         setloading(true)
@@ -132,6 +137,31 @@ export default function Trainid() {
         setIsOpen(false);
     }
 
+    const getChangesStarted = () => {
+        if (localStorage.started_train=='true'){
+          Axios({
+            url: 'user/started/detail/' + localStorage.id,
+            method: 'get',
+            headers: {
+              "Authorization": localStorage.token
+          }
+          })
+            .then(function (){
+              localStorage.started_train = false;
+              setTrainModalOpen(false)
+              setloading(false)
+              Swal.fire({
+                title: 'Success!',
+                text: 'You Already know to use this page',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+            })
+        } else {
+          setTrainModalOpen(false)
+        }
+      }
+
     useEffect(() => {
         Axios({
             url: 'model/' + id,
@@ -159,10 +189,35 @@ export default function Trainid() {
                     &lt; Back
                 </p>
             </Link>
+            {
+                trainModalOpen?
+                // {/* ======modal====== */}
+                <div className="modal is-active">
+                <div className="modal-background"></div>
+                <div className="Apps-home">
+                    {/* the content goes here */}
+                    <div>
+                        <GetTrain/>
+                    </div>
+                    <div style={{marginTop:"-5%"}}>
+                    <span className="button" onClick={()=>getChangesStarted()} style={{color:"white",backgroundColor:"#2DAA72", border:"none"}} > FINISH </span>
+                </div>  
+                </div>  
+                </div>
+
+                :
+                null
+                }
+
             <h1 className="title is-2" style={{ marginTop: "20px", textAlign: "center", margin: "auto", fontFamily: "Inter" }}>Train Model</h1>
             <h1 className="title is-6" style={{ textAlign: "center", margin: "auto", marginTop: "1em" }}>Create a model based on previous existing ones by adding your own theme-specific dataset.</h1>
-
-            <div className="card" style={{ width: "60%", marginLeft: "300px", marginTop: "50px" }}>
+            <div className="columns">
+        <div className="column is-11"></div>
+            <div className="column is-1">
+            <button className='button' onClick={()=>setTrainModalOpen(true)} style={{border:"none" , position:"static",backgroundColor:"white"}} ><BiHelpCircle size={30} marginLeft="100px" color="#1A8856"/></button>         
+            </div>
+      </div>
+            <div className="card" style={{ width: "60%", marginLeft: "300px",  position:"static" }}>
                 <header className="card-header" style={{ backgroundColor: "#F0F7F4" }}>
                     <p className="card-header-title">
                         Train Model
@@ -171,9 +226,9 @@ export default function Trainid() {
 
                 <div className="card-content" >
                     <div className="content" >
-                        <p style={{ textAlign: "left", fontSize: "small" }}>Upload your CSV file containing the dataset and click "Submit" to start creating a new model. CSV template can be downloaded <a href={Sample} >here.</a>
+                        <p style={{ textAlign: "left", fontSize: "small", position:"static" }}>Upload your CSV file containing the dataset and click "Submit" to start creating a new model. CSV template can be downloaded <a href={Sample} >here.</a>
                         </p>
-                        <input id="ph" className="input is-dark" style={{ width: "325px" }} disabled type="text" placeholder={model.model_ID} />
+                        <input id="ph" className="input is-dark" style={{ width: "325px" , position:"static"}} disabled type="text" placeholder={model.model_ID} />
 
                         <form className="form" style={{ width: "50%", margin: "auto" }}
                             encType="multipart/form-data"
@@ -182,30 +237,31 @@ export default function Trainid() {
                                 addFile()
                             }}>
 
-                            <div className="field" style={{ marginTop: "10px" }}>
+                            <div className="field" style={{ marginTop: "10px" ,position:"static"}}>
                                 {/* <label className="label is-family-code">Model Name</label> */}
                                 <input id="ph" className="input" type="text" name="Model Name" placeholder="model name"
                                     defaultValue={name}
+                                    style={{position:"static"}}
                                     onChange={(e) => {
                                         setname(e.target.value)
                                     }}
                                 />
                             </div>
 
-                            <div className="file is-small" style={{ marginLeft: "125px" }}>
-                                <label className="file-label">
-                                    <input className="file-input" accept=".csv" type="file" name="resume" onChange={uploadFile} />
-                                    <span className="file-cta">
-                                        <span className="file-icon">
+                            <div className="file is-small" style={{ position:"static"}}>
+                                <label className="file-label" style={{position:"static"}}>
+                                    <input className="file-input" accept=".csv" type="file" name="resume" style={{position:"static",marginLeft:"-135px"}} onChange={uploadFile} />
+                                    <span className="file-cta" style={{position:"static"}}>
+                                        <span className="file-icon" style={{position:"static"}}>
                                             <FaUpload />
                                         </span>
 
                                         {fileName ?
-                                            <span className="file-label">
+                                            <span className="file-label" style={{position:"static"}}>
                                                 {fileName}
                                             </span>
                                             :
-                                            <span className="file-label">
+                                            <span className="file-label" style={{position:"static"}}>
                                                 Choose a file…
                                             </span>
                                         }
@@ -214,7 +270,7 @@ export default function Trainid() {
                                 </label>
                             </div>
 
-                            <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white" }}>Submit</button>
+                            <button className="button Mainkolor" type="submit" style={{ marginTop: "10px", color: "white", position:"static" }}>Submit</button>
                         </form>
                     </div>
                 </div>
@@ -230,7 +286,6 @@ export default function Trainid() {
                         style={{ cursor: "pointer", position: "relative", marginLeft: "600px", marginTop: "1px" }} />
 
                 </Modal>
-
             </div>
         </>
     )

@@ -18,6 +18,9 @@ urlpatterns = [
     path('package/<pk>', PackageView.as_view() , name="package"),
     path('endpoint/singletext', EndpointView.as_view() , name="single"),
     path('endpoint/multiple', MultipleEndpointView.as_view() , name="multiple"),
-    path('logout/<pk>',Logout.as_view() , name="logout"),
+    path('started/home/<pk>',StartedHome.as_view() , name="startedhome"),
+    path('started/test/<pk>',StartedTest.as_view() , name="startedtest"),
+    path('started/train/<pk>',StartedTrain.as_view() , name="startedtrain"),
+    path('started/detail/<pk>',StartedDetail.as_view() , name="starteddetail"),
     path('<pk>',UserView.as_view() , name="user"),
 ]
