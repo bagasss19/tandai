@@ -93,6 +93,15 @@ export default function Trainid() {
                             })
 
                         })
+                        .catch(function (error) {
+                            Swal.fire({
+                                title: 'Failed!',
+                                text: error.response.data,
+                                icon: 'error',
+                                confirmButtonText: 'Okay'
+                            })
+                            setloading(false)
+                        })
                 })
                 .catch(function (error) {
                     // handle ERROR

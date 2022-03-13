@@ -55,7 +55,7 @@ export default function StartedDetailPage() {
                       <p style={{color:"white",fontSize:"12px"}}>shows the ones where the model predicts negative sentiments when the actual values from the dataset are positives.</p>
                     </div>
                   </div>
-                  <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto", fontWeight:"bold"}}>Static</h2>
+                  <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto", fontWeight:"bold"}}>Statistic</h2>
                   <p style={{color:"white",fontSize:"14px"}}>The Statistic section gives detailed information of the training process. Accuracies and losses as well as other related data can be viewed here.</p>
                   <br />
                   <h2 className="is-size-6 subtitle" style={{color:"white", margin:"auto", fontWeight:"bold"}}>Train Time</h2>

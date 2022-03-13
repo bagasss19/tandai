@@ -239,7 +239,7 @@ export default function Testid() {
                         </header> */}
                         <div className="card-content" style={{ overflow: "scroll",height: "350px",paddingTop:"0px",paddingRight:"0px",paddingLeft:"0px"}}>
                             <table className="table is-hoverable is-fullwidth" style={{width : "100%", textAlign : "left"}}>
-                                <thead className="sticky" style={{backgroundColor : "white"}}>
+                                <thead className="sticky" style={{backgroundColor : "#f7fbf9"}}>
                                     <tr>
                                         <th>Name</th>
                                         <th>Value</th>
