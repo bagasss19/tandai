@@ -71,7 +71,7 @@ function OnboardingOne({ }) {
 
   const getModel = () => {
     Axios({
-      url: 'model',
+      url: 'model/',
       method: 'get',
       headers: {
         "Authorization": localStorage.token
